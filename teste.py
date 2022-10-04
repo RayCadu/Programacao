@@ -1,4 +1,4 @@
 def main():
 
     return 0
-if __name__ == "__main__": ma
+if __name__ == "__main__": main()
