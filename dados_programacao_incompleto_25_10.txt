@@ -1,0 +1,86 @@
+TABELA BAIRRO:
+1(serial),Praia do Canto 
+2(serial),Centro 
+3(serial),Jardim Camburi 
+4(serial),Parque Moscoso 
+5(serial),Jardim da Penha 
+6(serial),Enseada do Suá 
+7(serial),Hungralândia 
+8(serial),Ferrero 
+9(serial),Vila Nova 
+10(serial),Altos
+
+TABELA CIDADE:
+1(serial),Vidente 
+2(serial),Vila Boa 
+3(serial),Goiabada 
+4(serial),Pequena Brasília 
+5(serial),Bairro Grande 
+6(serial),Terra Seca 
+7(serial),Capivara 
+8(serial),Praia Grande 
+9(serial),Praia Pequena 
+10(serial),Prainha
+
+TABELA TIPO_LOGRADOURO:
+1(serial),aeroporto 
+2(serial),alameda 
+3(serial),área 
+4(serial),avenida  
+5(serial),chácara 
+6(serial),ladeira 
+7(serial),morro 
+8(serial),condomínio
+9(serial),parque 
+10(serial),rodovia 
+
+TABELA ENDEREÇO:
+--- #entregador ----
+18278,Quero-Quero,23,3,6,9,1(serial)
+17643,Presidente Médici,78,2,8,4,2(serial)
+23425,Siriema,10,5,1,2,3(serial)
+--- #cliente ----
+27592,Pé de moleque,55,7,3,7,4(serial)
+38163,Queixada,90,4,5,5,5(serial)
+10924,Canarinho,27,6,7,1,6(serial)
+13536,João Neiva,85,8,4,10,7(serial)
+13576,Arnaldo Neves,24,1,2,3,8(serial)
+18936,Papagaio,37,9,9,6,9(serial)
+19735,Sol da manhã,62,10,10,8,10(serial)
+
+TABELA PESSOA:
+--- #entregador ---
+1(serial),Carlinhos,99685-8373,111.111.111-01,1
+2(serial),Roberto,99532-0923,222.222.222-02,2
+3(serial),Davi,99224-0123,333.333.333-03,3
+--- #cliente ---
+4(serial),Fernanda,99234-0022,444.444.444-04,4
+5(serial),Hugo,99125-1273,555.555.555-05,5
+6(serial),Tatiana,99111-2940,611.611.611-06,6
+7(serial),Marcelo,99235-1264,711.711.823-92,7
+8(serial),Marta,99273-2354,888.888.888-08,8
+9(serial),Diego,99264-2534,999.999.999-09,9
+10(serial),Cláudio,99104-7245,107.204.453-23,10
+
+TABELA CLIENTE:
+1(serial),4
+2(serial),5
+3(serial),6
+4(serial),7
+5(serial),8
+6(serial),9
+7(serial),10
+
+TABELA ENTREGADOR:
+1(serial),1
+2(serial),2
+3(serial),3
+
+TABELA Realiza:
+
+
+
+
+
+TABELA PESSOA:
+Carlinhos,98765-8670,111.111.111-00,1
