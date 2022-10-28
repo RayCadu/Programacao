@@ -1,5 +1,8 @@
 #tamanho padrão 300x500
+
+
 from tkinter import *
+from tela_endereco import f_endereco
 
 def f_tela_pessoa():
     root = Toplevel()
@@ -7,7 +10,7 @@ def f_tela_pessoa():
     root.title('Pessoa')
     #botões
     addM = Button(root, text='Voltar ao menu',command = root.destroy)
-    addE = Button(root,text='Adicionar endereço')
+    addE = Button(root,text='Adicionar endereço', command= f_endereco)
     #label
     label_pessoa = Label(root,text ="PESSOA")
     label_nome = Label(root,text="NOME:")
