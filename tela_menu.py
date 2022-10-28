@@ -2,6 +2,7 @@ from tkinter import *
 from tela_pessoa import f_tela_pessoa
 from tela_produto import f_tela_produto
 from tela_compra import f_tela_compra
+from tela_editar import f_tela_editar
 
 def main():
     root = Tk()
@@ -20,7 +21,7 @@ def main():
     addCompra = Button(root, text="Fazer Compra", command= f_tela_compra,  background="#808080", foreground="black")
     addCompra.place(relx=0.5, rely=0.5, anchor="center")
 
-    edit = Button(root, text="Editar", background="#808080", foreground="black")
+    edit = Button(root, text="Editar",command=f_tela_editar, background="#808080", foreground="black")
     edit.place(relx=0.5, rely=0.6, anchor="center")
   
     root.mainloop()
