@@ -39,7 +39,8 @@ def f_endereco():
     comboBoxBairro = Combobox(root,textvariable = boxbairro ,height= 0.5 , width= 20)
 
     #botão
-    addE = Button(root, text ="Cadastrar endereço")
+    addE = Button(root, text ="Cadastrar pessoa")
+    btnVoltar = Button(root, text="Voltar para\ntela pessoa", command= root.destroy)
 
     #posicionamento label
     label_endereco.place(relx = 0.5,rely = 0.025,anchor = 'center')
@@ -62,8 +63,8 @@ def f_endereco():
 
     #posicionamento botão
 
-    addE.place(relx= 0.5, rely= 0.9, anchor='center')
-
+    addE.place(relx= 0.5, rely= 0.85, anchor='center')
+    btnVoltar.place(relx= 0.5, rely= 0.95, anchor='center')
     #posicionameto 
     comboBoxTl.place(relx=0.5 ,rely=0.3 ,anchor= 'w')
     comboBoxCidade.place(relx= 0.5,rely=0.8 ,anchor= 'w')
@@ -73,4 +74,3 @@ def f_endereco():
 
 
     root.mainloop()
-
