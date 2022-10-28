@@ -1,6 +1,4 @@
 #tamanho padrão 300x500
-
-
 from tkinter import *
 
 def f_tela_pessoa():
