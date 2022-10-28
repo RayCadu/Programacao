@@ -16,9 +16,12 @@ def f_tela_cliente_dinheiro():
     label_pix = Label(root,text = "PIX")
 
     #textos
-    texto_codigo = Text(root,height = 0.5, width = 20)
-    texto_nome = Text(root,height = 0.5, width = 20)
-    texto_telefone = Text(root,height = 0.5, width = 20)
+    codigo = StringVar()
+    texto_codigo = Entry(root, textvariable = codigo, width=20)
+    nome = StringVar()
+    texto_nome = Entry(root, textvariable = nome, width=20)
+    telefone = StringVar()
+    texto_telefone = Entry(root, textvariable = telefone, width=20)
 
     #checkbutton
     checkPC = Checkbutton(root,text = "SIM", onvalue = 1, offvalue = 0)

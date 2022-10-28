@@ -16,9 +16,12 @@ def f_tela_pessoa():
     label_cliente = Label(root,text='CLIENTE')
     label_entregador = Label(root,text="ENTREGADOR")
     #textos
-    texto_nome = Text(root, height = 0.5, width = 20)
-    texto_tel = Text(root, height = 0.5, width = 20)
-    texto_cpf = Text(root, height = 0.5, width = 20)
+    nome = StringVar()
+    texto_nome = Entry(root, textvariable = nome, width=20)
+    tel = StringVar()
+    texto_tel = Entry(root, textvariable = tel, width=20)
+    cpf = StringVar()
+    texto_cpf = Entry(root, textvariable = cpf, width=20)
 
     #checkbutton
     checkC = Checkbutton(root,text= "SIM")
