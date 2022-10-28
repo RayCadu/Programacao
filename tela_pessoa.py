@@ -8,8 +8,7 @@ def f_tela_pessoa():
     root.geometry('300x500')
     root.title('Pessoa')
     #botões
-    addP = Button(root, text ='Cadastrar')
-    addM = Button(root, text='Voltar ao menu')
+    addM = Button(root, text='Voltar ao menu',command = root.destroy)
     addE = Button(root,text='Adicionar endereço')
     #label
     label_pessoa = Label(root,text ="PESSOA")
@@ -41,7 +40,6 @@ def f_tela_pessoa():
     label_entregador.place(relx = 0.1, rely = 0.6, anchor = 'w')
 
     #posicionamento botões
-    addP.place(relx = 0.5, rely = 0.73, anchor = 'center')
     addE.place(relx = 0.5, rely = 0.83, anchor = 'center')
     addM.place(relx = 0.5, rely = 0.93, anchor = 'center')
 
