@@ -27,8 +27,8 @@ def f_tela_pessoa():
     texto_cpf = Entry(root, textvariable = cpf, width=20)
 
     #checkbutton
-    checkC = Checkbutton(root,text= "SIM")
-    checkE = Checkbutton(root,text = "SIM")
+    checkC = Checkbutton(root,text= "SIM",onvalue=1,offvalue=0)
+    checkE = Checkbutton(root,text = "SIM",onvalue=1,offvalue=0)
 
     #posicionamento textos
     texto_nome.place(relx = 0.4, rely = 0.2, anchor = 'w')

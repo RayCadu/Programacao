@@ -14,9 +14,9 @@ def f_tela_editar():
 
     #checkbutton
 
-    checkC = Checkbutton(root, text="SIM")
-    checkP = Checkbutton(root, text="SIM")
-    checkE = Checkbutton(root, text="SIM")
+    checkC = Checkbutton(root, text="SIM",onvalue=1,offvalue=0)
+    checkP = Checkbutton(root, text="SIM",onvalue=1,offvalue=0)
+    checkE = Checkbutton(root, text="SIM",onvalue=1,offvalue=0)
 
     #combobox
 
