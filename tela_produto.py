@@ -40,10 +40,14 @@ def f_tela_produto():
     texto_telefone = Entry(root, textvariable=telefone)
     texto_telefone.place(relx=0.3, rely=0.4, anchor="w")
 
-    btnAddProduto = Button(root, text="Cadastrar")
+    btnAddProduto = Button(root, text="Cadastrar", command=f_cadastrar(texto_codigo.get()))
     btnAddProduto.place(relx=0.5, rely=0.8, anchor="center")
+
 
     btnVoltarMenu = Button(root, text="Voltar ao Menu", command= root.destroy)
     btnVoltarMenu.place(relx=0.5, rely=0.9, anchor="center")
 
     root.mainloop()
+
+def f_cadastrar(codigo):
+    print(codigo)
