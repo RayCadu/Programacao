@@ -5,10 +5,9 @@ from sre_parse import State
 from tkinter import *
 from tela_endereco import f_endereco
 
-def f_teste(root):
-    for i in root.winfo_children():
-        if(type(i) == type(Checkbutton())):
-            print(i.instate(['alternate']))
+def f_teste(root, nome):
+    #for i in root.winfo_children():
+    print(nome.get())   
 
 def f_teste2(var, ch):
     print(var.get())
@@ -24,7 +23,7 @@ def f_tela_pessoa():
     root.title('Pessoa')
     #botões
     addM = Button(root, text='Voltar ao menu',command = root.destroy)
-    addE = Button(root,text='Adicionar endereço', command=lambda: f_teste(root))
+    addE = Button(root,text='Adicionar endereço', command=lambda: f_teste(root, nome))
     #label
     label_pessoa = Label(root,text ="PESSOA")
     label_nome = Label(root,text="NOME:")
