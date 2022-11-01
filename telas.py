@@ -2,6 +2,8 @@ from tkinter import *
 from tkinter.ttk import Combobox
 from tkinter.ttk import Entry
 
+from funcoes import f_cadastrar_pessoa
+
 def f_cliente_cartao():
 
     root = Toplevel()
@@ -240,14 +242,13 @@ def f_tela_editar():
 
     root.mainloop()
 
-def f_endereco():
+def f_endereco(nome,cpf,tel,username,senha):
     root = Toplevel()
     root.geometry('300x500')
     root.title('ENDEREÇO')
 
     #label
     label_endereco = Label(root, text= "ENDEREÇO",background='orange')
-    label_cc = Label(root, text = "CÓDIGO CLIENTE:",background='black', foreground='white')
     label_nm = Label(root, text = "NOME DO CLIENTE:",background='black', foreground='white')
     label_tl = Label(root, text = "TIPO\nLOGRADOURO:",background='black', foreground='white')
     label_logradouro = Label(root, text = "LOGADOURO:",background='black', foreground='white')
@@ -257,8 +258,6 @@ def f_endereco():
     label_cidade = Label(root, text = "CIDADE:",background='black', foreground='white')
 
     #texto 
-    cc = StringVar()
-    texto_cc = Entry(root,textvariable = cc, width= 20)
     nm = StringVar()
     texto_nm = Entry(root,textvariable = nm, width=20)
     logradouro = StringVar()
@@ -277,12 +276,11 @@ def f_endereco():
     comboBoxBairro = Combobox(root,textvariable = boxbairro ,height= 0.5 , width= 20)
 
     #botão
-    addE = Button(root, text ="Cadastrar pessoa")
+    addE = Button(root, text ="Cadastrar pessoa",command= f_cadastrar_pessoa(nome,cpf,tel,username,senha,logradouro,numero,cep,boxtl,boxcidade,boxbairro))
     btnVoltar = Button(root, text="Voltar para\ntela pessoa", command= root.destroy)
 
     #posicionamento label
     label_endereco.place(relx = 0.5,rely = 0.025,anchor = 'center')
-    label_cc.place(relx = 0.08,rely = 0.1,anchor = 'w')
     label_nm.place(relx= 0.05,rely= 0.15,anchor='w')
     label_tl.place(relx= 0.13,rely= 0.3,anchor= 'w')
     label_logradouro.place(relx= 0.15,rely= 0.4,anchor= 'w')
@@ -292,7 +290,6 @@ def f_endereco():
     label_cidade.place(relx= 0.25 ,rely= 0.8,anchor= 'w')
 
     #posicionamento texto
-    texto_cc.place(relx= 0.5,rely= 0.1,anchor = 'w')
     texto_nm.place(relx= 0.5,rely= 0.15,anchor = 'w')
     texto_logradouro.place(relx= 0.5,rely= 0.4,anchor ='w')
     texto_numero.place(relx= 0.5,rely= 0.5,anchor ='w')
@@ -321,14 +318,15 @@ def f_tela_pessoa():
     root.title('Pessoa')
     #botões
     addM = Button(root, text='Voltar ao menu',command = root.destroy)
-    addE = Button(root,text='Adicionar endereço', command=lambda: f_teste(root, nome))
+    addE = Button(root,text='Adicionar endereço', command=lambda: f_endereco(nome,cpf,tel,username,senha))
     #label
     label_pessoa = Label(root,text ="PESSOA")
+    label_username = Label(root,text="USERNAME:")
+    label_senha = Label(root,text="SENHA:")
     label_nome = Label(root,text="NOME:")
     label_tel = Label(root,text="TELEFONE:")
     label_cpf = Label(root,text="CPF:")
-    label_cliente = Label(root,text='CLIENTE')
-    label_entregador = Label(root,text="ENTREGADOR")
+
     #textos
     nome = StringVar()
     texto_nome = Entry(root, textvariable = nome, width=20)
@@ -336,33 +334,30 @@ def f_tela_pessoa():
     texto_tel = Entry(root, textvariable = tel, width=20)
     cpf = StringVar()
     texto_cpf = Entry(root, textvariable = cpf, width=20)
-
-    #checkbutton
-    var1 = IntVar()
-    checkE = Checkbutton(root,text = "SIM",onvalue=1,offvalue=0,variable=var1, command=lambda: f_teste2(var1, checkC))
-    checkC = Checkbutton(root,text= "SIM",onvalue=1,offvalue=0, variable=var1, command=lambda: f_teste2(var1, checkE))
-    
+    username = StringVar()
+    texto_username = Entry(root,textvariable=username, width=20)
+    senha = StringVar()
+    texto_senha = Entry(root,textvariable=senha, width=20)
 
     #posicionamento textos
     texto_nome.place(relx = 0.4, rely = 0.2, anchor = 'w')
     texto_tel.place(relx = 0.4, rely = 0.3, anchor = 'w')
     texto_cpf.place(relx = 0.4, rely =0.4, anchor = 'w')
+    texto_username.place(relx= 0.4, rely= 0.5, anchor = 'w')
+    texto_senha.place(relx= 0.4,rely= 0.6,anchor='w')
 
     #posicionamento Label
     label_pessoa.place(relx = 0.5, rely = 0.1, anchor = 'n')
     label_nome.place(relx = 0.2, rely = 0.2, anchor = 'w')
     label_tel.place(relx = 0.14, rely = 0.3, anchor = 'w')
     label_cpf.place(relx = 0.25, rely = 0.4, anchor = 'w')
-    label_cliente.place(relx = 0.2, rely = 0.5, anchor ='w')
-    label_entregador.place(relx = 0.1, rely = 0.6, anchor = 'w')
+    label_username.place(relx=0.12,rely= 0.5,anchor='w')
+    label_senha.place(relx=0.21,rely= 0.6,anchor='w')
 
     #posicionamento botões
     addE.place(relx = 0.5, rely = 0.83, anchor = 'center')
     addM.place(relx = 0.5, rely = 0.93, anchor = 'center')
 
-    #posicionamento checkbutton
-    checkC.place(relx = 0.6, rely = 0.5, anchor = 'center')
-    checkE.place(relx= 0.6, rely = 0.6, anchor = 'center')
 
     root.mainloop()
 
