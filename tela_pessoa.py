@@ -11,10 +11,10 @@ def f_teste(root, nome):
 
 def f_teste2(var, ch):
     print(var.get())
-   # if(var.get() == 1):
-        #ch.config(state= DISABLED)
-    #else:
-        #ch.config(state= NORMAL)
+    if(var.get() == 1):
+        ch.config(state= DISABLED)
+    else:
+        ch.config(state= NORMAL)
 
 def f_tela_pessoa():
     root = Toplevel()
