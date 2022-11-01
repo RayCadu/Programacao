@@ -413,26 +413,90 @@ def f_produto():
 
     root.mainloop()
 
+def f_menu_cliente():
+    root = Toplevel()
+    root.geometry('300x500')
+    root.title("Menu Cliente")
+
+    label_menu_cliente = Label(root,text="MENU CLIENTE")
+    label_menu_cliente.place(relx= 0.5,rely= 0.1,anchor="center")
+
+    addCompra = Button(root, text="Fazer Compra", background="#808080", foreground="black")
+    addCompra.place(relx=0.5, rely=0.4, anchor="center")
+
+    edit = Button(root, text="Editar Informação", background="#808080", foreground="black")
+    edit.place(relx=0.5, rely=0.5, anchor="center")
+
+    root.mainloop()
+
+def f_menu_entregador():
+    root = Toplevel()
+    root.geometry('300x500')
+    root.title("Menu Entregador")
+
+    label_menu_entregador = Label(root, text="MENU ENTREGADOR")
+    label_menu_entregador.place(relx=0.5, rely=0.1, anchor="center")
+
+    addEntrega = Button(root, text="Entrega", background="#808080", foreground="black")
+    addEntrega.place(relx=0.5, rely=0.4, anchor="center")
+
+    edit = Button(root, text="Editar Informações", background="#808080", foreground="black")
+    edit.place(relx=0.5, rely=0.5, anchor="center")
+
+    root.mainloop()
+
+
+def f_menu_funcionario():
+    root = Toplevel()
+    root.geometry('300x500')
+    root.title("Menu Funcionario")
+
+    label_menu_funcionario = Label(root, text="MENU FUNCIONARIO")
+    label_menu_funcionario.place(relx=0.5, rely=0.1, anchor="center")
+
+    addCP = Button(root, text="Cadastrar Produtos", background="#808080", foreground="black")
+    addCP.place(relx=0.5, rely=0.4, anchor="center")
+
+    addCE = Button(root, text="Cadastrar Entregador", background="#808080", foreground="black")
+    addCE.place(relx=0.5, rely=0.5, anchor="center")
+
+    edit = Button(root, text="Editar Informação", background="#808080", foreground="black")
+    edit.place(relx=0.5, rely=0.6, anchor="center")
+
+    root.mainloop()
+
+
 
 def main():
     root = Tk()
     root.geometry('300x500')
-    root.title("Menu")
+    root.title("Login")
 
-    label_menu = Label(root, text="MENU")
+    label_menu = Label(root, text="LOGIN")
     label_menu.place(relx=0.5, rely=0.1, anchor="center")
 
-    addPessoa = Button(root, text="Adicionar Pessoa", command=f_tela_pessoa, background="#808080", foreground="black")
-    addPessoa.place(relx=0.5, rely=0.3, anchor="center")
+    label_nc = Label(root,text="Ainda não é cadastrado!")
+    label_nc.place(relx = 0.5, rely = 0.6, anchor="center")
 
-    addProduto = Button(root, text="Adicionar Produto", command=f_produto, background="#808080", foreground="black")
-    addProduto.place(relx=0.5, rely=0.4, anchor="center")
+    label_username = Label(root, text="Username")
+    label_username.place(relx= 0.16,rely=0.3,anchor="center")
 
-    addCompra = Button(root, text="Fazer Compra", command= f_tela_compra,  background="#808080", foreground="black")
-    addCompra.place(relx=0.5, rely=0.5, anchor="center")
+    label_senha = Label(root,text="Senha")
+    label_senha.place(relx=0.2,rely=0.4,anchor="center")
 
-    edit = Button(root, text="Editar",command=f_tela_editar, background="#808080", foreground="black")
-    edit.place(relx=0.5, rely=0.6, anchor="center")
+    username = StringVar()
+    texto_username = Entry(root,textvariable = username,width = 20)
+    texto_username.place(relx= 0.5, rely= 0.3, anchor="center")
+
+    senha = StringVar()
+    texto_senha = Entry(root,textvariable = senha,show="*",width=20)
+    texto_senha.place(relx= 0.5, rely= 0.4, anchor ="center")
+
+    Entrar = Button(root, text="Entrar",background="#808080", foreground="black")
+    Entrar.place(relx=0.5, rely=0.5, anchor="center")
+
+    Cadastro = Button(root, text="Cadastrar-se",background="#808080", foreground="black")
+    Cadastro.place(relx=0.5,rely=0.7,anchor="center")
 
     root.mainloop()
 
