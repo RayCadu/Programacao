@@ -5,17 +5,6 @@ from sre_parse import State
 from tkinter import *
 from tela_endereco import f_endereco
 
-def f_teste(root, nome):
-    #for i in root.winfo_children():
-    print(nome.get())   
-
-def f_teste2(var, ch):
-    print(var.get())
-    if(var.get() == 1):
-        ch.config(state= DISABLED)
-    else:
-        ch.config(state= NORMAL)
-
 def f_tela_pessoa():
     root = Toplevel()
 

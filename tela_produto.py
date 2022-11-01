@@ -3,14 +3,6 @@ from tkinter import *
 from tkinter.ttk import Combobox
 from tkinter.ttk import Entry
 
-
-def f_cadastrar(root):
-    for i in root.winfo_children():
-        if(type(i) == type(Entry())):
-            print(i.get())
-        if(type(i) == type(Combobox())):
-            print(i.get())
-
 def f_produto():
     root = Toplevel()
     root.geometry('300x500')
