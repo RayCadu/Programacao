@@ -3,7 +3,15 @@ from tkinter import *
 from tkinter.ttk import Combobox
 from tkinter.ttk import Entry
 
-def f_tela_produto():
+
+def f_cadastrar(root):
+    for i in root.winfo_children():
+        if(type(i) == type(Entry())):
+            print(i.get())
+        if(type(i) == type(Combobox())):
+            print(i.get())
+
+def f_produto():
     root = Toplevel()
     root.geometry('300x500')
     root.title('Produto')
@@ -29,8 +37,8 @@ def f_tela_produto():
     label_nome.place(relx=0.1, rely=0.3, anchor="w")
 
     escolha = StringVar()
-    comboBoxTpProduto = Combobox(root, textvariable= escolha, height=0.5, width=24)
-    comboBoxTpProduto['values'] = ('teste1', 'teste2', 'teste3')
+    comboBoxTpProduto = Combobox(root, textvariable = escolha)
+    comboBoxTpProduto['values'] = ('teste1', 'teste2')
     comboBoxTpProduto.place(relx=0.3, rely=0.3, anchor="w")
 
     label_telefone = Label(root, text="Preço")
@@ -40,7 +48,7 @@ def f_tela_produto():
     texto_telefone = Entry(root, textvariable=telefone)
     texto_telefone.place(relx=0.3, rely=0.4, anchor="w")
 
-    btnAddProduto = Button(root, text="Cadastrar", command=f_cadastrar(texto_codigo.get()))
+    btnAddProduto = Button(root, text="Cadastrar", command=lambda:f_cadastrar(root)) #command=part(f_cadastrar, root)
     btnAddProduto.place(relx=0.5, rely=0.8, anchor="center")
 
 
@@ -49,5 +57,3 @@ def f_tela_produto():
 
     root.mainloop()
 
-def f_cadastrar(codigo):
-    print(codigo)
