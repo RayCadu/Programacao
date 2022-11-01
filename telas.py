@@ -495,7 +495,7 @@ def main():
     Entrar = Button(root, text="Entrar",background="#808080", foreground="black")
     Entrar.place(relx=0.5, rely=0.5, anchor="center")
 
-    Cadastro = Button(root, text="Cadastrar-se",background="#808080", foreground="black")
+    Cadastro = Button(root, text="Cadastrar-se",background="#808080", foreground="black", command= f_tela_pessoa)
     Cadastro.place(relx=0.5,rely=0.7,anchor="center")
 
     root.mainloop()
