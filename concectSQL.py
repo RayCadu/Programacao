@@ -37,21 +37,19 @@ def main():
         f_inserirBairro(sql)"""
     l = ['abacaxi', 'uva', 'morango', 'pera']
     v = str()
+    z = str()
+    h = "'%s',"
     for j in range(len(l)):
         if(j < len(l)-1):
             v += f"df['{l[j]}'][i],"
+            z += h
         else:
             v += f"df['{l[j]}'][i]"
-    print(v)
-    z = str()
-    h = "'%s',"
-    for n in range(len(l)):
-        if(j < len(l)-1):
-            z += h
-        else:
             z += h
     z = z[0:len(z)-1]
+    print(v)
     print(z)
+
     te = """'abacaxi', 'uva', 'morango', 'pera'"""
     sql = f"""'''INSERT INTO BAIRRO({te})
                 VALUES({z}) RETURNING codigo;
