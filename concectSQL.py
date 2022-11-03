@@ -25,16 +25,38 @@ def f_inserirBairro(sql):
     cur.close()
 
 def main():  
-    dados = {
+    """dados = {
         "descricao": ['vila velha', 'serra', 'vitória']
     }
     df = pd.DataFrame(dados)
+    bairro = "BAIRRO"
     for i in df.index:
-        sql = '''INSERT INTO BAIRRO(descricao)
+        sql = f'''INSERT INTO {bairro}(descricao)
                 VALUES('%s') RETURNING codigo;
                 '''%(df['descricao'][i])
-        f_inserirBairro(sql)
-
+        f_inserirBairro(sql)"""
+    l = ['abacaxi', 'uva', 'morango', 'pera']
+    v = str()
+    for j in range(len(l)):
+        if(j < len(l)-1):
+            v += f"df['{l[j]}'][i],"
+        else:
+            v += f"df['{l[j]}'][i]"
+    print(v)
+    z = str()
+    h = "'%s',"
+    for n in range(len(l)):
+        if(j < len(l)-1):
+            z += h
+        else:
+            z += h
+    z = z[0:len(z)-1]
+    print(z)
+    te = """'abacaxi', 'uva', 'morango', 'pera'"""
+    sql = f"""'''INSERT INTO BAIRRO({te})
+                VALUES({z}) RETURNING codigo;
+                '''%({v})"""
+    print(sql)
     return 0
 
 if __name__ == '__main__':main()

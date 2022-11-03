@@ -1,8 +1,7 @@
 from tkinter import *
+from funcoes import f_cadastrar_pessoa
 from tkinter.ttk import Combobox
 from tkinter.ttk import Entry
-
-from funcoes import f_cadastrar_pessoa
 
 def f_cliente_cartao():
 
@@ -305,9 +304,6 @@ def f_endereco(nome,cpf,tel,username,senha):
     comboBoxCidade.place(relx= 0.5,rely=0.8 ,anchor= 'w')
     comboBoxBairro.place(relx= 0.5,rely=0.7 ,anchor= 'w')
 
-
-
-
     root.mainloop()
 
 
@@ -399,8 +395,8 @@ def f_produto():
     texto_telefone = Entry(root, textvariable=telefone)
     texto_telefone.place(relx=0.3, rely=0.4, anchor="w")
 
-    btnAddProduto = Button(root, text="Cadastrar", command=lambda:f_cadastrar(root)) #command=part(f_cadastrar, root)
-    btnAddProduto.place(relx=0.5, rely=0.8, anchor="center")
+    # btnAddProduto = Button(root, text="Cadastrar", command=lambda:f_cadastrar(root)) #command=part(f_cadastrar, root)
+    # btnAddProduto.place(relx=0.5, rely=0.8, anchor="center")
 
 
     btnVoltarMenu = Button(root, text="Voltar ao Menu", command= root.destroy)
