@@ -275,7 +275,7 @@ def f_endereco(nome,cpf,tel,username,senha):
     comboBoxBairro = Combobox(root,textvariable = boxbairro ,height= 0.5 , width= 20)
 
     #botão
-    addE = Button(root, text ="Cadastrar pessoa",command= f_cadastrar_pessoa(nome,cpf,tel,username,senha,logradouro,numero,cep,boxtl,boxcidade,boxbairro))
+    addE = Button(root, text ="Cadastrar pessoa",command= lambda: f_cadastrar_pessoa(nome,cpf,tel,username,senha,logradouro,numero,cep,boxtl,boxcidade,boxbairro))
     btnVoltar = Button(root, text="Voltar para\ntela pessoa", command= root.destroy)
 
     #posicionamento label
