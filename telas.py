@@ -255,6 +255,7 @@ def f_endereco(nome,cpf,tel,username,senha):
     label_cep = Label(root, text = "CEP:",background='black', foreground='white')
     label_bairro = Label(root, text = "BAIRRO:",background='black', foreground='white')
     label_cidade = Label(root, text = "CIDADE:",background='black', foreground='white')
+    label_complemento = Label(root,text="COMPLEMENTO:",background='black', foreground='white')
 
     #texto 
     nm = StringVar()
@@ -265,6 +266,8 @@ def f_endereco(nome,cpf,tel,username,senha):
     texto_numero = Entry(root, textvariable = numero, width=20)
     cep = StringVar()
     texto_cep = Entry(root, textvariable = cep, width=20)
+    complemento =StringVar()
+    texto_complemento = Entry(root, textvariable=complemento,width=20)
 
     #combobox
     boxtl = StringVar()
@@ -275,37 +278,38 @@ def f_endereco(nome,cpf,tel,username,senha):
     comboBoxBairro = Combobox(root,textvariable = boxbairro ,height= 0.5 , width= 20)
 
     #botão
-    addE = Button(root, text ="Cadastrar pessoa",command= lambda: f_cadastrar_pessoa(nome,cpf,tel,username,senha,logradouro,numero,cep,boxtl,boxcidade,boxbairro))
+    addE = Button(root, text ="Cadastrar pessoa",command = lambda:f_cadastrar_pessoa(nome,cpf,tel,username,senha,logradouro,numero,cep,boxtl,boxcidade,boxbairro,complemento))
     btnVoltar = Button(root, text="Voltar para\ntela pessoa", command= root.destroy)
 
     #posicionamento label
-    label_endereco.place(relx = 0.5,rely = 0.025,anchor = 'center')
-    label_nm.place(relx= 0.05,rely= 0.15,anchor='w')
-    label_tl.place(relx= 0.13,rely= 0.3,anchor= 'w')
-    label_logradouro.place(relx= 0.15,rely= 0.4,anchor= 'w')
-    label_numero.place(relx=0.23,rely= 0.5,anchor='w')
-    label_cep.place(relx = 0.32, rely= 0.6,anchor ='w')
-    label_bairro.place(relx = 0.25, rely= 0.7, anchor='w')
-    label_cidade.place(relx= 0.25 ,rely= 0.8,anchor= 'w')
+    label_endereco.place(relx = 0.5,rely = 0.030,anchor = 'center')
+    label_nm.place(relx= 0.05,rely= 0.10,anchor='w')
+    label_tl.place(relx= 0.13,rely= 0.2,anchor= 'w')
+    label_logradouro.place(relx= 0.15,rely= 0.3,anchor= 'w')
+    label_numero.place(relx=0.23,rely= 0.4,anchor='w')
+    label_cep.place(relx = 0.32, rely= 0.5,anchor ='w')
+    label_bairro.place(relx = 0.25, rely= 0.6, anchor='w')
+    label_cidade.place(relx= 0.25 ,rely= 0.7,anchor= 'w')
+    label_complemento.place(relx=0.1,rely=0.8,anchor='w')
 
     #posicionamento texto
-    texto_nm.place(relx= 0.5,rely= 0.15,anchor = 'w')
-    texto_logradouro.place(relx= 0.5,rely= 0.4,anchor ='w')
-    texto_numero.place(relx= 0.5,rely= 0.5,anchor ='w')
-    texto_cep.place(relx= 0.5,rely= 0.6,anchor ='w')
+    texto_nm.place(relx= 0.5,rely= 0.10,anchor = 'w')
+    texto_logradouro.place(relx= 0.5,rely= 0.3,anchor ='w')
+    texto_numero.place(relx= 0.5,rely= 0.4,anchor ='w')
+    texto_cep.place(relx= 0.5,rely= 0.5,anchor ='w')
+    texto_complemento.place(relx= 0.5,rely= 0.8,anchor='w')
 
 
     #posicionamento botão
 
-    addE.place(relx= 0.5, rely= 0.85, anchor='center')
-    btnVoltar.place(relx= 0.5, rely= 0.95, anchor='center')
+    addE.place(relx= 0.3, rely= 0.9, anchor='center')
+    btnVoltar.place(relx= 0.7, rely= 0.9, anchor='center')
     #posicionameto 
-    comboBoxTl.place(relx=0.5 ,rely=0.3 ,anchor= 'w')
-    comboBoxCidade.place(relx= 0.5,rely=0.8 ,anchor= 'w')
-    comboBoxBairro.place(relx= 0.5,rely=0.7 ,anchor= 'w')
+    comboBoxTl.place(relx=0.5 ,rely=0.2 ,anchor= 'w')
+    comboBoxCidade.place(relx= 0.5,rely=0.7 ,anchor= 'w')
+    comboBoxBairro.place(relx= 0.5,rely=0.6 ,anchor= 'w')
 
     root.mainloop()
-
 
 def f_tela_pessoa():
     root = Toplevel()
@@ -493,4 +497,3 @@ def main():
 
     return 0
 if __name__ == "__main__": main()
-
