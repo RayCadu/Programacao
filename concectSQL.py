@@ -47,14 +47,33 @@ def main():
             v += f"df['{l[j]}'][i]"
             z += h
     z = z[0:len(z)-1]
-    print(v)
-    print(z)
+    #print(v)
+    #print(z)
+    
+    dic ={}
+    
+    dic['nome'] = ["Frango"]
+    dic['descricao'] = ["Frango desfiado"]
+    dic['valor'] = [25.00]
+    dic['FK_tipo_produto_tipo_produto_PK'] = [2]
+    
+    df = pd.DataFrame(dic)
+    
+    l = str()
+    for g,j in dic.items():
+       l += g + ","
+    l = l[:len(l)-1]
+    print(l)
+    
+    
 
     te = """'abacaxi', 'uva', 'morango', 'pera'"""
+    te = te.replace("'", "")
+    v = v.replace("'", "")
     sql = f"""'''INSERT INTO BAIRRO({te})
                 VALUES({z}) RETURNING codigo;
                 '''%({v})"""
-    print(sql)
+    #print(sql)
     return 0
 
 if __name__ == '__main__':main()
