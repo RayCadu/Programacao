@@ -9,7 +9,38 @@ def f_conexao():
 
     return conn
 
-def f_inserirBairro(sql):
+def f_verifica(a):
+    if(type(a) == type(str())):
+        return 1
+    else:
+        return 0
+
+def f_criarInstrucao(table_name, dic, pk):
+    l = str()
+    v = str()
+    z = str()
+
+    for g,j in dic.items():
+        l += g + ","
+        if(f_verifica(j[0]) == 1):
+            z += "'" + str(j[0]) + "'" + ","
+        else:
+            z += str(j[0]) + ","
+         
+    l = l[:len(l)-1]
+    v = v[:len(v)-1]
+    z = z[:len(z)-1]
+    sql = f"""INSERT INTO {table_name}({l})
+            VALUES({z}) RETURNING {pk};
+            """
+    print(sql)
+    return sql
+
+
+def f_inserirDados(table_name, dic, pk):
+
+    sql = f_criarInstrucao(table_name, dic, pk)
+
     conn = f_conexao()
     cur = conn.cursor()
     try:
@@ -21,59 +52,23 @@ def f_inserirBairro(sql):
         print("Error: %s" % error)
         conn.rollback()
         cur.close()
-        return 1
+        #return 1
     cur.close()
+    conn.close()
 
-def main():  
-    """dados = {
-        "descricao": ['vila velha', 'serra', 'vitória']
-    }
-    df = pd.DataFrame(dados)
-    bairro = "BAIRRO"
-    for i in df.index:
-        sql = f'''INSERT INTO {bairro}(descricao)
-                VALUES('%s') RETURNING codigo;
-                '''%(df['descricao'][i])
-        f_inserirBairro(sql)"""
-    l = ['abacaxi', 'uva', 'morango', 'pera']
-    v = str()
-    z = str()
-    h = "'%s',"
-    for j in range(len(l)):
-        if(j < len(l)-1):
-            v += f"df['{l[j]}'][i],"
-            z += h
-        else:
-            v += f"df['{l[j]}'][i]"
-            z += h
-    z = z[0:len(z)-1]
-    #print(v)
-    #print(z)
-    
-    dic ={}
-    
+
+def main():
+
+    pk = "codigo"
+    table_name = "PRODUTO"
+    dic ={}  
     dic['nome'] = ["Frango"]
     dic['descricao'] = ["Frango desfiado"]
     dic['valor'] = [25.00]
     dic['FK_tipo_produto_tipo_produto_PK'] = [2]
-    
-    df = pd.DataFrame(dic)
-    
-    l = str()
-    for g,j in dic.items():
-       l += g + ","
-    l = l[:len(l)-1]
-    print(l)
-    
-    
 
-    te = """'abacaxi', 'uva', 'morango', 'pera'"""
-    te = te.replace("'", "")
-    v = v.replace("'", "")
-    sql = f"""'''INSERT INTO BAIRRO({te})
-                VALUES({z}) RETURNING codigo;
-                '''%({v})"""
-    #print(sql)
+    f_inserirDados(table_name, dic, pk)
+
     return 0
 
 if __name__ == '__main__':main()
