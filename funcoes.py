@@ -3,9 +3,10 @@ from conectSQL import f_inserirDados
 
 def f_cadastrar_pessoa(nome,cpf,tel,username,senha,logradouro,numero,cep,boxtl,boxcidade,boxbairro,complemento):
     dicp = {}
+  
     dicp["username"] = username
     dicp["nome"] = nome
-    dicp["tel"] = tel
+    dicp["telefone"] = tel
     dicp["cpf"] = cpf
     dicp["senha"] = senha
     dicp["fk_endereco_codigo"] = f_cadastrar_endereco(cep,logradouro,numero,boxbairro,boxcidade,boxtl,complemento)
@@ -21,20 +22,24 @@ def f_cadastrar_endereco(cep,logradouro,numero,boxbairro,boxcidade,boxtl,complem
     dice["tipo_logradouro"] = f_cadastrar_tl(boxtl)
     dice["complemento"] = complemento
     print(dice)
-    f_inserirDados("endereco",dice,"codigo")
+    return f_inserirDados("endereco",dice,"codigo")
 
 def f_cadastrar_bairro(boxbairro):
     dicb = {}
     dicb["descricao"] = boxbairro
-    print(boxbairro)
-    f_inserirDados("BAIRRO",dicb,"codigo")
+  
+    return str(f_inserirDados("BAIRRO",dicb,"codigo"))
 
 def f_cadastrar_cidade(boxcidade):
     dicc = {}
     dicc["descricao"] = boxcidade
-    f_inserirDados("CIDADE",dicc,"codigo")
+    
+    return str(f_inserirDados("CIDADE",dicc,"codigo"))
 
 def f_cadastrar_tl(boxtl):
     dictl = {}
     dictl["descricao"] = boxtl
-    f_inserirDados("TIPO_LOGRADOURO",dictl,"codigo")
+    
+    return str(f_inserirDados("TIPO_LOGRADOURO",dictl,"codigo"))
+    
+    

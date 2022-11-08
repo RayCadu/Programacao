@@ -17,41 +17,37 @@ def f_verifica(a):
 
 def f_criarInstrucao(table_name, dic, pk):
     l = str()
-    v = str()
     z = str()
-
     for g,j in dic.items():
         l += g + ","
-        if(f_verifica(j[0]) == 1):
-            z += "'" + str(j[0]) + "'" + ","
+
+        if(f_verifica(j) == 1):
+            z += "'" + str(j) + "'" + ","
         else:
-            z += str(j[0]) + ","
+            z += str(j) + ","
          
     l = l[:len(l)-1]
-    #v = v[:len(v)-1]
     z = z[:len(z)-1]
     sql = f"""INSERT INTO {table_name}({l})
             VALUES({z}) RETURNING {pk};
             """
-    print(sql)
     return sql
 
 
 def f_inserirDados(table_name, dic, pk):
-
     sql = f_criarInstrucao(table_name, dic, pk)
 
     conn = f_conexao()
     cur = conn.cursor()
     try:
         cur.execute(sql)
-        id = cur.fetchall()[0]
-        print(id)
+        id = cur.fetchone()[0]
         conn.commit()
+        return id
     except(Exception, psycopg2.DatabaseError) as error:
         print("Error: %s" % error)
         conn.rollback()
         cur.close()
-        #return 1
+        return None
     cur.close()
     conn.close()
