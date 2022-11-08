@@ -55,20 +55,3 @@ def f_inserirDados(table_name, dic, pk):
         #return 1
     cur.close()
     conn.close()
-
-
-def main():
-
-    pk = "codigo"
-    table_name = "PRODUTO"
-    dic ={}  
-    dic['nome'] = ["Frango"]
-    dic['descricao'] = ["Frango desfiado"]
-    dic['valor'] = [25.00]
-    dic['FK_tipo_produto_tipo_produto_PK'] = [2]
-
-    f_inserirDados(table_name, dic, pk)
-
-    return 0
-
-if __name__ == '__main__':main()
