@@ -45,7 +45,7 @@ def f_inserirDados(table_name, dic, pk):
     cur = conn.cursor()
     try:
         cur.execute(sql)
-        id = cur.fetchone()[0]
+        id = cur.fetchall()[0]
         print(id)
         conn.commit()
     except(Exception, psycopg2.DatabaseError) as error:
