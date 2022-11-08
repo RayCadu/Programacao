@@ -1,4 +1,4 @@
-from concectSQL import f_inserirDados
+from conectSQL import f_inserirDados
 
 
 def f_cadastrar_pessoa(nome,cpf,tel,username,senha,logradouro,numero,cep,boxtl,boxcidade,boxbairro,complemento):
