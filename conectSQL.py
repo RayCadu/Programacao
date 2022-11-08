@@ -28,7 +28,7 @@ def f_criarInstrucao(table_name, dic, pk):
             z += str(j[0]) + ","
          
     l = l[:len(l)-1]
-    v = v[:len(v)-1]
+    #v = v[:len(v)-1]
     z = z[:len(z)-1]
     sql = f"""INSERT INTO {table_name}({l})
             VALUES({z}) RETURNING {pk};
