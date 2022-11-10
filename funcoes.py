@@ -1,8 +1,7 @@
 from conectSQL import *
-from telas import *
 
 
-def f_cadastrar_pessoa(nome,cpf,tel,username,senha,logradouro,numero,cep,boxtl,boxcidade,boxbairro,complemento, tpPessoa):
+def f_cadastrar_pessoas(nome,cpf,tel,username,senha,logradouro,numero,cep,boxtl,boxcidade,boxbairro,complemento, tpPessoa):
     
     dicp = {}
     dicp["username"] = username
@@ -16,7 +15,19 @@ def f_cadastrar_pessoa(nome,cpf,tel,username,senha,logradouro,numero,cep,boxtl,b
     if(tpPessoa == 0):
         dicC = {}
         dicC["fk_pessoa_username"] = username
+        f_inserirDados("FUNCIONARIO", dicC, "codigo")
+
+    elif(tpPessoa == 1):
+        dicC = {}
+        dicC["fk_pessoa_username"] = username
+        f_inserirDados("ENTREGADOR", dicC, "codigo")
+
+    elif(tpPessoa == 2):
+        dicC = {}
+        dicC["fk_pessoa_username"] = username
         f_inserirDados("CLIENTE", dicC, "codigo")
+    
+    return 0
 
 def f_cadastrar_endereco(cep,logradouro,numero,boxbairro,boxcidade,boxtl,complemento):
     dice = {}
@@ -73,23 +84,30 @@ def f_validaUser(username, senha, label):
     for i in users:
         if(username in i and senha in i):
             label.config(text="Usuário no sistema", foreground="green")
-            f_verificaTela(username)
+            tela = f_verificaTela(username)
         else:
             label.config(text="Usuário não está no sistema", foreground="red")
+
+    if(len(users) == 0):
+        label.config(text="Nenhum usuário cadastrado no sistema", foreground="red")
+    
+    return tela
 
 def f_verificaTela(user):
     users = f_retornaInfo(['fk_pessoa_username'], "CLIENTE")
     for i in users:
         if (user in i):
-            f_menu_cliente()
+            tela = 2
 
     users = f_retornaInfo(['fk_pessoa_username'], "ENTREGADOR")
     for i in users:
         if (user in i):
-            f_menu_entregador()
+            tela = 1
 
     users = f_retornaInfo(['fk_pessoa_username'], "FUNCIONARIO")
     for i in users:
         if (user in i):
-            f_menu_funcionario()
+            tela = 0
+
+    return tela
     

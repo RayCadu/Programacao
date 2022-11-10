@@ -1,5 +1,5 @@
 from tkinter import *
-from funcoes import *
+from funcoes import f_cadastrar_pessoas, f_cadastrar_produto, f_validaUser
 from tkinter.ttk import Combobox
 from tkinter.ttk import Entry
 
@@ -278,7 +278,7 @@ def f_endereco(nome,cpf,tel,username,senha, tpPessoa):
     comboBoxBairro = Combobox(root,textvariable = boxbairro ,height= 0.5 , width= 20)
 
     #botão
-    addE = Button(root, text ="Cadastrar pessoa",command = lambda:f_cadastrar_pessoa(nome.get(),cpf.get(),tel.get(),username.get(),senha.get(),logradouro.get(),numero.get(),cep.get(),boxtl.get(),boxcidade.get(),boxbairro.get(),complemento.get(), tpPessoa))
+    addE = Button(root, text ="Cadastrar pessoa",command = lambda:f_cadastrar_pessoas(nome.get(),cpf.get(),tel.get(),username.get(),senha.get(),logradouro.get(),numero.get(),cep.get(),boxtl.get(),boxcidade.get(),boxbairro.get(),complemento.get(), tpPessoa))
     btnVoltar = Button(root, text="Voltar para\ntela pessoa", command= root.destroy)
 
     #posicionamento label
@@ -458,15 +458,26 @@ def f_menu_funcionario():
     addCP = Button(root, text="Cadastrar Produtos", background="#808080", foreground="black")
     addCP.place(relx=0.5, rely=0.4, anchor="center")
 
-    addCE = Button(root, text="Cadastrar Entregador", background="#808080", foreground="black")
+    addCE = Button(root, text="Cadastrar Entregador", background="#808080", foreground="black", command=lambda: f_tela_pessoa(1))
     addCE.place(relx=0.5, rely=0.5, anchor="center")
 
+    addCF = Button(root, text="Cadastrar Funcionário", background="#808080", foreground="black", command=lambda: f_tela_pessoa(0))
+    addCF.place(relx=0.5, rely=0.6, anchor="center")
+
     edit = Button(root, text="Editar Informação", background="#808080", foreground="black")
-    edit.place(relx=0.5, rely=0.6, anchor="center")
+    edit.place(relx=0.5, rely=0.7, anchor="center")
 
     root.mainloop()
 
+def f_validaUserT(username, senha, label_confirmarcao):
+    res = f_validaUser(username, senha, label_confirmarcao)
 
+    if(res == 0):
+        f_menu_funcionario()
+    elif(res == 1):
+        f_menu_entregador()
+    elif(res == 2):
+        f_menu_cliente()
 
 def main():
     root = Tk()
@@ -496,10 +507,10 @@ def main():
     label_confirmarcao = Label(root)
     label_confirmarcao.place(relx=0.5, rely=0.55, anchor="center")
 
-    Entrar = Button(root, text="Entrar",background="#808080", foreground="black", command=lambda: f_validaUser(username.get(), senha.get(), label_confirmarcao))
+    Entrar = Button(root, text="Entrar",background="#808080", foreground="black", command=lambda: f_validaUserT(username.get(), senha.get(), label_confirmarcao))
     Entrar.place(relx=0.5, rely=0.485, anchor="center")
 
-    Cadastro = Button(root, text="Cadastrar-se",background="#808080", foreground="black", command= lambda:f_tela_pessoa(0))
+    Cadastro = Button(root, text="Cadastrar-se",background="#808080", foreground="black", command= lambda:f_tela_pessoa(2))
     Cadastro.place(relx=0.5,rely=0.8,anchor="center")
 
     root.mainloop()
