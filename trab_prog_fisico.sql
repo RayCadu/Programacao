@@ -1,4 +1,4 @@
-/* trab_prog_logico: */
+DROP TABLE  IF EXISTS administra, bairro, cidade, cliente, cliente_compra, compra, compra_pagamento, compra_produto, endereco, entregador, funcionario, pagamento, pessoa, produto, tipo_logradouro, tipo_pagamento, tipo_produto; 
 
 CREATE TABLE PRODUTO (
     codigo serial PRIMARY KEY,
