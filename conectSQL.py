@@ -1,5 +1,5 @@
 import psycopg2
-import pandas as pd
+#import pandas as pd
 from config import config
 
 def f_conexao():
