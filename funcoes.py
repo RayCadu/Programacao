@@ -1,5 +1,5 @@
 from conectSQL import *
-
+import math
 
 def f_cadastrar_pessoas(nome,cpf,tel,username,senha,logradouro,numero,cep,boxtl,boxcidade,boxbairro,complemento, tpPessoa):
     
