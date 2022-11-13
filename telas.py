@@ -312,12 +312,12 @@ def f_endereco(nome,cpf,tel,username,senha, tpPessoa):
     root.mainloop()
 
 def f_tela_pessoa(tpPessoa):
-    root = Toplevel()
+    root = Tk()
 
     root.geometry('300x500')
     root.title('Pessoa')
     #botões
-    addM = Button(root, text='Voltar ao menu',command = root.destroy)
+    addM = Button(root, text='Voltar ao menu',command =lambda:[root.destroy(), main()])
     addE = Button(root,text='Adicionar endereço', command=lambda: f_endereco(nome,cpf,tel,username,senha, tpPessoa))
     #label
     label_pessoa = Label(root,text ="PESSOA")
@@ -415,7 +415,7 @@ def f_produto():
     root.mainloop()
 
 def f_menu_cliente():
-    root = Toplevel()
+    root = Tk()
     root.geometry('300x500')
     root.title("Menu Cliente")
 
@@ -431,7 +431,7 @@ def f_menu_cliente():
     root.mainloop()
 
 def f_menu_entregador():
-    root = Toplevel()
+    root = Tk()
     root.geometry('300x500')
     root.title("Menu Entregador")
 
@@ -448,7 +448,7 @@ def f_menu_entregador():
 
 
 def f_menu_funcionario():
-    root = Toplevel()
+    root = Tk()
     root.geometry('300x500')
     root.title("Menu Funcionario")
 
@@ -507,10 +507,10 @@ def main():
     label_confirmarcao = Label(root)
     label_confirmarcao.place(relx=0.5, rely=0.55, anchor="center")
 
-    Entrar = Button(root, text="Entrar",background="#808080", foreground="black", command=lambda: f_validaUserT(username.get(), senha.get(), label_confirmarcao))
+    Entrar = Button(root, text="Entrar",background="#808080", foreground="black", command=lambda: [root.destroy(), f_validaUserT(username.get(), senha.get(), label_confirmarcao)])
     Entrar.place(relx=0.5, rely=0.485, anchor="center")
 
-    Cadastro = Button(root, text="Cadastrar-se",background="#808080", foreground="black", command= lambda:f_tela_pessoa(2))
+    Cadastro = Button(root, text="Cadastrar-se",background="#808080", foreground="black", command= lambda:[root.destroy(), f_tela_pessoa(2)])
     Cadastro.place(relx=0.5,rely=0.8,anchor="center")
 
     root.mainloop()

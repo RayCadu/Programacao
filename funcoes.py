@@ -61,7 +61,7 @@ def f_cadastrar_tl(boxtl):
     return str(f_inserirDados("TIPO_LOGRADOURO",dictl,"codigo"))
     
     
-def f_cadastrar_produto(nome,tpProduto, valor, descricao, root):
+def f_cadastrar_produto(nome,tpProduto, valor, descricao):
     dicP = {}
     dicP["nome"] = nome
     dicP["descricao"] = descricao
@@ -70,7 +70,6 @@ def f_cadastrar_produto(nome,tpProduto, valor, descricao, root):
 
     f_inserirDados("PRODUTO", dicP, "codigo")
 
-    root.destroy()
 
 def f_cadastar_tpProduto(tpProduto):
     dicTp = {}
@@ -85,11 +84,14 @@ def f_validaUser(username, senha, label):
         if(username in i and senha in i):
             label.config(text="Usuário no sistema", foreground="green")
             tela = f_verificaTela(username)
+            break
         else:
             label.config(text="Usuário não está no sistema", foreground="red")
+            tela = None
 
     if(len(users) == 0):
         label.config(text="Nenhum usuário cadastrado no sistema", foreground="red")
+        tela = None
     
     return tela
 
@@ -108,6 +110,6 @@ def f_verificaTela(user):
     for i in users:
         if (user in i):
             tela = 0
-
+    
     return tela
     
