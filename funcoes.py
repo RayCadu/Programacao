@@ -82,9 +82,9 @@ def f_validaUser(username, senha, label):
 
     for i in users:
         if(username in i and senha in i):
-            label.config(text="Usuário no sistema", foreground="green")
+            #label.config(text="Usuário no sistema", foreground="green")
             tela = f_verificaTela(username)
-            break
+            return tela
         else:
             label.config(text="Usuário não está no sistema", foreground="red")
             tela = None

@@ -428,6 +428,9 @@ def f_menu_cliente():
     edit = Button(root, text="Editar Informação", background="#808080", foreground="black")
     edit.place(relx=0.5, rely=0.5, anchor="center")
 
+    sair = Button(root, text="Sair", background="#808080", foreground="black", command= lambda: [root.destroy(), main()])
+    sair.place(relx=0.5, rely=0.6, anchor="center")
+
     root.mainloop()
 
 def f_menu_entregador():
@@ -443,6 +446,9 @@ def f_menu_entregador():
 
     edit = Button(root, text="Editar Informações", background="#808080", foreground="black")
     edit.place(relx=0.5, rely=0.5, anchor="center")
+
+    sair = Button(root, text="Sair", background="#808080", foreground="black", command= lambda: [root.destroy(), main()])
+    sair.place(relx=0.5, rely=0.6, anchor="center")
 
     root.mainloop()
 
@@ -467,16 +473,22 @@ def f_menu_funcionario():
     edit = Button(root, text="Editar Informação", background="#808080", foreground="black")
     edit.place(relx=0.5, rely=0.7, anchor="center")
 
+    sair = Button(root, text="Sair", background="#808080", foreground="black", command= lambda: [root.destroy(), main()])
+    sair.place(relx=0.5, rely=0.8, anchor="center")
+
     root.mainloop()
 
-def f_validaUserT(username, senha, label_confirmarcao):
+def f_validaUserT(username, senha, label_confirmarcao, root):
     res = f_validaUser(username, senha, label_confirmarcao)
 
     if(res == 0):
+        root.destroy()
         f_menu_funcionario()
     elif(res == 1):
+        root.destroy()
         f_menu_entregador()
     elif(res == 2):
+        root.destroy()
         f_menu_cliente()
 
 def main():
@@ -507,7 +519,7 @@ def main():
     label_confirmarcao = Label(root)
     label_confirmarcao.place(relx=0.5, rely=0.55, anchor="center")
 
-    Entrar = Button(root, text="Entrar",background="#808080", foreground="black", command=lambda: [root.destroy(), f_validaUserT(username.get(), senha.get(), label_confirmarcao)])
+    Entrar = Button(root, text="Entrar",background="#808080", foreground="black", command=lambda: [f_validaUserT(username.get(), senha.get(), label_confirmarcao, root)])
     Entrar.place(relx=0.5, rely=0.485, anchor="center")
 
     Cadastro = Button(root, text="Cadastrar-se",background="#808080", foreground="black", command= lambda:[root.destroy(), f_tela_pessoa(2)])
