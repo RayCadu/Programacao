@@ -341,7 +341,7 @@ def f_tela_pessoa(tpPessoa,edit,username):
     senha = StringVar()
     texto_senha = Entry(root,textvariable=senha, width=20)
     if(edit == 1):
-       info = f_editar(username)
+       info = f_editar_pessoa(username)
        texto_nome.insert(0,info[0][0])
        texto_tel.insert(0,info[0][1])
        texto_cpf.insert(0,info[0][2])
