@@ -113,7 +113,7 @@ def f_verificaTela(user):
     
     return tela
 
-def f_editar_entregador(username):
+def f_editar(username):
     info = f_retornaEspc(['nome','telefone','cpf','username','senha','fk_endereco_codigo'],'PESSOA',username)
-    print(info)
+    return info
     
