@@ -194,12 +194,12 @@ def f_tela_compra(username):
     root.mainloop()
 
 
-def f_tela_editar():
+def f_tela_editar(username):
     root = Toplevel()
     root.geometry('300x500')
     root.title('Editar')
 
-    #l
+    #label
     label_editar = Label(root, text="EDITAR",background='black',foreground='white')
     label_cliente = Label(root, text="CLIENTE:")
     label_produto = Label(root, text="PRODUTO:")
@@ -313,7 +313,7 @@ def f_endereco(nome,cpf,tel,username,senha, tpPessoa):
 
     root.mainloop()
 
-def f_tela_pessoa(tpPessoa,username):
+def f_tela_pessoa(tpPessoa,edit,username):
     root = Tk()
 
     root.geometry('300x500')
@@ -336,10 +336,18 @@ def f_tela_pessoa(tpPessoa,username):
     texto_tel = Entry(root, textvariable = tel, width=20)
     cpf = StringVar()
     texto_cpf = Entry(root, textvariable = cpf, width=20)
-    username = StringVar()
-    texto_username = Entry(root,textvariable=username, width=20)
+    user = StringVar()
+    texto_username = Entry(root,textvariable=user, width=20)
     senha = StringVar()
     texto_senha = Entry(root,textvariable=senha, width=20)
+    if(edit == 1):
+       info = f_editar(username)
+       texto_nome.insert(0,info[0][0])
+       texto_tel.insert(0,info[0][1])
+       texto_cpf.insert(0,info[0][2])
+       texto_username.insert(0,info[0][3])
+       texto_senha.insert(0,info[0][4])
+    
 
     #posicionamento textos
     texto_nome.place(relx = 0.4, rely = 0.2, anchor = 'w')
@@ -359,7 +367,7 @@ def f_tela_pessoa(tpPessoa,username):
     #posicionamento botões
     addE.place(relx = 0.5, rely = 0.83, anchor = 'center')
     addM.place(relx = 0.5, rely = 0.93, anchor = 'center')
-
+    
 
     root.mainloop()
 
@@ -446,7 +454,7 @@ def f_menu_entregador(username):
     addEntrega = Button(root, text="Entrega", background="#808080", foreground="black")
     addEntrega.place(relx=0.5, rely=0.4, anchor="center")
 
-    edit = Button(root, text="Editar Informações", background="#808080", foreground="black",command= lambda:f_editar_entregador(username))
+    edit = Button(root, text="Editar Informações", background="#808080", foreground="black",command= lambda: f_tela_pessoa(1,1,username))
     edit.place(relx=0.5, rely=0.5, anchor="center")
 
     sair = Button(root, text="Sair", background="#808080", foreground="black", command= lambda: [root.destroy(), main()])
