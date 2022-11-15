@@ -3,6 +3,13 @@ from funcoes import *
 from tkinter.ttk import Combobox
 from tkinter.ttk import Entry
 
+def f_codigos(boxtl, boxcidade, boxbairro, tpLg, cidade, bairro):
+    tp = tpLg.index(boxtl.get())
+    ci = cidade.index(boxcidade.get())
+    ba = bairro.index(boxbairro.get())
+
+    return tp, ci, ba
+
 def f_cliente_cartao():
 
     root = Toplevel()
@@ -285,11 +292,12 @@ def f_endereco(nome,cpf,tel,username,senha, tpPessoa):
     comboBoxCidade['values'] = cidade
     boxbairro = StringVar()
     comboBoxBairro = Combobox(root,textvariable = boxbairro, width= 20)
-    comboBoxBairro['values'] = f_retornaInfo(['codigo', 'descricao'], 'BAIRRO')
+    bairro = f_retornaInfo(['codigo', 'descricao'], 'BAIRRO')
+    bairro = f_retornaLista(bairro)
+    comboBoxBairro['values'] = bairro
 
     #botão
-
-    addE = Button(root, text ="Cadastrar pessoa",command = lambda:[f_cadastrar_pessoas(nome.get(),cpf.get(),tel.get(),username.get(),senha.get(),logradouro.get(),numero.get(),cep.get(),boxtl.get(),boxcidade.get(),boxbairro.get(),complemento.get(), tpPessoa), f_codigos()])
+    addE = Button(root, text ="Cadastrar pessoa",command = lambda:[f_cadastrar_pessoas(nome.get(),cpf.get(),tel.get(),username.get(),senha.get(),logradouro.get(),numero.get(),cep.get(),boxtl.get(),boxcidade.get(),boxbairro.get(),complemento.get(), tpPessoa, f_codigos(boxtl, boxcidade, boxbairro, tpLg, cidade, bairro))])
     btnVoltar = Button(root, text="Voltar para\ntela pessoa", command= root.destroy)
 
     #posicionamento label
@@ -455,7 +463,7 @@ def f_menu_entregador(username):
     addEntrega = Button(root, text="Entrega", background="#808080", foreground="black")
     addEntrega.place(relx=0.5, rely=0.4, anchor="center")
 
-    edit = Button(root, text="Editar Informações", background="#808080", foreground="black",command= lambda:f_editar_entregador(username))
+    edit = Button(root, text="Editar Informações", background="#808080", foreground="black",command= lambda:f_editar_pessoa(username))
     edit.place(relx=0.5, rely=0.5, anchor="center")
 
     sair = Button(root, text="Sair", background="#808080", foreground="black", command= lambda: [root.destroy(), main()])
