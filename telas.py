@@ -435,7 +435,7 @@ def f_menu_cliente(username):
     addCompra = Button(root, text="Fazer Compra", background="#808080", foreground="black", command= lambda: f_tela_compra(username))
     addCompra.place(relx=0.5, rely=0.4, anchor="center")
 
-    edit = Button(root, text="Editar Informação", background="#808080", foreground="black")
+    edit = Button(root, text="Editar Informação", background="#808080", foreground="black",command= lambda: f_tela_pessoa(2,1,username))
     edit.place(relx=0.5, rely=0.5, anchor="center")
 
     sair = Button(root, text="Sair", background="#808080", foreground="black", command= lambda: [root.destroy(), main()])
@@ -480,7 +480,7 @@ def f_menu_funcionario(username):
     addCF = Button(root, text="Cadastrar Funcionário", background="#808080", foreground="black", command=lambda: f_tela_pessoa(0,username = None))
     addCF.place(relx=0.5, rely=0.6, anchor="center")
 
-    edit = Button(root, text="Editar Informação", background="#808080", foreground="black")
+    edit = Button(root, text="Editar Informação", background="#808080", foreground="black",command= lambda: f_tela_pessoa(0,1,username))
     edit.place(relx=0.5, rely=0.7, anchor="center")
 
     sair = Button(root, text="Sair", background="#808080", foreground="black", command= lambda: [root.destroy(), main()])
