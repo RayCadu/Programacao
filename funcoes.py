@@ -113,8 +113,13 @@ def f_verificaTela(user):
     
     return tela
 
-def f_editar(username):
+def f_editar_pessoa(username):
     info = f_retornaEspc(['nome','telefone','cpf','username','senha','fk_endereco_codigo'],'PESSOA',username)
+    return info
+
+#cep,logradouro,numero,boxbairro,boxcidade,boxtl,complemento
+def f_editar_endereco(fk_endereco_codigo):
+    info = f_retornaEspc(['cep','logradouro','numero','boxbairro','boxcidade','boxtl','complemento'],'endereco',fk_endereco_codigo)
     return info
 
 def f_retornaLista(t):
