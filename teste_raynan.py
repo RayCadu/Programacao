@@ -463,7 +463,7 @@ def f_menu_entregador(username):
     addEntrega = Button(root, text="Entrega", background="#808080", foreground="black")
     addEntrega.place(relx=0.5, rely=0.4, anchor="center")
 
-    edit = Button(root, text="Editar Informações", background="#808080", foreground="black",command= lambda:f_editar_entregador(username))
+    edit = Button(root, text="Editar Informações", background="#808080", foreground="black",command= lambda:f_editar_pessoa(username))
     edit.place(relx=0.5, rely=0.5, anchor="center")
 
     sair = Button(root, text="Sair", background="#808080", foreground="black", command= lambda: [root.destroy(), main()])
