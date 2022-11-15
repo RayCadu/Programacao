@@ -112,4 +112,8 @@ def f_verificaTela(user):
             tela = 0
     
     return tela
+
+def f_editar_entregador(username):
+    info = f_retornaEspc(['nome','telefone','cpf','username','senha','fk_endereco_codigo'],'PESSOA',username)
+    print(info)
     
