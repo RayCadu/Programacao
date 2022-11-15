@@ -135,7 +135,7 @@ def f_tela_cliente_dinheiro():
     root.mainloop()
 
 
-def f_tela_compra():
+def f_tela_compra(username):
     root = Toplevel()
     root.geometry('300x500')
     root.title('Compra')
@@ -146,16 +146,17 @@ def f_tela_compra():
     label_nome = Label(root, text="Cliente")
     label_nome.place(relx=0.1, rely=0.15, anchor="w")
 
-    cliente = StringVar()
-    comboBoxCliente = Combobox(root, textvariable= cliente, height=0.5, width=24)
-    comboBoxCliente['values'] = ('teste1', 'teste2', 'teste3')
-    comboBoxCliente.place(relx=0.3, rely=0.15, anchor="w")
+
+    texto_cliente = Entry(root, width=24)
+    texto_cliente.insert(0, username)
+    texto_cliente.config(state='readonly')
+    texto_cliente.place(relx=0.3, rely=0.15, anchor="w")
 
     label_nome = Label(root, text="Produto")
     label_nome.place(relx=0.1, rely=0.25, anchor="w")
 
     produto = StringVar()
-    comboBoxProduto = Combobox(root, textvariable= produto, height=0.5, width=24)
+    comboBoxProduto = Combobox(root, textvariable= produto, width=24, state='readonly')
     comboBoxProduto['values'] = ('teste1', 'teste2', 'teste3')
     comboBoxProduto.place(relx=0.3, rely=0.25, anchor="w")
 
@@ -166,13 +167,13 @@ def f_tela_compra():
     texto_qtd = Entry(root, textvariable= qtd, width=30)
     texto_qtd.place(relx=0.3, rely=0.35, anchor="w")
 
-    label_nome = Label(root, text="Entregador")
-    label_nome.place(relx=0.5, rely=0.45, anchor="center")
+    #label_nome = Label(root, text="Entregador")
+    #label_nome.place(relx=0.5, rely=0.45, anchor="center")
 
-    entregador = StringVar()
-    comboBoxEntregador = Combobox(root, textvariable= entregador, height=0.5, width=24)
-    comboBoxEntregador['values'] = ('teste1', 'teste2', 'teste3')
-    comboBoxEntregador.place(relx=0.5, rely=0.50, anchor="center")
+    #entregador = StringVar()
+    #comboBoxEntregador = Combobox(root, textvariable= entregador, height=0.5, width=24)
+    #comboBoxEntregador['values'] = ('teste1', 'teste2', 'teste3')
+    #comboBoxEntregador.place(relx=0.5, rely=0.50, anchor="center")
 
     label_nome = Label(root, text="SubTotal")
     label_nome.place(relx=0.5, rely=0.6, anchor="center")
@@ -213,7 +214,7 @@ def f_tela_editar():
     #combobox
 
     cpe = StringVar()
-    ComboBoxCPE = Combobox(root,textvariable = cpe ,height= 0.5 , width= 20)
+    ComboBoxCPE = Combobox(root,textvariable = cpe, width= 20)
 
     #botão
     addEI = Button(root,text="Editar informações")
@@ -271,11 +272,11 @@ def f_endereco(nome,cpf,tel,username,senha, tpPessoa):
 
     #combobox
     boxtl = StringVar()
-    comboBoxTl = Combobox(root,textvariable = boxtl ,height= 0.5 , width= 20)
+    comboBoxTl = Combobox(root,textvariable = boxtl, width= 20)
     boxcidade = StringVar()
-    comboBoxCidade = Combobox(root,textvariable = boxcidade ,height= 0.5 , width= 20)
+    comboBoxCidade = Combobox(root,textvariable = boxcidade, width= 20)
     boxbairro = StringVar()
-    comboBoxBairro = Combobox(root,textvariable = boxbairro ,height= 0.5 , width= 20)
+    comboBoxBairro = Combobox(root,textvariable = boxbairro, width= 20)
 
     #botão
     addE = Button(root, text ="Cadastrar pessoa",command = lambda:f_cadastrar_pessoas(nome.get(),cpf.get(),tel.get(),username.get(),senha.get(),logradouro.get(),numero.get(),cep.get(),boxtl.get(),boxcidade.get(),boxbairro.get(),complemento.get(), tpPessoa))
@@ -414,7 +415,7 @@ def f_produto():
 
     root.mainloop()
 
-def f_menu_cliente():
+def f_menu_cliente(username):
     root = Tk()
     root.geometry('300x500')
     root.title("Menu Cliente")
@@ -422,7 +423,7 @@ def f_menu_cliente():
     label_menu_cliente = Label(root,text="MENU CLIENTE")
     label_menu_cliente.place(relx= 0.5,rely= 0.1,anchor="center")
 
-    addCompra = Button(root, text="Fazer Compra", background="#808080", foreground="black")
+    addCompra = Button(root, text="Fazer Compra", background="#808080", foreground="black", command= lambda: f_tela_compra(username))
     addCompra.place(relx=0.5, rely=0.4, anchor="center")
 
     edit = Button(root, text="Editar Informação", background="#808080", foreground="black")
@@ -433,7 +434,7 @@ def f_menu_cliente():
 
     root.mainloop()
 
-def f_menu_entregador():
+def f_menu_entregador(username):
     root = Tk()
     root.geometry('300x500')
     root.title("Menu Entregador")
@@ -453,7 +454,7 @@ def f_menu_entregador():
     root.mainloop()
 
 
-def f_menu_funcionario():
+def f_menu_funcionario(username):
     root = Tk()
     root.geometry('300x500')
     root.title("Menu Funcionario")
@@ -483,13 +484,13 @@ def f_validaUserT(username, senha, label_confirmarcao, root):
 
     if(res == 0):
         root.destroy()
-        f_menu_funcionario()
+        f_menu_funcionario(username)
     elif(res == 1):
         root.destroy()
-        f_menu_entregador()
+        f_menu_entregador(username)
     elif(res == 2):
         root.destroy()
-        f_menu_cliente()
+        f_menu_cliente(username)
 
 def main():
     root = Tk()
