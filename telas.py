@@ -273,6 +273,7 @@ def f_endereco(nome,cpf,tel,username,senha, tpPessoa):
     #combobox
     boxtl = StringVar()
     comboBoxTl = Combobox(root,textvariable = boxtl, width= 20)
+    
     boxcidade = StringVar()
     comboBoxCidade = Combobox(root,textvariable = boxcidade, width= 20)
     boxbairro = StringVar()
