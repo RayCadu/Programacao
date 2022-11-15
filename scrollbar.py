@@ -1,32 +1,48 @@
 from tkinter import *
 from tkinter.ttk import *
 
-root = Tk()
-root.geometry('300x500')
-root.title("Login")
-#mainFrame
-main_frame = Frame(root)
-main_frame.pack(fill=BOTH, expand=1)
+def verificaBotao(msg):
+        print(msg)
 
-#canvas
-my_canvas = Canvas(main_frame)
-my_canvas.pack(side=LEFT, fill=BOTH, expand=1)
 
-#Adicionando scrollbar ao Canvas
-my_scrollbar = Scrollbar(main_frame, orient=VERTICAL, command= my_canvas.yview)
-my_scrollbar.pack(side=RIGHT, fill=Y)
+def main():
+    root = Tk()
+    root.geometry('700x500')
+    root.maxsize(700, 500)
+    root.title("Login")
+    #mainFrame
+    main_frame = Frame(root)
+    main_frame.pack(fill=BOTH, expand=1)
 
-#configurando o canvas
-my_canvas.configure(yscrollcommand=my_scrollbar.set)
-my_canvas.bind('<Configure>', lambda e: my_canvas.configure(scrollregion= my_canvas.bbox("all")))
+    #canvas
+    my_canvas = Canvas(main_frame)
+    my_canvas.pack(side=LEFT, fill=BOTH, expand=1)
 
-#Create ANOTHER
-second_frame = Frame(my_canvas)
+    #Adicionando scrollbar ao Canvas
+    my_scrollbar = Scrollbar(main_frame, orient=VERTICAL, command= my_canvas.yview)
+    my_scrollbar.pack(side=RIGHT, fill=Y)
 
-#Adicionando janela ao canvas
-my_canvas.create_window((0,0), window=second_frame, anchor="nw")
+    #configurando o canvas
+    my_canvas.configure(yscrollcommand=my_scrollbar.set)
+    my_canvas.bind('<Configure>', lambda e: my_canvas.configure(scrollregion= my_canvas.bbox("all")))
 
-for i in range(100):
-    Button(second_frame, text=f'Botão {i}').grid(row=i, column=3, pady=50, padx=1000)
+    #Create ANOTHER
+    second_frame = Frame(my_canvas)
 
-root.mainloop()
+    #Adicionando janela ao canvas
+    my_canvas.create_window((0,200), window=second_frame, anchor="nw")
+    y = 10
+    for i in range(100):
+        Label(second_frame).grid(row=i, column=0, padx=20, pady=y, sticky=E)
+        Label(second_frame).grid(row=i, column=1, padx=20, pady=y, sticky=E)
+        Label(second_frame).grid(row=i, column=2, padx=20, pady=y, sticky=E)
+        Label(second_frame).grid(row=i, column=3, padx=20, pady=y, sticky=E)
+        Label(second_frame).grid(row=i, column=4, padx=20, pady=y, sticky=E)
+        Label(second_frame).grid(row=i, column=5, padx=20, pady=y, sticky=E)
+        Label(second_frame, text=f"Produto {i}").grid(row=i, column=6, padx=20, pady=y, sticky=E)
+        Label(second_frame, text=f"Valor {i}").grid(row=i, column=7, padx=20, pady=y, sticky=E)
+        Button(second_frame, text=f'Botão {i}', command= lambda m=f"Botão {i}": verificaBotao(m)).grid(row=i, column=8, padx=20, pady=y, sticky=E)
+
+    root.mainloop()
+if __name__ == "__main__": main()
+
