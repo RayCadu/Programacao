@@ -282,17 +282,19 @@ def f_endereco(nome,cpf,tel,username,senha, tpPessoa):
     tpLg = f_retornaLista(tpLg)
     tpLg.insert(0, '')
     comboBoxTl['values'] = tpLg
-    print(tpLg.index(boxtl.get()))
+    tpLg.index(boxtl.get())
     boxcidade = StringVar()
     comboBoxCidade = Combobox(root,textvariable = boxcidade, width= 20)
-    #comboBoxCidade['values'] = f_retornaInfo(['codigo', 'descricao'], 'CIDADE')
+    cidade = f_retornaInfo(['codigo', 'descricao'], 'CIDADE')
+    cidade = f_retornaLista(cidade)
+    comboBoxCidade['values'] = cidade
     boxbairro = StringVar()
     comboBoxBairro = Combobox(root,textvariable = boxbairro, width= 20)
-    #comboBoxBairro['values'] = f_retornaInfo(['codigo', 'descricao'], 'BAIRRO')
+    comboBoxBairro['values'] = f_retornaInfo(['codigo', 'descricao'], 'BAIRRO')
 
     #botão
-    
-    addE = Button(root, text ="Cadastrar pessoa",command = lambda:[f_cadastrar_pessoas(nome.get(),cpf.get(),tel.get(),username.get(),senha.get(),logradouro.get(),numero.get(),cep.get(),boxtl.get(),boxcidade.get(),boxbairro.get(),complemento.get(), tpPessoa)])
+
+    addE = Button(root, text ="Cadastrar pessoa",command = lambda:[f_cadastrar_pessoas(nome.get(),cpf.get(),tel.get(),username.get(),senha.get(),logradouro.get(),numero.get(),cep.get(),boxtl.get(),boxcidade.get(),boxbairro.get(),complemento.get(), tpPessoa), f_codigos()])
     btnVoltar = Button(root, text="Voltar para\ntela pessoa", command= root.destroy)
 
     #posicionamento label
