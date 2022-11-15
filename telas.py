@@ -1,5 +1,5 @@
 from tkinter import *
-from funcoes import f_cadastrar_pessoas, f_cadastrar_produto, f_validaUser
+from funcoes import *
 from tkinter.ttk import Combobox
 from tkinter.ttk import Entry
 
@@ -312,7 +312,7 @@ def f_endereco(nome,cpf,tel,username,senha, tpPessoa):
 
     root.mainloop()
 
-def f_tela_pessoa(tpPessoa):
+def f_tela_pessoa(tpPessoa,username):
     root = Tk()
 
     root.geometry('300x500')
@@ -445,7 +445,7 @@ def f_menu_entregador(username):
     addEntrega = Button(root, text="Entrega", background="#808080", foreground="black")
     addEntrega.place(relx=0.5, rely=0.4, anchor="center")
 
-    edit = Button(root, text="Editar Informações", background="#808080", foreground="black")
+    edit = Button(root, text="Editar Informações", background="#808080", foreground="black",command= lambda:f_editar_entregador(username))
     edit.place(relx=0.5, rely=0.5, anchor="center")
 
     sair = Button(root, text="Sair", background="#808080", foreground="black", command= lambda: [root.destroy(), main()])
@@ -465,10 +465,10 @@ def f_menu_funcionario(username):
     addCP = Button(root, text="Cadastrar Produtos", background="#808080", foreground="black")
     addCP.place(relx=0.5, rely=0.4, anchor="center")
 
-    addCE = Button(root, text="Cadastrar Entregador", background="#808080", foreground="black", command=lambda: f_tela_pessoa(1))
+    addCE = Button(root, text="Cadastrar Entregador", background="#808080", foreground="black", command=lambda: f_tela_pessoa(1,username = None))
     addCE.place(relx=0.5, rely=0.5, anchor="center")
 
-    addCF = Button(root, text="Cadastrar Funcionário", background="#808080", foreground="black", command=lambda: f_tela_pessoa(0))
+    addCF = Button(root, text="Cadastrar Funcionário", background="#808080", foreground="black", command=lambda: f_tela_pessoa(0,username = None))
     addCF.place(relx=0.5, rely=0.6, anchor="center")
 
     edit = Button(root, text="Editar Informação", background="#808080", foreground="black")
@@ -523,7 +523,7 @@ def main():
     Entrar = Button(root, text="Entrar",background="#808080", foreground="black", command=lambda: [f_validaUserT(username.get(), senha.get(), label_confirmarcao, root)])
     Entrar.place(relx=0.5, rely=0.485, anchor="center")
 
-    Cadastro = Button(root, text="Cadastrar-se",background="#808080", foreground="black", command= lambda:[root.destroy(), f_tela_pessoa(2)])
+    Cadastro = Button(root, text="Cadastrar-se",background="#808080", foreground="black", command= lambda:[root.destroy(), f_tela_pessoa(2,username = None)])
     Cadastro.place(relx=0.5,rely=0.8,anchor="center")
 
     root.mainloop()

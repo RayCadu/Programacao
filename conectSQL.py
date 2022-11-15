@@ -73,3 +73,25 @@ def f_retornaInfo(campos, nome_tabela):
     conn.close()
 
     return values
+
+def f_retornaEspc(campos, nome_tabela,username):
+    ca = str()
+    for i in campos:
+        ca += i + ","
+    ca = ca[:len(ca)-1]
+
+    sql = f""" SELECT {ca} FROM {nome_tabela} WHERE username = '{username}'"""
+    conn = f_conexao()
+    cur = conn.cursor()
+    cur.execute(sql)
+
+    recset = cur.fetchall()
+    values = list()
+
+    for rec in recset:
+        values.append(rec)
+
+    cur.close()
+    conn.close()
+
+    return values
