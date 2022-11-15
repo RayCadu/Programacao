@@ -199,7 +199,7 @@ def f_tela_editar():
     root.geometry('300x500')
     root.title('Editar')
 
-    #label
+    #l
     label_editar = Label(root, text="EDITAR",background='black',foreground='white')
     label_cliente = Label(root, text="CLIENTE:")
     label_produto = Label(root, text="PRODUTO:")
