@@ -27,6 +27,6 @@ second_frame = Frame(my_canvas)
 my_canvas.create_window((0,0), window=second_frame, anchor="nw")
 
 for i in range(100):
-    Button(second_frame, text=f'Botão {i}').grid(row=i, column=0, pady=10, padx=10)
+    Button(second_frame, text=f'Botão {i}').grid(row=i, column=3, pady=50, padx=1000)
 
 root.mainloop()

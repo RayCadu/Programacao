@@ -1,7 +1,7 @@
 from conectSQL import *
 
 
-def f_cadastrar_pessoas(nome,cpf,tel,username,senha,logradouro,numero,cep,boxtl,boxcidade,boxbairro,complemento, tpPessoa):
+def f_cadastrar_pessoas(nome,cpf,tel,username,senha,logradouro,numero,cep,boxtl,boxcidade,boxbairro,complemento, tpPessoa, teste):
     
     dicp = {}
     dicp["username"] = username
@@ -9,7 +9,7 @@ def f_cadastrar_pessoas(nome,cpf,tel,username,senha,logradouro,numero,cep,boxtl,
     dicp["telefone"] = tel
     dicp["cpf"] = cpf
     dicp["senha"] = senha
-    dicp["fk_endereco_codigo"] = f_cadastrar_endereco(cep,logradouro,numero,boxbairro,boxcidade,boxtl,complemento)
+    dicp["fk_endereco_codigo"] = f_cadastrar_endereco(cep,logradouro,numero,boxbairro,boxcidade,boxtl,complemento, teste)
     f_inserirDados("PESSOA",dicp,"username")
 
     if(tpPessoa == 0):
@@ -29,14 +29,26 @@ def f_cadastrar_pessoas(nome,cpf,tel,username,senha,logradouro,numero,cep,boxtl,
     
     return 0
 
-def f_cadastrar_endereco(cep,logradouro,numero,boxbairro,boxcidade,boxtl,complemento):
+def f_cadastrar_endereco(cep,logradouro,numero,boxbairro,boxcidade,boxtl,complemento, teste):
     dice = {}
     dice["cep"] = cep
     dice["logradouro"] = logradouro
     dice["numero"] = numero
-    dice["bairro"] = f_cadastrar_bairro(boxbairro)
-    dice["cidade"] = f_cadastrar_cidade(boxcidade)
-    dice["tipo_logradouro"] = f_cadastrar_tl(boxtl)
+    if(teste[2] == 0):
+        dice["bairro"] = f_cadastrar_bairro(boxbairro)
+    else:
+        dice["bairro"] = teste[2]
+
+    if(teste[1] == 0):
+        dice["cidade"] = f_cadastrar_cidade(boxcidade)
+    else:
+        dice["cidade"] = teste[1]
+        
+    if(teste[0] == 0):
+        dice["tipo_logradouro"] = f_cadastrar_tl(boxtl)
+    else:
+        dice["tipo_logradouro"] = teste[0]
+        
     dice["complemento"] = complemento
 
 
@@ -127,3 +139,10 @@ def f_retornaLista(t):
     for i in  t:
         p.append(i[0])
     return p
+
+def f_codigos(boxtl, boxcidade, boxbairro, tpLg, cidade, bairro):
+    tp = tpLg.index(boxtl)
+    ci = cidade.index(boxcidade)
+    ba = bairro.index(boxbairro)
+
+    return tp, ci, ba
