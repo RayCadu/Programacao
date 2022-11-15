@@ -242,11 +242,6 @@ def f_tela_editar():
 
     root.mainloop()
      
-def f_retornaLista(t):
-    p =list()
-    for i in  t:
-        p.append(i[0])
-    return p
 def f_endereco(nome,cpf,tel,username,senha, tpPessoa):
     root = Toplevel()
     root.geometry('300x500')

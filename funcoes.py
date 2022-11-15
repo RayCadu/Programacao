@@ -116,4 +116,9 @@ def f_verificaTela(user):
 def f_editar(username):
     info = f_retornaEspc(['nome','telefone','cpf','username','senha','fk_endereco_codigo'],'PESSOA',username)
     return info
-    
+
+def f_retornaLista(t):
+    p =list()
+    for i in  t:
+        p.append(i[0])
+    return p
