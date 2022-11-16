@@ -144,6 +144,7 @@ def f_editar_endereco(fk_endereco_codigo):
     info = f_retornaEspc(['cep','logradouro','numero','boxbairro','boxcidade','boxtl','complemento'],'endereco',fk_endereco_codigo, 'codigo')
     return info
 
+
 def f_retornaLista(t):
     p =list()
     for i in  t:
