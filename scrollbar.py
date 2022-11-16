@@ -9,6 +9,7 @@ def main():
     root = Tk()
     root.geometry('700x500')
     root.maxsize(700, 500)
+    root.minsize(700, 500)
     root.title("Login")
     #mainFrame
     main_frame = Frame(root)
@@ -32,13 +33,13 @@ def main():
     #Adicionando janela ao canvas
     my_canvas.create_window((0,200), window=second_frame, anchor="nw")
     y = 10
-    for i in range(100):
-        Label(second_frame).grid(row=i, column=0, padx=20, pady=y, sticky=E)
-        Label(second_frame).grid(row=i, column=1, padx=20, pady=y, sticky=E)
-        Label(second_frame).grid(row=i, column=2, padx=20, pady=y, sticky=E)
-        Label(second_frame).grid(row=i, column=3, padx=20, pady=y, sticky=E)
-        Label(second_frame).grid(row=i, column=4, padx=20, pady=y, sticky=E)
-        Label(second_frame).grid(row=i, column=5, padx=20, pady=y, sticky=E)
+    Label(second_frame).grid(row=0, column=0, padx=20, pady=40, sticky=E)
+    Label(second_frame).grid(row=1, column=1, padx=20, pady=y, sticky=E)
+    Label(second_frame).grid(row=2, column=2, padx=20, pady=y, sticky=E)
+    Label(second_frame).grid(row=3, column=3, padx=20, pady=y, sticky=E)
+    Label(second_frame).grid(row=4, column=4, padx=20, pady=y, sticky=E)
+    Label(second_frame).grid(row=5, column=5, padx=20, pady=y, sticky=E)
+    for i in range(5, 100):
         Label(second_frame, text=f"Produto {i}").grid(row=i, column=6, padx=20, pady=y, sticky=E)
         Label(second_frame, text=f"Valor {i}").grid(row=i, column=7, padx=20, pady=y, sticky=E)
         Button(second_frame, text=f'Botão {i}', command= lambda m=f"Botão {i}": verificaBotao(m)).grid(row=i, column=8, padx=20, pady=y, sticky=E)

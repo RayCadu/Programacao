@@ -297,7 +297,7 @@ def f_endereco(nome,cpf,tel,username,senha, tpPessoa):
     comboBoxBairro['values'] = bairro
 
     #botão
-    addE = Button(root, text ="Cadastrar pessoa",command = lambda:[f_cadastrar_pessoas(nome.get(),cpf.get(),tel.get(),username.get(),senha.get(), logradouro.get(), numero.get(), cep.get(), complemento.get(), boxtl.get(), boxcidade.get(), boxbairro.get(), tpPessoa, teste = f_codigos(boxtl.get(), boxcidade.get(), boxbairro.get(), tpLg, cidade, bairro))])
+    addE = Button(root, text ="Cadastrar pessoa",command = lambda: f_cadastrar_pessoas(nome.get(),cpf.get(),tel.get(),username.get(),senha.get(), logradouro.get(), numero.get(), cep.get(), complemento.get(), boxtl.get(), boxcidade.get(), boxbairro.get(), tpPessoa, teste = (f_codigo(boxtl.get(), tpLg), f_codigo(boxcidade.get(), cidade), f_codigo(boxbairro.get(), bairro))))
     btnVoltar = Button(root, text="Voltar para\ntela pessoa", command= root.destroy)
 
     #posicionamento label
@@ -322,7 +322,7 @@ def f_endereco(nome,cpf,tel,username,senha, tpPessoa):
 
     addE.place(relx= 0.3, rely= 0.9, anchor='center')
     btnVoltar.place(relx= 0.7, rely= 0.9, anchor='center')
-    
+
     #posicionameto
 
     comboBoxTl.place(relx=0.5 ,rely=0.2 ,anchor= 'w')
@@ -390,7 +390,7 @@ def f_tela_pessoa(tpPessoa,edit,username):
     root.mainloop()
 
 
-def f_produto():
+def f_produto(username):
     root = Toplevel()
     root.geometry('300x500')
     root.title('Produto')
@@ -417,7 +417,10 @@ def f_produto():
 
     cbTpProduto = StringVar()
     comboBoxTpProduto = Combobox(root, textvariable = cbTpProduto)
-    comboBoxTpProduto['values'] = ('teste1', 'teste2')
+    tpProduto = f_retornaInfo(['descricao'], 'TIPO_PRODUTO')
+    tpProduto = f_retornaLista(tpProduto)
+    tpProduto.insert(0, '')
+    comboBoxTpProduto['values'] = tpProduto
     comboBoxTpProduto.place(relx=0.3, rely=0.3, anchor="w")
 
     label_valor = Label(root, text="Preço")
@@ -433,7 +436,7 @@ def f_produto():
     texto_descricao = Text(root, height= 5, width=23)
     texto_descricao.place(relx=0.3, rely=0.6, anchor="w")
 
-    btnAddProduto = Button(root, text="Cadastrar", command=lambda:f_cadastrar_produto(nome.get(), cbTpProduto.get(), valor.get(), texto_descricao.get("1.0", END), root)) #command=part(f_cadastrar, root)
+    btnAddProduto = Button(root, text="Cadastrar", command=lambda:[f_cadastrar_produto(nome.get(), cbTpProduto.get(), valor.get(), texto_descricao.get("1.0", END), new=f_codigo(cbTpProduto, tpProduto)), f_funcRes(username)]) #command=part(f_cadastrar, root)
     btnAddProduto.place(relx=0.5, rely=0.8, anchor="center")
 
 
@@ -489,7 +492,7 @@ def f_menu_funcionario(username):
     label_menu_funcionario = Label(root, text="MENU FUNCIONARIO")
     label_menu_funcionario.place(relx=0.5, rely=0.1, anchor="center")
 
-    addCP = Button(root, text="Cadastrar Produtos", background="#808080", foreground="black")
+    addCP = Button(root, text="Cadastrar Produtos", background="#808080", foreground="black", command= lambda: f_produto(username))
     addCP.place(relx=0.5, rely=0.4, anchor="center")
 
     addCE = Button(root, text="Cadastrar Entregador", background="#808080", foreground="black", command=lambda: f_tela_pessoa(1, 0, username = None))

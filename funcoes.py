@@ -43,7 +43,7 @@ def f_cadastrar_endereco(cep,logradouro,numero,boxbairro,boxcidade,boxtl,complem
         dice["cidade"] = f_cadastrar_cidade(boxcidade)
     else:
         dice["cidade"] = teste[1]
-        
+
     if(teste[0] == 0):
         dice["tipo_logradouro"] = f_cadastrar_tl(boxtl)
     else:
@@ -73,13 +73,15 @@ def f_cadastrar_tl(boxtl):
     return str(f_inserirDados("TIPO_LOGRADOURO",dictl,"codigo"))
     
     
-def f_cadastrar_produto(nome,tpProduto, valor, descricao):
+def f_cadastrar_produto(nome,tpProduto, valor, descricao, new):
     dicP = {}
     dicP["nome"] = nome
     dicP["descricao"] = descricao
     dicP["valor"] = valor
-    dicP["fk_tipo_produto_tipo_produto_pk"] = f_cadastar_tpProduto(tpProduto)
-
+    if(new == 0):
+        dicP["fk_tipo_produto_tipo_produto_pk"] = f_cadastar_tpProduto(tpProduto)
+    else:
+        dicP["fk_tipo_produto_tipo_produto_pk"] = new
     f_inserirDados("PRODUTO", dicP, "codigo")
 
 
@@ -140,9 +142,15 @@ def f_retornaLista(t):
         p.append(i[0])
     return p
 
-def f_codigos(boxtl, boxcidade, boxbairro, tpLg, cidade, bairro):
-    tp = tpLg.index(boxtl)
-    ci = cidade.index(boxcidade)
-    ba = bairro.index(boxbairro)
+def f_codigo(boxtl, tpLg):
+    print(tpLg)
+    try:
+        tp = tpLg.index(boxtl.get())
+    except ValueError:
+        tp = 0
+    print(tp)
+    return tp
 
-    return tp, ci, ba
+def f_funcRes(username):
+    cod = f_retornaEspc(['codigo'], 'FUNCIONARIO', username)
+    print(cod)
