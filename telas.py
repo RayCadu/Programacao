@@ -3,6 +3,8 @@ from funcoes import *
 from tkinter.ttk import Combobox
 from tkinter.ttk import Entry
 
+fk_endereco_codigo = 0
+
 def f_cliente_cartao():
 
     root = Toplevel()
@@ -242,7 +244,7 @@ def f_tela_editar(username):
 
     root.mainloop()
 
-def f_endereco(nome,cpf,tel,username,senha, tpPessoa):
+def f_endereco(nome,cpf,tel,username,senha, tpPessoa,edit,fk_endereco_codigo):
     root = Toplevel()
     root.geometry('300x500')
     root.title('ENDEREÇO')
@@ -300,6 +302,13 @@ def f_endereco(nome,cpf,tel,username,senha, tpPessoa):
     addE = Button(root, text ="Cadastrar pessoa",command = lambda: f_cadastrar_pessoas(nome.get(),cpf.get(),tel.get(),username.get(),senha.get(), logradouro.get(), numero.get(), cep.get(), complemento.get(), boxtl.get(), boxcidade.get(), boxbairro.get(), tpPessoa, teste = (f_codigo(boxtl.get(), tpLg), f_codigo(boxcidade.get(), cidade), f_codigo(boxbairro.get(), bairro))))
     btnVoltar = Button(root, text="Voltar para\ntela pessoa", command= root.destroy)
 
+    if(edit == 1):
+        info = f_editar_endereco(fk_endereco_codigo)
+        texto_cep.insert(0,info[0][0])
+        texto_logradouro.insert(0,info[0][1])
+        texto_numero.insert(0,info[0][2])
+        texto_complemento.insert(0,info[0][6])
+
     #posicionamento label
     label_endereco.place(relx = 0.5,rely = 0.030,anchor = 'center')
     label_nm.place(relx= 0.05,rely= 0.10,anchor='w')
@@ -332,13 +341,17 @@ def f_endereco(nome,cpf,tel,username,senha, tpPessoa):
     root.mainloop()
 
 def f_tela_pessoa(tpPessoa,edit,username):
+    global fk_endereco_codigo
     root = Tk()
 
     root.geometry('300x500')
     root.title('Pessoa')
     #botões
-    addM = Button(root, text='Voltar ao menu',command =lambda:[root.destroy(), main()])
-    addE = Button(root,text='Adicionar endereço', command=lambda: f_endereco(nome,cpf,tel,user,senha, tpPessoa))
+    if(edit == 0):
+        addM = Button(root, text='Voltar ao menu',command =lambda:[root.destroy(), main()])
+    else:
+        addM = Button(root, text='Voltar ao menu',command =lambda:root.destroy())
+    addE = Button(root,text='Adicionar endereço', command=lambda: f_endereco(nome,cpf,tel,user,senha, tpPessoa,edit,fk_endereco_codigo))
     #label
     label_pessoa = Label(root,text ="PESSOA")
     label_username = Label(root,text="USERNAME:")
@@ -365,6 +378,7 @@ def f_tela_pessoa(tpPessoa,edit,username):
        texto_cpf.insert(0,info[0][2])
        texto_username.insert(0,info[0][3])
        texto_senha.insert(0,info[0][4])
+       fk_endereco_codigo = info[0][5]
     
 
     #posicionamento textos

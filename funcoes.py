@@ -141,7 +141,7 @@ def f_editar_pessoa(username):
 
 #cep,logradouro,numero,boxbairro,boxcidade,boxtl,complemento
 def f_editar_endereco(fk_endereco_codigo):
-    info = f_retornaEspc(['cep','logradouro','numero','boxbairro','boxcidade','boxtl','complemento'],'endereco',fk_endereco_codigo, 'codigo')
+    info = f_retornaEspc(['cep','logradouro','numero','bairro','cidade','tipo_logradouro','complemento'],'endereco',fk_endereco_codigo, 'codigo')
     return info
 
 

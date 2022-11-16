@@ -1,7 +1,9 @@
 from tkinter import *
-from funcoes import *
+from teste_funcao_cadu import *
 from tkinter.ttk import Combobox
 from tkinter.ttk import Entry
+
+fk_endereco_codigo = 0
 
 def f_cliente_cartao():
 
@@ -242,7 +244,7 @@ def f_tela_editar(username):
 
     root.mainloop()
 
-def f_endereco(nome,cpf,tel,username,senha, tpPessoa):
+def f_endereco(nome,cpf,tel,username,senha, tpPessoa,edit,fk_endereco_codigo):
     root = Toplevel()
     root.geometry('300x500')
     root.title('ENDEREÇO')
@@ -256,32 +258,56 @@ def f_endereco(nome,cpf,tel,username,senha, tpPessoa):
     label_cep = Label(root, text = "CEP:",background='black', foreground='white')
     label_bairro = Label(root, text = "BAIRRO:",background='black', foreground='white')
     label_cidade = Label(root, text = "CIDADE:",background='black', foreground='white')
-    label_complemento = Label(root,text="COMPLEMENTO:",background='black', foreground='white')
+    label_complemento = Label(root,text= "COMPLEMENTO:",background='black', foreground='white')
 
     #texto 
     nm = StringVar()
     texto_nm = Entry(root,textvariable = nm, width=20)
+
     logradouro = StringVar()
     texto_logradouro = Entry(root, textvariable = logradouro, width=20)
+
     numero = StringVar()
     texto_numero = Entry(root, textvariable = numero, width=20)
+
     cep = StringVar()
     texto_cep = Entry(root, textvariable = cep, width=20)
-    complemento =StringVar()
+
+    complemento = StringVar()
     texto_complemento = Entry(root, textvariable=complemento,width=20)
 
     #combobox
     boxtl = StringVar()
     comboBoxTl = Combobox(root,textvariable = boxtl, width= 20)
-    
+    tpLg = f_retornaInfo(['descricao'], 'TIPO_LOGRADOURO')
+    tpLg = f_retornaLista(tpLg)
+    tpLg.insert(0, '')
+    comboBoxTl['values'] = tpLg
+
     boxcidade = StringVar()
     comboBoxCidade = Combobox(root,textvariable = boxcidade, width= 20)
+    cidade = f_retornaInfo(['descricao'], 'CIDADE')
+    cidade = f_retornaLista(cidade)
+    cidade.insert(0, '')
+    comboBoxCidade['values'] = cidade
+
     boxbairro = StringVar()
     comboBoxBairro = Combobox(root,textvariable = boxbairro, width= 20)
+    bairro = f_retornaInfo(['descricao'], 'BAIRRO')
+    bairro = f_retornaLista(bairro)
+    bairro.insert(0, '')
+    comboBoxBairro['values'] = bairro
 
     #botão
-    addE = Button(root, text ="Cadastrar pessoa",command = lambda:f_cadastrar_pessoas(nome.get(),cpf.get(),tel.get(),username.get(),senha.get(),logradouro.get(),numero.get(),cep.get(),boxtl.get(),boxcidade.get(),boxbairro.get(),complemento.get(), tpPessoa))
+    addE = Button(root, text ="Cadastrar pessoa",command = lambda: f_cadastrar_pessoas(nome.get(),cpf.get(),tel.get(),username.get(),senha.get(), logradouro.get(), numero.get(), cep.get(), complemento.get(), boxtl.get(), boxcidade.get(), boxbairro.get(), tpPessoa, teste = (f_codigo(boxtl.get(), tpLg), f_codigo(boxcidade.get(), cidade), f_codigo(boxbairro.get(), bairro))))
     btnVoltar = Button(root, text="Voltar para\ntela pessoa", command= root.destroy)
+
+    if(edit == 1):
+        info = f_editar_endereco(fk_endereco_codigo)
+        texto_cep.insert(0,info[0][0])
+        texto_logradouro.insert(0,info[0][1])
+        texto_numero.insert(0,info[0][2])
+        texto_complemento.insert(0,info[0][6])
 
     #posicionamento label
     label_endereco.place(relx = 0.5,rely = 0.030,anchor = 'center')
@@ -301,12 +327,13 @@ def f_endereco(nome,cpf,tel,username,senha, tpPessoa):
     texto_cep.place(relx= 0.5,rely= 0.5,anchor ='w')
     texto_complemento.place(relx= 0.5,rely= 0.8,anchor='w')
 
-
     #posicionamento botão
 
     addE.place(relx= 0.3, rely= 0.9, anchor='center')
     btnVoltar.place(relx= 0.7, rely= 0.9, anchor='center')
-    #posicionameto 
+
+    #posicionameto
+
     comboBoxTl.place(relx=0.5 ,rely=0.2 ,anchor= 'w')
     comboBoxCidade.place(relx= 0.5,rely=0.7 ,anchor= 'w')
     comboBoxBairro.place(relx= 0.5,rely=0.6 ,anchor= 'w')
@@ -314,13 +341,17 @@ def f_endereco(nome,cpf,tel,username,senha, tpPessoa):
     root.mainloop()
 
 def f_tela_pessoa(tpPessoa,edit,username):
+    global fk_endereco_codigo
     root = Tk()
 
     root.geometry('300x500')
     root.title('Pessoa')
     #botões
-    addM = Button(root, text='Voltar ao menu',command =lambda:[root.destroy(), main()])
-    addE = Button(root,text='Adicionar endereço', command=lambda: f_endereco(nome,cpf,tel,username,senha, tpPessoa))
+    if(edit == 0):
+        addM = Button(root, text='Voltar ao menu',command =lambda:[root.destroy(), main()])
+    else:
+        addM = Button(root, text='Voltar ao menu',command =lambda:root.destroy())
+    addE = Button(root,text='Adicionar endereço', command=lambda: f_endereco(nome,cpf,tel,user,senha, tpPessoa,edit,fk_endereco_codigo))
     #label
     label_pessoa = Label(root,text ="PESSOA")
     label_username = Label(root,text="USERNAME:")
@@ -347,6 +378,7 @@ def f_tela_pessoa(tpPessoa,edit,username):
        texto_cpf.insert(0,info[0][2])
        texto_username.insert(0,info[0][3])
        texto_senha.insert(0,info[0][4])
+       fk_endereco_codigo = info[0][5]
     
 
     #posicionamento textos
@@ -372,7 +404,7 @@ def f_tela_pessoa(tpPessoa,edit,username):
     root.mainloop()
 
 
-def f_produto():
+def f_produto(username):
     root = Toplevel()
     root.geometry('300x500')
     root.title('Produto')
@@ -399,7 +431,10 @@ def f_produto():
 
     cbTpProduto = StringVar()
     comboBoxTpProduto = Combobox(root, textvariable = cbTpProduto)
-    comboBoxTpProduto['values'] = ('teste1', 'teste2')
+    tpProduto = f_retornaInfo(['descricao'], 'TIPO_PRODUTO')
+    tpProduto = f_retornaLista(tpProduto)
+    tpProduto.insert(0, '')
+    comboBoxTpProduto['values'] = tpProduto
     comboBoxTpProduto.place(relx=0.3, rely=0.3, anchor="w")
 
     label_valor = Label(root, text="Preço")
@@ -415,7 +450,7 @@ def f_produto():
     texto_descricao = Text(root, height= 5, width=23)
     texto_descricao.place(relx=0.3, rely=0.6, anchor="w")
 
-    btnAddProduto = Button(root, text="Cadastrar", command=lambda:f_cadastrar_produto(nome.get(), cbTpProduto.get(), valor.get(), texto_descricao.get("1.0", END), root)) #command=part(f_cadastrar, root)
+    btnAddProduto = Button(root, text="Cadastrar", command=lambda:[f_cadastrar_produto(nome.get(), cbTpProduto.get(), valor.get(), texto_descricao.get("1.0", END), new=f_codigo(cbTpProduto, tpProduto), cod_func= f_funcRes(username))]) #command=part(f_cadastrar, root)
     btnAddProduto.place(relx=0.5, rely=0.8, anchor="center")
 
 
@@ -471,13 +506,13 @@ def f_menu_funcionario(username):
     label_menu_funcionario = Label(root, text="MENU FUNCIONARIO")
     label_menu_funcionario.place(relx=0.5, rely=0.1, anchor="center")
 
-    addCP = Button(root, text="Cadastrar Produtos", background="#808080", foreground="black")
+    addCP = Button(root, text="Cadastrar Produtos", background="#808080", foreground="black", command= lambda: f_produto(username))
     addCP.place(relx=0.5, rely=0.4, anchor="center")
 
-    addCE = Button(root, text="Cadastrar Entregador", background="#808080", foreground="black", command=lambda: f_tela_pessoa(1,username = None))
+    addCE = Button(root, text="Cadastrar Entregador", background="#808080", foreground="black", command=lambda: f_tela_pessoa(1, 0, username = None))
     addCE.place(relx=0.5, rely=0.5, anchor="center")
 
-    addCF = Button(root, text="Cadastrar Funcionário", background="#808080", foreground="black", command=lambda: f_tela_pessoa(0,username = None))
+    addCF = Button(root, text="Cadastrar Funcionário", background="#808080", foreground="black", command=lambda: f_tela_pessoa(0, 0, username = None))
     addCF.place(relx=0.5, rely=0.6, anchor="center")
 
     edit = Button(root, text="Editar Informação", background="#808080", foreground="black",command= lambda: f_tela_pessoa(0,1,username))
@@ -532,7 +567,7 @@ def main():
     Entrar = Button(root, text="Entrar",background="#808080", foreground="black", command=lambda: [f_validaUserT(username.get(), senha.get(), label_confirmarcao, root)])
     Entrar.place(relx=0.5, rely=0.485, anchor="center")
 
-    Cadastro = Button(root, text="Cadastrar-se",background="#808080", foreground="black", command= lambda:[root.destroy(), f_tela_pessoa(2,username = None)])
+    Cadastro = Button(root, text="Cadastrar-se",background="#808080", foreground="black", command= lambda:[root.destroy(), f_tela_pessoa(2, 0, username = None)])
     Cadastro.place(relx=0.5,rely=0.8,anchor="center")
 
     root.mainloop()
