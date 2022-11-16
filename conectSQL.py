@@ -74,13 +74,13 @@ def f_retornaInfo(campos, nome_tabela):
 
     return values
 
-def f_retornaEspc(campos, nome_tabela,username):
+def f_retornaEspc(campos, nome_tabela,username, campo_condi):
     ca = str()
     for i in campos:
         ca += i + ","
     ca = ca[:len(ca)-1]
 
-    sql = f""" SELECT {ca} FROM {nome_tabela} WHERE username = '{username}'"""
+    sql = f""" SELECT {ca} FROM {nome_tabela} WHERE {campo_condi} = '{username}'"""
     conn = f_conexao()
     cur = conn.cursor()
     cur.execute(sql)

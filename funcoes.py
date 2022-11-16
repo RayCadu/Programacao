@@ -73,7 +73,7 @@ def f_cadastrar_tl(boxtl):
     return str(f_inserirDados("TIPO_LOGRADOURO",dictl,"codigo"))
     
     
-def f_cadastrar_produto(nome,tpProduto, valor, descricao, new):
+def f_cadastrar_produto(nome,tpProduto, valor, descricao, new, cod_func):
     dicP = {}
     dicP["nome"] = nome
     dicP["descricao"] = descricao
@@ -82,7 +82,15 @@ def f_cadastrar_produto(nome,tpProduto, valor, descricao, new):
         dicP["fk_tipo_produto_tipo_produto_pk"] = f_cadastar_tpProduto(tpProduto)
     else:
         dicP["fk_tipo_produto_tipo_produto_pk"] = new
-    f_inserirDados("PRODUTO", dicP, "codigo")
+
+    cod_produto = f_inserirDados("PRODUTO", dicP, "codigo")
+
+    dicAdm = {}
+    dicAdm['fk_funcionario_codigo'] = cod_func
+    dicAdm['fk_produto_codigo'] = cod_produto
+
+    f_inserirDados("ADMINISTRA", dicAdm, "fk_produto_codigo")
+
 
 
 def f_cadastar_tpProduto(tpProduto):
@@ -128,12 +136,12 @@ def f_verificaTela(user):
     return tela
 
 def f_editar_pessoa(username):
-    info = f_retornaEspc(['nome','telefone','cpf','username','senha','fk_endereco_codigo'],'PESSOA',username)
+    info = f_retornaEspc(['nome','telefone','cpf','username','senha','fk_endereco_codigo'],'PESSOA',username, 'username')
     return info
 
 #cep,logradouro,numero,boxbairro,boxcidade,boxtl,complemento
 def f_editar_endereco(fk_endereco_codigo):
-    info = f_retornaEspc(['cep','logradouro','numero','boxbairro','boxcidade','boxtl','complemento'],'endereco',fk_endereco_codigo)
+    info = f_retornaEspc(['cep','logradouro','numero','boxbairro','boxcidade','boxtl','complemento'],'endereco',fk_endereco_codigo, 'codigo')
     return info
 
 def f_retornaLista(t):
@@ -152,5 +160,7 @@ def f_codigo(boxtl, tpLg):
     return tp
 
 def f_funcRes(username):
-    cod = f_retornaEspc(['codigo'], 'FUNCIONARIO', username)
-    print(cod)
+    cod = f_retornaEspc(['codigo'], 'FUNCIONARIO', username, 'fk_pessoa_username')
+    cod = cod[0][0]
+
+    return cod

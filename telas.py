@@ -436,7 +436,7 @@ def f_produto(username):
     texto_descricao = Text(root, height= 5, width=23)
     texto_descricao.place(relx=0.3, rely=0.6, anchor="w")
 
-    btnAddProduto = Button(root, text="Cadastrar", command=lambda:[f_cadastrar_produto(nome.get(), cbTpProduto.get(), valor.get(), texto_descricao.get("1.0", END), new=f_codigo(cbTpProduto, tpProduto)), f_funcRes(username)]) #command=part(f_cadastrar, root)
+    btnAddProduto = Button(root, text="Cadastrar", command=lambda:[f_cadastrar_produto(nome.get(), cbTpProduto.get(), valor.get(), texto_descricao.get("1.0", END), new=f_codigo(cbTpProduto, tpProduto), cod_func= f_funcRes(username))]) #command=part(f_cadastrar, root)
     btnAddProduto.place(relx=0.5, rely=0.8, anchor="center")
 
 
