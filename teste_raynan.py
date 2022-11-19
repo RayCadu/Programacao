@@ -3,7 +3,7 @@ from teste_funcao_raynan import *
 from tkinter.ttk import Combobox
 from tkinter.ttk import Entry
 
-def f_cliente_cartao():
+'''def f_cliente_cartao():
 
     root = Toplevel()
     root.geometry('300x500')
@@ -75,7 +75,7 @@ def f_cliente_cartao():
 
     root.mainloop()
 
-def f_tela_cliente_dinheiro():
+def f_tela_cliente_pagamento():
     root = Toplevel()
     root.geometry('300x500')
     root.title('Cliente')
@@ -133,7 +133,7 @@ def f_tela_cliente_dinheiro():
 
 
     root.mainloop()
-
+'''
 
 def f_tela_compra(username):
     dicProdutos = {}
@@ -164,13 +164,16 @@ def f_tela_compra(username):
     comboBoxProduto['values'] = produtoCombo
     comboBoxProduto.place(relx=0.3, rely=0.25, anchor="w")
     
+    label_tpPagamento = Label(root, text="Tp.\nPagamento")
+    label_tpPagamento.place(relx=0.08, rely=0.30, anchor="w")
 
-    #label_nome = Label(root, text="Quantidade")
-    #label_nome.place(relx=0.06, rely=0.35, anchor="w")
-
-    #qtd = StringVar()
-    #texto_qtd = Entry(root, textvariable= qtd, width=30)
-    #texto_qtd.place(relx=0.3, rely=0.35, anchor="w")
+    tpPagamento = StringVar()
+    comboBoxtpPagamento = Combobox(root, textvariable= tpPagamento, width=24, state='readonly')
+    tpPagamentoCombo = f_retornaInfo(['tipo_pagamento'], 'TIPO_PAGAMENTO')
+    tpPagamentoCombo = f_retornaLista(tpPagamentoCombo)
+    tpPagamentoCombo.insert(0, '')
+    comboBoxtpPagamento['values'] = tpPagamentoCombo
+    comboBoxtpPagamento.place(relx=0.3, rely=0.30, anchor="w")
 
     label_carrinho = Label(root, text="Carrinho")
     label_carrinho.place(relx=0.5, rely=0.35, anchor="center")
@@ -186,18 +189,18 @@ def f_tela_compra(username):
     texto_subTotal = Entry(root, textvariable= subTotal, width=30)
     texto_subTotal.place(relx=0.5, rely=0.65, anchor="center")
 
-    btnAddCarrinho = Button(root, text="Adicionar ao\nCarrinho", command= lambda: f_adiciona_produto(dicProdutos, subTotal, texto_subTotal, listBoxCarrinho, produtoCombo, pos_produto= f_codigo(produto, produtoCombo)))
+    btnAddCarrinho = Button(root, text="Adicionar ao\nCarrinho", command= lambda: f_adiciona_produto(dicProdutos, subTotal.get(), texto_subTotal, listBoxCarrinho, produtoCombo, pos_produto= f_codigo(produto, produtoCombo)))
     btnAddCarrinho.place(relx=0.5, rely=0.75, anchor="center")
 
-    btnAddCompra = Button(root, text="Finalizar Compra", command= lambda: f_cadastar_compra(username, subTotal.get(), cod_produto= f_codigo(produto, produtoCombo)))
+    btnAddCompra = Button(root, text="Finalizar Compra", command= lambda: f_cadastar_compra(username, subTotal.get(), dicProdutos, tpPagamentoCombo = f_codigo(tpPagamento, tpPagamentoCombo)))
     btnAddCompra.place(relx=0.5, rely=0.85, anchor="center")
 
-    btnMenu = Button(root, text="Voltar ao Menu", command=lambda: print(dicProdutos))
+    btnMenu = Button(root, text="Voltar ao Menu", command=lambda: root.destroy())
     btnMenu.place(relx=0.5, rely=0.95, anchor="center")
 
     root.mainloop()
 
-
+'''
 def f_tela_editar(username):
     root = Toplevel()
     root.geometry('300x500')
@@ -244,7 +247,7 @@ def f_tela_editar(username):
     addEI.place(relx=0.5,rely=0.7,anchor='center')
     addM.place(relx=0.5,rely=0.8,anchor='center')
 
-    root.mainloop()
+    root.mainloop()'''
 
 def f_endereco(nome,cpf,tel,username,senha, tpPessoa):
     root = Toplevel()
@@ -301,7 +304,7 @@ def f_endereco(nome,cpf,tel,username,senha, tpPessoa):
     comboBoxBairro['values'] = bairro
 
     #botão
-    addE = Button(root, text ="Cadastrar pessoa",command = lambda: f_cadastrar_pessoas(nome.get(),cpf.get(),tel.get(),username.get(),senha.get(), logradouro.get(), numero.get(), cep.get(), complemento.get(), boxtl.get(), boxcidade.get(), boxbairro.get(), tpPessoa, teste = (f_codigo(boxtl.get(), tpLg), f_codigo(boxcidade.get(), cidade), f_codigo(boxbairro.get(), bairro))))
+    addE = Button(root, text ="Cadastrar pessoa",command = lambda: [f_cadastrar_pessoas(nome.get(),cpf.get(),tel.get(),username.get(),senha.get(), logradouro.get(), numero.get(), cep.get(), complemento.get(), boxtl.get(), boxcidade.get(), boxbairro.get(), tpPessoa, teste = (f_codigo(boxtl, tpLg), f_codigo(boxcidade, cidade), f_codigo(boxbairro, bairro)))])
     btnVoltar = Button(root, text="Voltar para\ntela pessoa", command= root.destroy)
 
     #posicionamento label
@@ -402,12 +405,12 @@ def f_produto(username):
     label_codigo = Label(root, text="Produto")
     label_codigo.place(relx=0.5, rely=0.06, anchor="center")
 
-    label_codigo = Label(root, text="Código")
+    '''label_codigo = Label(root, text="Código")
     label_codigo.place(relx=0.1, rely=0.1, anchor="w")
 
     codigo = StringVar()
     texto_codigo = Entry(root, textvariable= codigo, width=30)
-    texto_codigo.place(relx=0.3, rely=0.1, anchor="w")
+    texto_codigo.place(relx=0.3, rely=0.1, anchor="w")'''
 
     label_nome = Label(root, text="Nome")
     label_nome.place(relx=0.1, rely=0.2, anchor="w")
@@ -440,7 +443,7 @@ def f_produto(username):
     texto_descricao = Text(root, height= 5, width=23)
     texto_descricao.place(relx=0.3, rely=0.6, anchor="w")
 
-    btnAddProduto = Button(root, text="Cadastrar", command=lambda:[f_cadastrar_produto(nome.get(), cbTpProduto.get(), valor.get(), texto_descricao.get("1.0", END), new=f_codigo(cbTpProduto, tpProduto), cod_func= f_funcRes(username))]) #command=part(f_cadastrar, root)
+    btnAddProduto = Button(root, text="Cadastrar", command=lambda:[f_cadastrar_produto(nome.get(), cbTpProduto.get(), valor.get(), texto_descricao.get("1.0", END), new=f_codigo(cbTpProduto, tpProduto), cod_func= f_funcRes(username)), root.destroy()]) #command=part(f_cadastrar, root)
     btnAddProduto.place(relx=0.5, rely=0.8, anchor="center")
 
 

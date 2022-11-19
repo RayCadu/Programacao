@@ -2,8 +2,7 @@ from conectSQL import *
 from datetime import *
 from tkinter import *
 
-
-def f_cadastrar_pessoas(nome,cpf,tel,username,senha,logradouro,numero,cep,boxtl,boxcidade,boxbairro,complemento, tpPessoa, teste):
+def f_cadastrar_pessoas(nome,cpf,tel,username,senha,logradouro,numero,cep,complemento, boxtl, boxcidade,boxbairro, tpPessoa, teste):
     
     dicp = {}
     dicp["username"] = username
@@ -101,26 +100,43 @@ def f_cadastar_tpProduto(tpProduto):
 
     return f_inserirDados("TIPO_PRODUTO", dicTp, "tipo_produto_pk")
 
-def f_cadastar_compra(username, subTotal, cod_produto):
+def f_cadastar_compra(username, subTotal, dicProdutos, tpPagamentoCombo):
     dicCompra = {}
 
     timestamp = datetime.now().astimezone(timezone(timedelta(hours=-3)))
     data_hora = timestamp.strftime('%Y-%m-%d %H:%M:%S')
 
     dicCompra["data_hora"] = data_hora
-    dicCompra["estado"] = 'Comprado'
-    dicCompra['fk_entregador_codigo'] = 1
+    dicCompra["estado"] = 'Realizado'
+    dicCompra["fk_entregador_codigo"] = 1
     cod_compra =  f_inserirDados("COMPRA", dicCompra, "codigo")
 
     cod_cliente = f_retornaEspc(['codigo'], 'cliente', username, 'fk_pessoa_username')
     cod_cliente = cod_cliente[0][0]
-
+    
     dicCliente_compra = {}
     dicCliente_compra['fk_compra_codigo'] = cod_compra
     dicCliente_compra['fk_cliente_codigo'] = cod_cliente
     f_inserirDados("CLIENTE_COMPRA", dicCliente_compra, "fk_compra_codigo")
 
+    total = 0
+    for i,list in dicProdutos.items():
+        dicCompra_produto = {}
+        dicCompra_produto['qtd'] = list[0]
+        dicCompra_produto['fk_compra_codigo'] = cod_compra
+        dicCompra_produto['fk_produto_codigo'] = list[2]
+        f_inserirDados("COMPRA_PRODUTO", dicCompra_produto, "qtd")
+        total += (list[0]) * (list[1])
+    
+    dicPagamento = {}
+    dicPagamento['fk_tipo_pagamento_tipo_pagamento_pk'] = tpPagamentoCombo
+    dicPagamento['valor'] = total
+    cod_pagamento = f_inserirDados("PAGAMENTO", dicPagamento, "codigo")
 
+    dicCompra_pagamento = {}
+    dicCompra_pagamento['fk_compra_codigo'] = cod_compra
+    dicCompra_pagamento['fk_pagamento_codigo'] = cod_pagamento
+    f_inserirDados("COMPRA_PAGAMENTO", dicCompra_pagamento, 'fk_compra_codigo')
 
 def f_validaUser(username, senha, label):
     users = f_retornaInfo(['username', 'senha'], "PESSOA")
@@ -190,11 +206,17 @@ def f_funcRes(username):
     return cod
 
 def f_adiciona_produto(dicProdutos, subTotal, texto_subTotal, listBox, produtoCombo, pos_produto):
-    if produtoCombo[pos_produto] in dicProdutos.keys():
-        dicProdutos[f'{produtoCombo[pos_produto]}'] += 1
-    else:
-        dicProdutos[f'{produtoCombo[pos_produto]}'] = 1
-    listBox.insert(END, produtoCombo[pos_produto])
     preco = f_retornaEspc(['valor'], 'PRODUTO', pos_produto, 'codigo')
     preco = preco[0][0]
-    print(preco)
+    if produtoCombo[pos_produto] in dicProdutos.keys():
+        dicProdutos[f'{produtoCombo[pos_produto]}'][0] += 1
+    else:
+        dicProdutos[f'{produtoCombo[pos_produto]}'] = [1, preco, pos_produto]
+    listBox.insert(END, produtoCombo[pos_produto])
+
+    total = 0
+    for i, produto in dicProdutos.items():
+        total += (produto[0]) * (produto[1])
+    
+    texto_subTotal.delete(0, END)
+    texto_subTotal.insert(0, total)
