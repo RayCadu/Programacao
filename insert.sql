@@ -68,7 +68,8 @@ INSERT INTO PESSOA (nome,username,telefone,cpf,senha,fk_endereco_codigo)
   
   
 INSERT INTO CLIENTE(FK_PESSOA_username)
-  VALUES('Robertinho'),
+  VALUES('admin_cliente'),
+  ('Robertinho'),
   ('Carlitos'),
   ('Lewis'),
   ('Eduzin'),
@@ -91,7 +92,7 @@ INSERT INTO TIPO_PRODUTO(descricao)
   ('Porção'),
   ('Bebida');
 
-INSERT INTO PRODUTO (nome,descricao,valor,FK_tipo_produto_tipo_produto)
+INSERT INTO PRODUTO (nome,descricao,valor,FK_tipo_produto_tipo_produto_pk)
   VALUES('X-burguer','2 hambúrgueres - pão - maionese - queijo - batata palha',17,1),
   ('X-bacon','2 hambúrgures - pão - maionese - ketchup - queijo - bacon',20,1),
   ('X-tudo','2 hambúrgueres - pão - maionese - salada - batata palha - bacon - ovo',28,1),
@@ -100,7 +101,7 @@ INSERT INTO PRODUTO (nome,descricao,valor,FK_tipo_produto_tipo_produto)
   ('Refrigerante','temos refrigerante de todos os sabores, mas todos são latinha',7,3),
   ('Onion rings','porção de anéis de cebola de 150g',10,2);
 
-INSERT INTO TIPO_PAGAMENTO(tipo_pagamento)
+INSERT INTO TIPO_PAGAMENTO(tipo_pagamento_pk)
   VALUES('Dinheiro'),
   ('Pix'),
   ('Cartão de Crédito'),

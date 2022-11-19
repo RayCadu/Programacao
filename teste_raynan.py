@@ -136,6 +136,7 @@ def f_tela_cliente_dinheiro():
 
 
 def f_tela_compra(username):
+    dicProdutos = {}
     root = Toplevel()
     root.geometry('300x500')
     root.title('Compra')
@@ -164,35 +165,34 @@ def f_tela_compra(username):
     comboBoxProduto.place(relx=0.3, rely=0.25, anchor="w")
     
 
-    label_nome = Label(root, text="Quantidade")
-    label_nome.place(relx=0.06, rely=0.35, anchor="w")
+    #label_nome = Label(root, text="Quantidade")
+    #label_nome.place(relx=0.06, rely=0.35, anchor="w")
 
-    qtd = StringVar()
-    texto_qtd = Entry(root, textvariable= qtd, width=30)
-    texto_qtd.place(relx=0.3, rely=0.35, anchor="w")
+    #qtd = StringVar()
+    #texto_qtd = Entry(root, textvariable= qtd, width=30)
+    #texto_qtd.place(relx=0.3, rely=0.35, anchor="w")
 
-    #label_nome = Label(root, text="Entregador")
-    #label_nome.place(relx=0.5, rely=0.45, anchor="center")
+    label_carrinho = Label(root, text="Carrinho")
+    label_carrinho.place(relx=0.5, rely=0.35, anchor="center")
 
     #entregador = StringVar()
-    #comboBoxEntregador = Combobox(root, textvariable= entregador, height=0.5, width=24)
-    #comboBoxEntregador['values'] = ('teste1', 'teste2', 'teste3')
-    #comboBoxEntregador.place(relx=0.5, rely=0.50, anchor="center")
+    listBoxCarrinho = Listbox(root, height=5, width=45)
+    listBoxCarrinho.place(relx=0.5, rely=0.45, anchor="center")
 
     label_nome = Label(root, text="SubTotal")
     label_nome.place(relx=0.5, rely=0.6, anchor="center")
 
-    subTotal = StringVar()
+    subTotal = IntVar()
     texto_subTotal = Entry(root, textvariable= subTotal, width=30)
     texto_subTotal.place(relx=0.5, rely=0.65, anchor="center")
 
-    btnAddCarrinho = Button(root, text="Adicionar ao\nCarrinho")
+    btnAddCarrinho = Button(root, text="Adicionar ao\nCarrinho", command= lambda: f_adiciona_produto(dicProdutos, subTotal, texto_subTotal, listBoxCarrinho, produtoCombo, pos_produto= f_codigo(produto, produtoCombo)))
     btnAddCarrinho.place(relx=0.5, rely=0.75, anchor="center")
 
-    btnAddCompra = Button(root, text="Finalizar Compra", command= lambda: f_cadastar_compra(username, qtd.get(), subTotal.get(), cod_produto= f_codigo(produto, produtoCombo)))
+    btnAddCompra = Button(root, text="Finalizar Compra", command= lambda: f_cadastar_compra(username, subTotal.get(), cod_produto= f_codigo(produto, produtoCombo)))
     btnAddCompra.place(relx=0.5, rely=0.85, anchor="center")
 
-    btnMenu = Button(root, text="Voltar ao Menu", command= root.destroy)
+    btnMenu = Button(root, text="Voltar ao Menu", command=lambda: print(dicProdutos))
     btnMenu.place(relx=0.5, rely=0.95, anchor="center")
 
     root.mainloop()

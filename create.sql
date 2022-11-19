@@ -58,7 +58,7 @@ CREATE TABLE tipo_produto (
 );
 
 CREATE TABLE tipo_pagamento (
-    tipo_pagamento_PK integer NOT NULL PRIMARY KEY,
+    tipo_pagamento_PK serial NOT NULL PRIMARY KEY,
     tipo_pagamento varchar(30)
 );
 

@@ -1,5 +1,6 @@
 from conectSQL import *
 from datetime import *
+from tkinter import *
 
 
 def f_cadastrar_pessoas(nome,cpf,tel,username,senha,logradouro,numero,cep,boxtl,boxcidade,boxbairro,complemento, tpPessoa, teste):
@@ -100,7 +101,7 @@ def f_cadastar_tpProduto(tpProduto):
 
     return f_inserirDados("TIPO_PRODUTO", dicTp, "tipo_produto_pk")
 
-def f_cadastar_compra(username, qtd, subTotal, cod_produto):
+def f_cadastar_compra(username, subTotal, cod_produto):
     dicCompra = {}
 
     timestamp = datetime.now().astimezone(timezone(timedelta(hours=-3)))
@@ -119,7 +120,7 @@ def f_cadastar_compra(username, qtd, subTotal, cod_produto):
     dicCliente_compra['fk_cliente_codigo'] = cod_cliente
     f_inserirDados("CLIENTE_COMPRA", dicCliente_compra, "fk_compra_codigo")
 
-    
+
 
 def f_validaUser(username, senha, label):
     users = f_retornaInfo(['username', 'senha'], "PESSOA")
@@ -187,3 +188,13 @@ def f_funcRes(username):
     cod = cod[0][0]
 
     return cod
+
+def f_adiciona_produto(dicProdutos, subTotal, texto_subTotal, listBox, produtoCombo, pos_produto):
+    if produtoCombo[pos_produto] in dicProdutos.keys():
+        dicProdutos[f'{produtoCombo[pos_produto]}'] += 1
+    else:
+        dicProdutos[f'{produtoCombo[pos_produto]}'] = 1
+    listBox.insert(END, produtoCombo[pos_produto])
+    preco = f_retornaEspc(['valor'], 'PRODUTO', pos_produto, 'codigo')
+    preco = preco[0][0]
+    print(preco)
