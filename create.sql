@@ -59,7 +59,7 @@ CREATE TABLE tipo_produto (
 
 CREATE TABLE tipo_pagamento (
     tipo_pagamento_PK integer NOT NULL PRIMARY KEY,
-    tipo_pagamento integer
+    tipo_pagamento varchar(30)
 );
 
 CREATE TABLE endereco (

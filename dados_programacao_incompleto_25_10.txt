@@ -100,9 +100,9 @@ TABELA FUNCIONARIO:
 
 TABELA PRODUTO:
 1(serial),X-burguer,2 hambúrgueres - pão - maionese - queijo - batata palha,17,1
-2(serial),X-bacon, 2 hambúrgures - pão - maionese - ketchup - queijo - bacon,20,2
-3(serial),X-tudo, 2 hambúrgueres - pão - maionese
-4(serial),batata frita,
-5(serial),X-gourmet,
-6(serial),refrigerante,
-7(serial),onion rings,
+2(serial),X-bacon,2 hambúrgures - pão - maionese - ketchup - queijo - bacon,20,1
+3(serial),X-tudo,2 hambúrgueres - pão - maionese - salada - batata palha - bacon - ovo,28,1
+4(serial),batata frita, porção de batata de 300g,15,2
+5(serial),X-gourmet,3 hambúrgures - pão - maionese - ketchup - 2 queijos - bacon - salada - 2 presuntos ,33,1
+6(serial),refrigerante,temos refrigerante de todos os sabores mas todos são latinha,7,3
+7(serial),onion rings,porção de anéis de cebola de 150g,10,2
