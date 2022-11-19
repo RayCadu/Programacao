@@ -302,12 +302,13 @@ def f_endereco(nome,cpf,tel,username,senha, tpPessoa,edit,fk_endereco_codigo):
     addE = Button(root, text ="Cadastrar pessoa",command = lambda: f_cadastrar_pessoas(nome.get(),cpf.get(),tel.get(),username.get(),senha.get(), logradouro.get(), numero.get(), cep.get(), complemento.get(), boxtl.get(), boxcidade.get(), boxbairro.get(), tpPessoa, teste = (f_codigo(boxtl.get(), tpLg), f_codigo(boxcidade.get(), cidade), f_codigo(boxbairro.get(), bairro))))
     btnVoltar = Button(root, text="Voltar para\ntela pessoa", command= root.destroy)
 
-    if(edit == 1):
+    if(edit == 1 or edit == 2):
         info = f_editar_endereco(fk_endereco_codigo)
-        texto_cep.insert(0,info[0][0])
-        texto_logradouro.insert(0,info[0][1])
-        texto_numero.insert(0,info[0][2])
-        texto_complemento.insert(0,info[0][6])
+        if(len(info) != 0):
+            texto_cep.insert(0,info[0][0])
+            texto_logradouro.insert(0,info[0][1])
+            texto_numero.insert(0,info[0][2])
+            texto_complemento.insert(0,info[0][6])
 
     #posicionamento label
     label_endereco.place(relx = 0.5,rely = 0.030,anchor = 'center')
@@ -371,15 +372,16 @@ def f_tela_pessoa(tpPessoa,edit,username):
     texto_username = Entry(root,textvariable=user, width=20)
     senha = StringVar()
     texto_senha = Entry(root,textvariable=senha, width=20)
-    if(edit == 1):
+    if(edit == 1 or edit == 2):
        info = f_editar_pessoa(username)
-       texto_nome.insert(0,info[0][0])
-       texto_tel.insert(0,info[0][1])
-       texto_cpf.insert(0,info[0][2])
-       texto_username.insert(0,info[0][3])
-       texto_senha.insert(0,info[0][4])
-       fk_endereco_codigo = info[0][5]
-    
+       if(len(info) != 0):
+        texto_nome.insert(0,info[0][0])
+        texto_tel.insert(0,info[0][1])
+        texto_cpf.insert(0,info[0][2])
+        texto_username.insert(0,info[0][3])
+        texto_senha.insert(0,info[0][4])
+        fk_endereco_codigo = info[0][5]
+        
 
     #posicionamento textos
     texto_nome.place(relx = 0.4, rely = 0.2, anchor = 'w')
@@ -509,10 +511,10 @@ def f_menu_funcionario(username):
     addCP = Button(root, text="Cadastrar Produtos", background="#808080", foreground="black", command= lambda: f_produto(username))
     addCP.place(relx=0.5, rely=0.4, anchor="center")
 
-    addCE = Button(root, text="Cadastrar Entregador", background="#808080", foreground="black", command=lambda: f_tela_pessoa(1, 0, username = None))
+    addCE = Button(root, text="Cadastrar Entregador", background="#808080", foreground="black", command=lambda: f_tela_pessoa(1, 2, username = None))
     addCE.place(relx=0.5, rely=0.5, anchor="center")
 
-    addCF = Button(root, text="Cadastrar Funcionário", background="#808080", foreground="black", command=lambda: f_tela_pessoa(0, 0, username = None))
+    addCF = Button(root, text="Cadastrar Funcionário", background="#808080", foreground="black", command=lambda: f_tela_pessoa(0, 2, username = None))
     addCF.place(relx=0.5, rely=0.6, anchor="center")
 
     edit = Button(root, text="Editar Informação", background="#808080", foreground="black",command= lambda: f_tela_pessoa(0,1,username))
