@@ -50,10 +50,10 @@ INSERT INTO endereco (cep,logradouro,numero,bairro,cidade,tipo_logradouro,comple
   (26132,'Canarinho',10,5,7,10,'apartamento'),
   (20222,'Parquinho',48,6,4,8,'casa');
   
-INSERT INTO PESSOA (username,nome,telefone,cpf,senha,fk_endereco_codigo)
-  VALUES('admin_cliente','admin_cliente','99824-2421','111.111.111-00','admin_cliente',1),
-  ('admin_entregador','admin_entregador','99824-2321','222.222.222-00','admin_entregador',2),
-  ('admin_funcionario','admin_funcionario','99824-2322','333.333.333-00','admin_funcionario',3),
+INSERT INTO PESSOA (nome,username,telefone,cpf,senha,fk_endereco_codigo)
+  VALUES('admin_cliente','admin_cliente','99824-2421','111.111.111-00','senha1234',1),
+  ('admin_entregador','admin_entregador','99824-2321','222.222.222-00','senha1234',2),
+  ('admin_funcionario','admin_funcionario','99824-2322','333.333.333-00','senha1234',3),
   ('Roberto','Robertinho','94285-5256','444.444.444-00','rober123',4),
   ('Carlos Eduardo','Carlitos','91424-2412','555.555.555-00','car123',5),
   ('Luiz Herinque','Lewis','91842-1324','636.636.636-00','Lewis123',6),
@@ -79,19 +79,29 @@ INSERT INTO CLIENTE(FK_PESSOA_username)
 INSERT INTO ENTREGADOR(salario,FK_PESSOA_username)
   VALUES(1500,'admin_entregador'),
   (1800,'Jul'),
-  (1640,'Carlos Herinque');
+  (1640,'Carhen');
   
 INSERT INTO FUNCIONARIO(salario,chave_acesso,FK_PESSOA_username)
   VALUES(2300,'func1','admin_funcionario'),
   (2400,'func2','Albertinho'),
   (2500,'func3','Fran');
-  
+
+INSERT INTO TIPO_PRODUTO(descricao)
+  VALUES('Lanche'),
+  ('Porção'),
+  ('Bebida');
+
 INSERT INTO PRODUTO (nome,descricao,valor,FK_tipo_produto_tipo_produto)
   VALUES('X-burguer','2 hambúrgueres - pão - maionese - queijo - batata palha',17,1),
   ('X-bacon','2 hambúrgures - pão - maionese - ketchup - queijo - bacon',20,1),
   ('X-tudo','2 hambúrgueres - pão - maionese - salada - batata palha - bacon - ovo',28,1),
   ('Batata frita','porção de batata de 300g',15,2),
   ('X-gourmet','3 hambúrgures - pão - maionese - ketchup - 2 queijos - bacon - salada - 2 presuntos',33,1),
-  ('Refrigerante','temos refrigerante de todos os sabores mas todos são latinha',7,3),
+  ('Refrigerante','temos refrigerante de todos os sabores, mas todos são latinha',7,3),
   ('Onion rings','porção de anéis de cebola de 150g',10,2);
-  
+
+INSERT INTO TIPO_PAGAMENTO(tipo_pagamento)
+  VALUES('Dinheiro'),
+  ('Pix'),
+  ('Cartão de Crédito'),
+  ('Cartão de Débito');
