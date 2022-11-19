@@ -1,4 +1,5 @@
 from conectSQL import *
+from datetime import *
 
 
 def f_cadastrar_pessoas(nome,cpf,tel,username,senha,logradouro,numero,cep,boxtl,boxcidade,boxbairro,complemento, tpPessoa, teste):
@@ -99,11 +100,26 @@ def f_cadastar_tpProduto(tpProduto):
 
     return f_inserirDados("TIPO_PRODUTO", dicTp, "tipo_produto_pk")
 
-def f_cadastar_compra():
-    dicTp = {}
-    dicTp["descricao"] = tpProduto
+def f_cadastar_compra(username, qtd, subTotal, cod_produto):
+    dicCompra = {}
 
-    return f_inserirDados("TIPO_PRODUTO", dicTp, "tipo_produto_pk")
+    timestamp = datetime.now().astimezone(timezone(timedelta(hours=-3)))
+    data_hora = timestamp.strftime('%Y-%m-%d %H:%M:%S')
+
+    dicCompra["data_hora"] = data_hora
+    dicCompra["estado"] = 'Comprado'
+    dicCompra['fk_entregador_codigo'] = 1
+    cod_compra =  f_inserirDados("COMPRA", dicCompra, "codigo")
+
+    cod_cliente = f_retornaEspc(['codigo'], 'cliente', username, 'fk_pessoa_username')
+    cod_cliente = cod_cliente[0][0]
+
+    dicCliente_compra = {}
+    dicCliente_compra['fk_compra_codigo'] = cod_compra
+    dicCliente_compra['fk_cliente_codigo'] = cod_cliente
+    f_inserirDados("CLIENTE_COMPRA", dicCliente_compra, "fk_compra_codigo")
+
+    
 
 def f_validaUser(username, senha, label):
     users = f_retornaInfo(['username', 'senha'], "PESSOA")
