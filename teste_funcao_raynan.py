@@ -196,7 +196,6 @@ def f_codigo(boxtl, tpLg):
         tp = tpLg.index(boxtl.get())
     except ValueError:
         tp = 0
-    print(tp)
     return tp
 
 def f_funcRes(username):

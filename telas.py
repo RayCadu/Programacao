@@ -5,138 +5,6 @@ from tkinter.ttk import Entry
 
 fk_endereco_codigo = 0
 
-def f_cliente_cartao():
-
-    root = Toplevel()
-    root.geometry('300x500')
-    root.title('Cliente')
-
-    label_cliente = Label(root, text="Cliente")
-    label_cliente.place(relx=0.5, rely=0.085, anchor="center")    
-
-    label_codigo = Label(root, text="Código")
-    label_codigo.place(relx=0.1, rely=0.1, anchor="w")
-
-    codigo = StringVar()
-    texto_codigo = Entry(root,textvariable = codigo, width = 20)
-    texto_codigo.place(relx=0.3, rely=0.1, anchor="w")
-
-    label_nome = Label(root, text="Nome")
-    label_nome.place(relx=0.1, rely=0.2, anchor="w")
-
-    nome = StringVar()
-    texto_nome = Entry(root,textvariable = nome, width = 20)
-    texto_nome.place(relx=0.3, rely=0.2, anchor="w")
-
-    label_telefone = Label(root, text="Telefone")
-    label_telefone.place(relx=0.1, rely=0.3, anchor="w")
-
-    telefone = StringVar()
-    texto_telefone = Entry(root, textvariable = telefone, width = 20)
-    texto_telefone.place(relx=0.3, rely=0.3, anchor="w")
-
-    label_codigo = Label(root, text="Forma\nde Pagamento")
-    label_codigo.place(relx=0.1, rely=0.4, anchor="w")
-
-    checkPgCartao = Checkbutton(root, text="Cartão", onvalue= 1, offvalue=0)
-    checkPgCartao.place(relx=0.45, rely=0.4, anchor="w")
-
-    label_apelido_cartao = Label(root, text="Apelido\ndo Cartão")
-    label_apelido_cartao.place(relx=0.1, rely=0.5, anchor="w")
-
-    apelido = StringVar()
-    texto_apelido_cartao = Entry(root, textvariable= apelido, width = 20)
-    texto_apelido_cartao.place(relx=0.35, rely=0.5, anchor="w")
-
-    label_num_cartao = Label(root, text="Número\ndo Cartão")
-    label_num_cartao.place(relx=0.1, rely=0.6, anchor="w")
-
-    numCartao = StringVar()
-    texto_num_cartao = Entry(root, textvariable= numCartao, width = 20)
-    texto_num_cartao.place(relx=0.35, rely=0.6, anchor="w")
-
-    label_validade = Label(root, text="Validade\ndo Cartão")
-    label_validade.place(relx=0.1, rely=0.7, anchor="w")
-
-    validade = StringVar()
-    texto_validade = Entry(root, textvariable= validade, width = 20)
-    texto_validade.place(relx=0.35, rely=0.7, anchor="w")
-
-    label_cvv = Label(root, text="CVV\ndo Cartão")
-    label_cvv.place(relx=0.1, rely=0.8, anchor="w")
-
-    cvv = StringVar()
-    texto_cvv = Entry(root, textvariable=cvv, width = 20)
-    texto_cvv.place(relx=0.35, rely=0.8, anchor="w")
-
-    btnAddEdereco = Button(root, text="Adicionar Endereço")
-    btnAddEdereco.place(relx=0.5, rely=0.88, anchor="center")
-
-    btnVoltar = Button(root, text="Voltar a tela Pessoa")
-    btnVoltar.place(relx=0.5, rely=0.95, anchor="center")
-
-    root.mainloop()
-
-def f_tela_cliente_dinheiro():
-    root = Toplevel()
-    root.geometry('300x500')
-    root.title('Cliente')
-
-    #label
-    label_cliente = Label(root,text = "CLIENTE")
-    label_codigo = Label(root,text = "CÓDIGO:")
-    label_nome = Label(root,text = "NOME:")
-    label_telefone = Label(root, text ="TELEFONE:")
-    label_fp = Label(root,text="FORMA\nDE PAGAMENTO", background= 'black', foreground= 'white')
-    label_pc = Label(root,text = "PAGAMENTO NO\nCARTÃO")
-    label_dinheiro = Label(root,text = "DINHEIRO")
-    label_pix = Label(root,text = "PIX")
-
-    #textos
-    codigo = StringVar()
-    texto_codigo = Entry(root, textvariable = codigo, width=20)
-    nome = StringVar()
-    texto_nome = Entry(root, textvariable = nome, width=20)
-    telefone = StringVar()
-    texto_telefone = Entry(root, textvariable = telefone, width=20)
-
-    #checkbutton
-    checkPC = Checkbutton(root,text = "SIM", onvalue = 1, offvalue = 0)
-    checkDINHEIRO = Checkbutton(root,text = "SIM",onvalue = 1, offvalue = 0)
-    checkPIX = Checkbutton(root,text = "SIM",onvalue = 1, offvalue = 0)
-
-    #botões
-    addAE = Button(root,text ="Adicionar endereço")
-    addTP = Button(root,text = "Voltar a tela pessoa")
-
-    #posicionamento label
-    label_cliente.place(relx = 0.5, rely = 0.05, anchor='center')
-    label_codigo.place(relx = 0.1, rely = 0.1, anchor = 'w')
-    label_nome.place(relx = 0.1, rely = 0.2, anchor = 'w')
-    label_telefone.place(relx = 0.05, rely = 0.3, anchor = 'w')
-    label_fp.place(relx = 0.01, rely = 0.4, anchor = 'w')
-    label_pc.place(relx = 0.1, rely =0.5, anchor = 'w')
-    label_dinheiro.place(relx = 0.15, rely =0.6, anchor = 'w')
-    label_pix.place(relx = 0.2, rely = 0.7, anchor = 'w')
-
-    #posicionamento textos
-    texto_codigo.place(relx = 0.3, rely = 0.1 , anchor = 'w')
-    texto_nome.place(relx = 0.3 , rely = 0.2 , anchor = 'w')
-    texto_telefone.place(relx = 0.3, rely = 0.3 , anchor = 'w')
-
-    #posicionamento checkbutton
-    checkPC.place(relx = 0.5,rely = 0.5,anchor = 'w')
-    checkDINHEIRO.place(relx = 0.5,rely = 0.6,anchor = 'w')
-    checkPIX.place(relx = 0.5,rely = 0.7,anchor = 'w')
-
-    #posicionamento botões
-    addAE.place(relx= 0.5,rely= 0.8,anchor='center')
-    addTP.place(relx= 0.5,rely= 0.9,anchor='center')
-
-
-    root.mainloop()
-
-
 def f_tela_compra(username):
     root = Toplevel()
     root.geometry('300x500')
@@ -159,90 +27,47 @@ def f_tela_compra(username):
 
     produto = StringVar()
     comboBoxProduto = Combobox(root, textvariable= produto, width=24, state='readonly')
-    comboBoxProduto['values'] = ('teste1', 'teste2', 'teste3')
+    produtoCombo = f_retornaInfo(['nome'], 'PRODUTO')
+    produtoCombo = f_retornaLista(produtoCombo)
+    produtoCombo.insert(0, '')
+    comboBoxProduto['values'] = produtoCombo
     comboBoxProduto.place(relx=0.3, rely=0.25, anchor="w")
 
-    label_nome = Label(root, text="Quantidade")
-    label_nome.place(relx=0.06, rely=0.35, anchor="w")
+    label_tpPagamento = Label(root, text="Tp.\nPagamento")
+    label_tpPagamento.place(relx=0.08, rely=0.30, anchor="w")
 
-    qtd = StringVar()
-    texto_qtd = Entry(root, textvariable= qtd, width=30)
-    texto_qtd.place(relx=0.3, rely=0.35, anchor="w")
+    tpPagamento = StringVar()
+    comboBoxtpPagamento = Combobox(root, textvariable= tpPagamento, width=24, state='readonly')
+    tpPagamentoCombo = f_retornaInfo(['tipo_pagamento'], 'TIPO_PAGAMENTO')
+    tpPagamentoCombo = f_retornaLista(tpPagamentoCombo)
+    tpPagamentoCombo.insert(0, '')
+    comboBoxtpPagamento['values'] = tpPagamentoCombo
+    comboBoxtpPagamento.place(relx=0.3, rely=0.30, anchor="w")
 
-    #label_nome = Label(root, text="Entregador")
-    #label_nome.place(relx=0.5, rely=0.45, anchor="center")
+    label_carrinho = Label(root, text="Carrinho")
+    label_carrinho.place(relx=0.5, rely=0.35, anchor="center")
 
-    #entregador = StringVar()
-    #comboBoxEntregador = Combobox(root, textvariable= entregador, height=0.5, width=24)
-    #comboBoxEntregador['values'] = ('teste1', 'teste2', 'teste3')
-    #comboBoxEntregador.place(relx=0.5, rely=0.50, anchor="center")
+    listBoxCarrinho = Listbox(root, height=5, width=45)
+    listBoxCarrinho.place(relx=0.5, rely=0.45, anchor="center")
 
     label_nome = Label(root, text="SubTotal")
     label_nome.place(relx=0.5, rely=0.6, anchor="center")
 
-    subTotal = StringVar()
+    subTotal = IntVar()
     texto_subTotal = Entry(root, textvariable= subTotal, width=30)
     texto_subTotal.place(relx=0.5, rely=0.65, anchor="center")
 
-    btnAddCarrinho = Button(root, text="Adicionar ao\nCarrinho")
+    btnAddCarrinho = Button(root, text="Adicionar ao\nCarrinho", command= lambda: f_adiciona_produto(dicProdutos, subTotal.get(), texto_subTotal, listBoxCarrinho, produtoCombo, pos_produto= f_codigo(produto, produtoCombo)))
     btnAddCarrinho.place(relx=0.5, rely=0.75, anchor="center")
 
-    btnAddCompra = Button(root, text="Finalizar Compra")
+    btnAddCompra = Button(root, text="Finalizar Compra", command= lambda: f_cadastar_compra(username, subTotal.get(), dicProdutos, tpPagamentoCombo = f_codigo(tpPagamento, tpPagamentoCombo)))
     btnAddCompra.place(relx=0.5, rely=0.85, anchor="center")
 
-    btnMenu = Button(root, text="Voltar ao Menu", command= root.destroy)
+    btnMenu = Button(root, text="Voltar ao Menu", command=lambda: root.destroy())
     btnMenu.place(relx=0.5, rely=0.95, anchor="center")
 
     root.mainloop()
 
-
-def f_tela_editar(username):
-    root = Toplevel()
-    root.geometry('300x500')
-    root.title('Editar')
-
-    #label
-    label_editar = Label(root, text="EDITAR",background='black',foreground='white')
-    label_cliente = Label(root, text="CLIENTE:")
-    label_produto = Label(root, text="PRODUTO:")
-    label_entregador = Label(root,text="ENTREGADOR:")
-
-    #checkbutton
-
-    checkC = Checkbutton(root, text="SIM",onvalue=1,offvalue=0)
-    checkP = Checkbutton(root, text="SIM",onvalue=1,offvalue=0)
-    checkE = Checkbutton(root, text="SIM",onvalue=1,offvalue=0)
-
-    #combobox
-
-    cpe = StringVar()
-    ComboBoxCPE = Combobox(root,textvariable = cpe, width= 20)
-
-    #botão
-    addEI = Button(root,text="Editar informações")
-    addM = Button(root,text="Voltar ao menu",command=root.destroy)
-
-    #posicionamento label
-
-    label_editar.place(relx= 0.5,rely= 0.1,anchor='center')
-    label_cliente.place(relx= 0.35,rely= 0.2,anchor='center')
-    label_produto.place(relx= 0.33,rely= 0.3,anchor='center')
-    label_entregador.place(relx= 0.3,rely= 0.4,anchor='center')
-
-    #posicionamento checkbutton
-
-    checkC.place(relx=0.6,rely=0.2,anchor='center')
-    checkP.place(relx=0.6,rely=0.3,anchor='center')
-    checkE.place(relx=0.6,rely=0.4,anchor='center')
-
-    #posicionamento combobox
-    ComboBoxCPE.place(relx= 0.5,rely= 0.5,anchor='center')
-
-    #posicionamento botão
-    addEI.place(relx=0.5,rely=0.7,anchor='center')
-    addM.place(relx=0.5,rely=0.8,anchor='center')
-
-    root.mainloop()
 
 def f_endereco(nome,cpf,tel,username,senha, tpPessoa,edit,fk_endereco_codigo):
     root = Toplevel()
@@ -302,12 +127,13 @@ def f_endereco(nome,cpf,tel,username,senha, tpPessoa,edit,fk_endereco_codigo):
     addE = Button(root, text ="Cadastrar pessoa",command = lambda: f_cadastrar_pessoas(nome.get(),cpf.get(),tel.get(),username.get(),senha.get(), logradouro.get(), numero.get(), cep.get(), complemento.get(), boxtl.get(), boxcidade.get(), boxbairro.get(), tpPessoa, teste = (f_codigo(boxtl.get(), tpLg), f_codigo(boxcidade.get(), cidade), f_codigo(boxbairro.get(), bairro))))
     btnVoltar = Button(root, text="Voltar para\ntela pessoa", command= root.destroy)
 
-    if(edit == 1):
+    if(edit == 1 or edit == 2):
         info = f_editar_endereco(fk_endereco_codigo)
-        texto_cep.insert(0,info[0][0])
-        texto_logradouro.insert(0,info[0][1])
-        texto_numero.insert(0,info[0][2])
-        texto_complemento.insert(0,info[0][6])
+        if(len(info) != 0):
+            texto_cep.insert(0,info[0][0])
+            texto_logradouro.insert(0,info[0][1])
+            texto_numero.insert(0,info[0][2])
+            texto_complemento.insert(0,info[0][6])
 
     #posicionamento label
     label_endereco.place(relx = 0.5,rely = 0.030,anchor = 'center')
@@ -371,14 +197,15 @@ def f_tela_pessoa(tpPessoa,edit,username):
     texto_username = Entry(root,textvariable=user, width=20)
     senha = StringVar()
     texto_senha = Entry(root,textvariable=senha, width=20)
-    if(edit == 1):
+    if(edit == 1 or edit == 2):
        info = f_editar_pessoa(username)
-       texto_nome.insert(0,info[0][0])
-       texto_tel.insert(0,info[0][1])
-       texto_cpf.insert(0,info[0][2])
-       texto_username.insert(0,info[0][3])
-       texto_senha.insert(0,info[0][4])
-       fk_endereco_codigo = info[0][5]
+       if(len(info) != 0):
+        texto_nome.insert(0,info[0][0])
+        texto_tel.insert(0,info[0][1])
+        texto_cpf.insert(0,info[0][2])
+        texto_username.insert(0,info[0][3])
+        texto_senha.insert(0,info[0][4])
+        fk_endereco_codigo = info[0][5]
     
 
     #posicionamento textos
@@ -412,13 +239,6 @@ def f_produto(username):
     label_codigo = Label(root, text="Produto")
     label_codigo.place(relx=0.5, rely=0.06, anchor="center")
 
-    label_codigo = Label(root, text="Código")
-    label_codigo.place(relx=0.1, rely=0.1, anchor="w")
-
-    codigo = StringVar()
-    texto_codigo = Entry(root, textvariable= codigo, width=30)
-    texto_codigo.place(relx=0.3, rely=0.1, anchor="w")
-
     label_nome = Label(root, text="Nome")
     label_nome.place(relx=0.1, rely=0.2, anchor="w")
 
@@ -450,7 +270,7 @@ def f_produto(username):
     texto_descricao = Text(root, height= 5, width=23)
     texto_descricao.place(relx=0.3, rely=0.6, anchor="w")
 
-    btnAddProduto = Button(root, text="Cadastrar", command=lambda:[f_cadastrar_produto(nome.get(), cbTpProduto.get(), valor.get(), texto_descricao.get("1.0", END), new=f_codigo(cbTpProduto, tpProduto), cod_func= f_funcRes(username))]) #command=part(f_cadastrar, root)
+    btnAddProduto = Button(root, text="Cadastrar", command=lambda:[f_cadastrar_produto(nome.get(), cbTpProduto.get(), valor.get(), texto_descricao.get("1.0", END), new=f_codigo(cbTpProduto, tpProduto), cod_func= f_funcRes(username)), root.destroy()]) #command=part(f_cadastrar, root)
     btnAddProduto.place(relx=0.5, rely=0.8, anchor="center")
 
 
@@ -509,10 +329,10 @@ def f_menu_funcionario(username):
     addCP = Button(root, text="Cadastrar Produtos", background="#808080", foreground="black", command= lambda: f_produto(username))
     addCP.place(relx=0.5, rely=0.4, anchor="center")
 
-    addCE = Button(root, text="Cadastrar Entregador", background="#808080", foreground="black", command=lambda: f_tela_pessoa(1, 0, username = None))
+    addCE = Button(root, text="Cadastrar Entregador", background="#808080", foreground="black", command=lambda: f_tela_pessoa(1, 2, username = None))
     addCE.place(relx=0.5, rely=0.5, anchor="center")
 
-    addCF = Button(root, text="Cadastrar Funcionário", background="#808080", foreground="black", command=lambda: f_tela_pessoa(0, 0, username = None))
+    addCF = Button(root, text="Cadastrar Funcionário", background="#808080", foreground="black", command=lambda: f_tela_pessoa(0, 2, username = None))
     addCF.place(relx=0.5, rely=0.6, anchor="center")
 
     edit = Button(root, text="Editar Informação", background="#808080", foreground="black",command= lambda: f_tela_pessoa(0,1,username))
