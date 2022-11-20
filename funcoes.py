@@ -3,30 +3,34 @@ from datetime import *
 from tkinter import *
 
 def f_cadastrar_pessoas(nome,cpf,tel,username,senha,logradouro,numero,cep,complemento, boxtl, boxcidade,boxbairro, tpPessoa, teste):
-    
+    print(nome)
+    print(cpf)
+    print(tel)
+    print(username)
+    print(senha)
     dicp = {}
     dicp["username"] = username
     dicp["nome"] = nome
     dicp["telefone"] = tel
     dicp["cpf"] = cpf
     dicp["senha"] = senha
-    dicp["fk_endereco_codigo"] = f_cadastrar_endereco(cep,logradouro,numero,boxbairro,boxcidade,boxtl,complemento, teste)
-    f_inserirDados("PESSOA",dicp,"username")
+    #dicp["fk_endereco_codigo"] = f_cadastrar_endereco(cep,logradouro,numero,boxbairro,boxcidade,boxtl,complemento, teste)
+    #f_inserirDados("PESSOA",dicp,"username")
 
     if(tpPessoa == 0):
         dicC = {}
         dicC["fk_pessoa_username"] = username
-        f_inserirDados("FUNCIONARIO", dicC, "codigo")
+        #f_inserirDados("FUNCIONARIO", dicC, "codigo")
 
     elif(tpPessoa == 1):
         dicC = {}
         dicC["fk_pessoa_username"] = username
-        f_inserirDados("ENTREGADOR", dicC, "codigo")
+        #f_inserirDados("ENTREGADOR", dicC, "codigo")
 
     elif(tpPessoa == 2):
         dicC = {}
         dicC["fk_pessoa_username"] = username
-        f_inserirDados("CLIENTE", dicC, "codigo")
+        #f_inserirDados("CLIENTE", dicC, "codigo")
     
     return 0
 
@@ -182,8 +186,14 @@ def f_editar_endereco(fk_endereco_codigo):
     info = f_retornaEspc(['cep','logradouro','numero','bairro','cidade','tipo_logradouro','complemento'],'endereco',fk_endereco_codigo, 'codigo')
     return info
 
-def atualizar_pessoas(nome,cpf,tel,username,senha,logradouro,numero,cep,complemento, boxtl, boxcidade,boxbairro, tpPessoa, teste):
-    f_retornaEspc() 
+def f_atualizar_pessoas(nome,cpf,tel,username,senha,logradouro,numero,cep,complemento, boxtl, boxcidade,boxbairro, tpPessoa, infoP, infoE, teste):
+    print(nome)
+    print(cpf)
+    print(tel)
+    print(username)
+    print(senha)
+    print(infoE)
+    print(infoP)
     return 0
 def f_retornaLista(t):
     p =list()

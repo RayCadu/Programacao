@@ -5,6 +5,47 @@ from tkinter.ttk import Entry
 
 fk_endereco_codigo = 0
 
+def f_tela_entrega(username):
+    root = Toplevel()
+    root.geometry('300x500')
+    root.title('Entrega')
+
+    #label
+    label_entrega = Label(root, text="ENTREGA",background='black',foreground='white')
+    label_compra = Label(root, text="Compra:")
+
+
+    #combobox
+
+    compra = StringVar()
+    ComboBoxCompra = Combobox(root,textvariable = compra, width= 20)
+
+    #botão
+    addRE = Button(root,text="Realizar Entrega")
+    addM = Button(root,text="Voltar ao menu",command=root.destroy)
+
+    #posicionamento label
+
+    label_entrega.place(relx= 0.5,rely= 0.1,anchor='center')
+    label_compra.place(relx= 0.35,rely= 0.2,anchor='center')
+    #label_produto.place(relx= 0.33,rely= 0.3,anchor='center')
+    #label_entregador.place(relx= 0.3,rely= 0.4,anchor='center')
+
+    #posicionamento checkbutton
+
+    #checkC.place(relx=0.6,rely=0.2,anchor='center')
+    #checkP.place(relx=0.6,rely=0.3,anchor='center')
+    #checkE.place(relx=0.6,rely=0.4,anchor='center')
+
+    #posicionamento combobox
+    ComboBoxCompra.place(relx= 0.5,rely= 0.5,anchor='center')
+
+    #posicionamento botão
+    addRE.place(relx=0.5,rely=0.7,anchor='center')
+    addM.place(relx=0.5,rely=0.8,anchor='center')
+
+    root.mainloop()
+
 def f_tela_compra(username):
     dicProdutos = {}
     root = Toplevel()
@@ -70,11 +111,12 @@ def f_tela_compra(username):
     root.mainloop()
 
 
-def f_endereco(nome,cpf,tel,username,senha, tpPessoa,edit,fk_endereco_codigo):
+def f_endereco(nome,cpf,tel,username,senha, tpPessoa,edit,fk_endereco_codigo, infoP):
     root = Toplevel()
     root.geometry('300x500')
     root.title('ENDEREÇO')
 
+    info = list()
     #label
     label_endereco = Label(root, text= "ENDEREÇO",background='orange')
     label_nm = Label(root, text = "NOME DO CLIENTE:",background='black', foreground='white')
@@ -126,11 +168,11 @@ def f_endereco(nome,cpf,tel,username,senha, tpPessoa,edit,fk_endereco_codigo):
 
     #botão
     if(edit == 0 or edit == 2):
-        addE = Button(root, text ="Cadastrar pessoa",command = lambda: f_cadastrar_pessoas(nome.get(),cpf.get(),tel.get(),username.get(),senha.get(), logradouro.get(), numero.get(), cep.get(), complemento.get(), boxtl.get(), boxcidade.get(), boxbairro.get(), tpPessoa, teste = (f_codigo(boxtl.get(), tpLg), f_codigo(boxcidade.get(), cidade), f_codigo(boxbairro.get(), bairro))))
+        addE = Button(root, text ="Cadastrar pessoa",command = lambda: f_cadastrar_pessoas(nome.get(),cpf.get(),tel.get(),username.get(),senha.get(), logradouro.get(), numero.get(), cep.get(), complemento.get(), boxtl.get(), boxcidade.get(), boxbairro.get(), tpPessoa, teste = (f_codigo(boxtl, tpLg), f_codigo(boxcidade, cidade), f_codigo(boxbairro, bairro))))
         btnVoltar = Button(root, text="Voltar para\ntela pessoa", command= root.destroy)
     else:
-        addE = Button(root, text ="Atualizar Cadastro",command = lambda: f_atualizar_pessoas(nome.get(),cpf.get(),tel.get(),username.get(),senha.get(), logradouro.get(), numero.get(), cep.get(), complemento.get(), boxtl.get(), boxcidade.get(), boxbairro.get(), tpPessoa, teste = (f_codigo(boxtl.get(), tpLg), f_codigo(boxcidade.get(), cidade), f_codigo(boxbairro.get(), bairro))))
-        btnVoltar = Button(root, text="Voltar ao Menu", command= root.destroy())
+        addE = Button(root, text ="Atualizar Cadastro",command = lambda: f_atualizar_pessoas(nome.get(),cpf.get(),tel.get(),username.get(),senha.get(), logradouro.get(), numero.get(), cep.get(), complemento.get(), boxtl.get(), boxcidade.get(), boxbairro.get(), tpPessoa, infoP, info, teste = (f_codigo(boxtl, tpLg), f_codigo(boxcidade, cidade), f_codigo(boxbairro, bairro))))
+        btnVoltar = Button(root, text="Voltar ao Menu", command= root.destroy)
     
     if(edit == 1 or edit == 2):
         info = f_editar_endereco(fk_endereco_codigo)
@@ -177,15 +219,15 @@ def f_endereco(nome,cpf,tel,username,senha, tpPessoa,edit,fk_endereco_codigo):
 def f_tela_pessoa(tpPessoa,edit,username):
     global fk_endereco_codigo
     root = Tk()
-
+    info = list()
     root.geometry('300x500')
     root.title('Pessoa')
     #botões
     if(edit == 0):
         addM = Button(root, text='Voltar ao Login',command =lambda:[root.destroy(), main()])
     else:
-        addM = Button(root, text='Voltar ao menu',command =lambda:root.destroy())
-    addE = Button(root,text='Adicionar endereço', command=lambda: f_endereco(nome,cpf,tel,user,senha, tpPessoa,edit,fk_endereco_codigo))
+        addM = Button(root, text='Voltar ao menu', command = root.destroy)
+    addE = Button(root, text='Adicionar endereço', command=lambda: f_endereco(nome,cpf,tel,user,senha, tpPessoa, edit,fk_endereco_codigo, info))
     #label
     label_pessoa = Label(root,text ="PESSOA")
     label_username = Label(root,text="USERNAME:")
@@ -314,7 +356,7 @@ def f_menu_entregador(username):
     label_menu_entregador = Label(root, text="MENU ENTREGADOR")
     label_menu_entregador.place(relx=0.5, rely=0.1, anchor="center")
 
-    addEntrega = Button(root, text="Entrega", background="#808080", foreground="black")
+    addEntrega = Button(root, text="Entrega", background="#808080", foreground="black", command= lambda: f_tela_entrega(username))
     addEntrega.place(relx=0.5, rely=0.4, anchor="center")
 
     edit = Button(root, text="Editar Informações", background="#808080", foreground="black",command= lambda: f_tela_pessoa(1,1,username))
