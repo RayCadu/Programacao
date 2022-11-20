@@ -2,35 +2,31 @@ from conectSQL import *
 from datetime import *
 from tkinter import *
 
-def f_cadastrar_pessoas(nome,cpf,tel,username,senha,logradouro,numero,cep,complemento, boxtl, boxcidade,boxbairro, tpPessoa, teste):
-    print(nome)
-    print(cpf)
-    print(tel)
-    print(username)
-    print(senha)
+def f_cadastrar_pessoas(nome,cpf,tel,username,senha,logradouro,numero,cep,boxtl,boxcidade,boxbairro,complemento, tpPessoa, teste):
+    
     dicp = {}
     dicp["username"] = username
     dicp["nome"] = nome
     dicp["telefone"] = tel
     dicp["cpf"] = cpf
     dicp["senha"] = senha
-    #dicp["fk_endereco_codigo"] = f_cadastrar_endereco(cep,logradouro,numero,boxbairro,boxcidade,boxtl,complemento, teste)
-    #f_inserirDados("PESSOA",dicp,"username")
+    dicp["fk_endereco_codigo"] = f_cadastrar_endereco(cep,logradouro,numero,boxbairro,boxcidade,boxtl,complemento, teste)
+    f_inserirDados("PESSOA",dicp,"username")
 
     if(tpPessoa == 0):
         dicC = {}
         dicC["fk_pessoa_username"] = username
-        #f_inserirDados("FUNCIONARIO", dicC, "codigo")
+        f_inserirDados("FUNCIONARIO", dicC, "codigo")
 
     elif(tpPessoa == 1):
         dicC = {}
         dicC["fk_pessoa_username"] = username
-        #f_inserirDados("ENTREGADOR", dicC, "codigo")
+        f_inserirDados("ENTREGADOR", dicC, "codigo")
 
     elif(tpPessoa == 2):
         dicC = {}
         dicC["fk_pessoa_username"] = username
-        #f_inserirDados("CLIENTE", dicC, "codigo")
+        f_inserirDados("CLIENTE", dicC, "codigo")
     
     return 0
 
@@ -141,6 +137,7 @@ def f_cadastar_compra(username, subTotal, dicProdutos, tpPagamentoCombo):
     dicCompra_pagamento['fk_compra_codigo'] = cod_compra
     dicCompra_pagamento['fk_pagamento_codigo'] = cod_pagamento
     f_inserirDados("COMPRA_PAGAMENTO", dicCompra_pagamento, 'fk_compra_codigo')
+    return 0
 
 def f_validaUser(username, senha, label):
     users = f_retornaInfo(['username', 'senha'], "PESSOA")
@@ -182,19 +179,27 @@ def f_editar_pessoa(username):
     info = f_retornaEspc(['nome','telefone','cpf','username','senha','fk_endereco_codigo'],'PESSOA',username, 'username')
     return info
 
+'''def f_editar_produto():
+    info = 
+    return info'''
+
 def f_editar_endereco(fk_endereco_codigo):
     info = f_retornaEspc(['cep','logradouro','numero','bairro','cidade','tipo_logradouro','complemento'],'endereco',fk_endereco_codigo, 'codigo')
     return info
 
-def f_atualizar_pessoas(nome,cpf,tel,username,senha,logradouro,numero,cep,complemento, boxtl, boxcidade,boxbairro, tpPessoa, infoP, infoE, teste):
+'''def f_atualizar_pessoas(nome,cpf,tel,username,senha,logradouro,numero,cep,complemento, boxtl, boxcidade,boxbairro, tpPessoa, infoP, infoE, teste):
     print(nome)
     print(cpf)
     print(tel)
     print(username)
     print(senha)
+    print(logradouro)
+    print(numero)
+    print(cep)
+    print(complemento)
     print(infoE)
     print(infoP)
-    return 0
+    return 0'''
 def f_retornaLista(t):
     p =list()
     for i in  t:
@@ -228,3 +233,4 @@ def f_adiciona_produto(dicProdutos, subTotal, texto_subTotal, listBox, produtoCo
     
     texto_subTotal.delete(0, END)
     texto_subTotal.insert(0, total)
+
