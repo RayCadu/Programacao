@@ -94,3 +94,64 @@ def f_retornaEspc(campos, nome_tabela,username, campo_condi):
     conn.close()
 
     return values
+
+def f_retornar_info_compra(cod_compra):
+    sql = f"""select pessoa.nome, pessoa.telefone, endereco.cep, endereco.logradouro, endereco.numero, endereco.complemento, bairro.descricao, cidade.descricao, tipo_logradouro.descricao
+    from pessoa
+    inner join endereco
+    on endereco.codigo = pessoa.fk_endereco_codigo
+    inner join bairro
+    on bairro.codigo = endereco.bairro
+    inner join cidade
+    on cidade.codigo = endereco.cidade
+    inner join tipo_logradouro
+    on tipo_logradouro.codigo = endereco.tipo_logradouro
+    inner join cliente
+    on pessoa.username = cliente.fk_pessoa_username
+    inner join cliente_compra
+    on cliente.codigo = cliente_compra.fk_cliente_codigo
+    inner join compra
+    on compra.codigo = cliente_compra.fk_compra_codigo
+    where compra.codigo = {cod_compra};"""
+
+    conn = f_conexao()
+    cur = conn.cursor()
+    cur.execute(sql)
+
+    recset = cur.fetchall()
+    values = list()
+
+    for rec in recset:
+        values.append(rec)
+
+    cur.close()
+    conn.close()
+
+    return(values)
+
+def f_update_compra(cod, compra):
+    sql = f"""update compra set fk_entregador_codigo = {cod} where codigo = {compra}"""
+    conn = f_conexao()
+    cur = conn.cursor()
+    try:
+        cur.execute(sql)
+        conn.commit()
+        cur.close()
+        conn.close()
+    except(Exception, psycopg2.DatabaseError) as error:
+        print("Error: %s" % error)
+        conn.rollback()
+        cur.close()
+
+    sql = f"""update compra set estado = 'Em entrega' where codigo = {compra}"""
+    conn = f_conexao()
+    cur = conn.cursor()
+    try:
+        cur.execute(sql)
+        conn.commit()
+        cur.close()
+        conn.close()
+    except(Exception, psycopg2.DatabaseError) as error:
+        print("Error: %s" % error)
+        conn.rollback()
+        cur.close()
