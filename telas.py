@@ -6,6 +6,7 @@ from tkinter.ttk import Entry
 fk_endereco_codigo = 0
 
 def f_tela_compra(username):
+    dicProdutos = {}
     root = Toplevel()
     root.geometry('300x500')
     root.title('Compra')
@@ -124,15 +125,22 @@ def f_endereco(nome,cpf,tel,username,senha, tpPessoa,edit,fk_endereco_codigo):
     comboBoxBairro['values'] = bairro
 
     #botão
-    addE = Button(root, text ="Cadastrar pessoa",command = lambda: f_cadastrar_pessoas(nome.get(),cpf.get(),tel.get(),username.get(),senha.get(), logradouro.get(), numero.get(), cep.get(), complemento.get(), boxtl.get(), boxcidade.get(), boxbairro.get(), tpPessoa, teste = (f_codigo(boxtl.get(), tpLg), f_codigo(boxcidade.get(), cidade), f_codigo(boxbairro.get(), bairro))))
-    btnVoltar = Button(root, text="Voltar para\ntela pessoa", command= root.destroy)
-
+    if(edit == 0 or edit == 2):
+        addE = Button(root, text ="Cadastrar pessoa",command = lambda: f_cadastrar_pessoas(nome.get(),cpf.get(),tel.get(),username.get(),senha.get(), logradouro.get(), numero.get(), cep.get(), complemento.get(), boxtl.get(), boxcidade.get(), boxbairro.get(), tpPessoa, teste = (f_codigo(boxtl.get(), tpLg), f_codigo(boxcidade.get(), cidade), f_codigo(boxbairro.get(), bairro))))
+        btnVoltar = Button(root, text="Voltar para\ntela pessoa", command= root.destroy)
+    else:
+        addE = Button(root, text ="Atualizar Cadastro",command = lambda: f_atualizar_pessoas(nome.get(),cpf.get(),tel.get(),username.get(),senha.get(), logradouro.get(), numero.get(), cep.get(), complemento.get(), boxtl.get(), boxcidade.get(), boxbairro.get(), tpPessoa, teste = (f_codigo(boxtl.get(), tpLg), f_codigo(boxcidade.get(), cidade), f_codigo(boxbairro.get(), bairro))))
+        btnVoltar = Button(root, text="Voltar ao Menu", command= root.destroy())
+    
     if(edit == 1 or edit == 2):
         info = f_editar_endereco(fk_endereco_codigo)
         if(len(info) != 0):
             texto_cep.insert(0,info[0][0])
             texto_logradouro.insert(0,info[0][1])
             texto_numero.insert(0,info[0][2])
+            comboBoxBairro.current(info[0][3])
+            comboBoxCidade.current(info[0][4])
+            comboBoxTl.current(info[0][5])
             texto_complemento.insert(0,info[0][6])
 
     #posicionamento label
@@ -174,7 +182,7 @@ def f_tela_pessoa(tpPessoa,edit,username):
     root.title('Pessoa')
     #botões
     if(edit == 0):
-        addM = Button(root, text='Voltar ao menu',command =lambda:[root.destroy(), main()])
+        addM = Button(root, text='Voltar ao Login',command =lambda:[root.destroy(), main()])
     else:
         addM = Button(root, text='Voltar ao menu',command =lambda:root.destroy())
     addE = Button(root,text='Adicionar endereço', command=lambda: f_endereco(nome,cpf,tel,user,senha, tpPessoa,edit,fk_endereco_codigo))

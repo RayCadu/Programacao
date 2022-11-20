@@ -182,6 +182,9 @@ def f_editar_endereco(fk_endereco_codigo):
     info = f_retornaEspc(['cep','logradouro','numero','bairro','cidade','tipo_logradouro','complemento'],'endereco',fk_endereco_codigo, 'codigo')
     return info
 
+def atualizar_pessoas(nome,cpf,tel,username,senha,logradouro,numero,cep,complemento, boxtl, boxcidade,boxbairro, tpPessoa, teste):
+    f_retornaEspc() 
+    return 0
 def f_retornaLista(t):
     p =list()
     for i in  t:
@@ -210,7 +213,7 @@ def f_adiciona_produto(dicProdutos, subTotal, texto_subTotal, listBox, produtoCo
     listBox.insert(END, produtoCombo[pos_produto])
 
     total = 0
-    for i, produto in dicProdutos.items():
+    for _, produto in dicProdutos.items():
         total += (produto[0]) * (produto[1])
     
     texto_subTotal.delete(0, END)
