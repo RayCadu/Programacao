@@ -364,13 +364,13 @@ def f_editar_produto(username):
     root.title('Editar Produto')
 
     cbProduto = StringVar()
-    comboBoxProduto = Combobox(root, textvariable = cbProduto)
+    comboBoxProduto = Combobox(root, textvariable = cbProduto,state = "readonly")
     Produto = f_retornaInfo(['nome'], 'PRODUTO')
     Produto = f_retornaLista(Produto)
     Produto.insert(0, '')
     comboBoxProduto['values'] = Produto
     comboBoxProduto.place(relx=0.3, rely=0.15, anchor="w")
-    #comboBoxProduto.bind("<<ComboboxSelected>>", lambda event, parametro = comboBoxProduto: f_info_produtos(cbProduto.get()))
+    comboBoxProduto.bind("<<ComboboxSelected>>", lambda event, parametro = comboBoxProduto: f_info_produtos(cbProduto,comboBoxTpProduto,texto_nome,texto_valor,texto_descricao))
 
     label_codigo = Label(root, text="Produto")
     label_codigo.place(relx=0.5, rely=0.06, anchor="center")
@@ -386,7 +386,7 @@ def f_editar_produto(username):
     label_nome.place(relx=0.1, rely=0.3, anchor="w")
 
     cbTpProduto = StringVar()
-    comboBoxTpProduto = Combobox(root, textvariable = cbTpProduto)
+    comboBoxTpProduto = Combobox(root, textvariable = cbTpProduto,state = "readonly")
     tpProduto = f_retornaInfo(['descricao'], 'TIPO_PRODUTO')
     tpProduto = f_retornaLista(tpProduto)
     tpProduto.insert(0, '')
@@ -406,7 +406,7 @@ def f_editar_produto(username):
     texto_descricao = Text(root, height= 5, width=23)
     texto_descricao.place(relx=0.3, rely=0.6, anchor="w")
 
-    btnAddProduto = Button(root, text="Alterar", command=lambda:[f_cadastrar_produto(nome.get(), cbTpProduto.get(), valor.get(), texto_descricao.get("1.0", END), new=f_codigo(cbTpProduto, tpProduto), cod_func= f_funcRes(username)), root.destroy()]) #command=part(f_cadastrar, root)
+    btnAddProduto = Button(root, text="Alterar", command=lambda:[f_redefinir_produto(nome.get(),cbTpProduto.get(),valor.get(),texto_descricao.get("1.0",END),new=f_codigo(cbTpProduto, tpProduto)), root.destroy()]) #command=part(f_cadastrar, root)
     btnAddProduto.place(relx=0.5, rely=0.8, anchor="center")
 
 
@@ -434,7 +434,7 @@ def f_produto(username):
     label_nome.place(relx=0.1, rely=0.3, anchor="w")
 
     cbTpProduto = StringVar()
-    comboBoxTpProduto = Combobox(root, textvariable = cbTpProduto)
+    comboBoxTpProduto = Combobox(root, textvariable = cbTpProduto, state = "readonly")
     tpProduto = f_retornaInfo(['descricao'], 'TIPO_PRODUTO')
     tpProduto = f_retornaLista(tpProduto)
     tpProduto.insert(0, '')
