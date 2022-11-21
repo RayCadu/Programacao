@@ -249,6 +249,21 @@ def f_info_compras(compra, label_nm, label_tel, label_cp, label_log, label_num, 
 
     return 0
 
+def f_info_produtos(cbProduto,comboBoxTpProduto,texto_nome,texto_valor,texto_descricao):   
+    infoProd = f_retornar_info_produto(cbProduto.get())
+    texto_nome.delete(0,END)
+    texto_nome.insert(0,infoProd[0][0])
+    texto_valor.delete(0,END)
+    texto_valor.insert(1,infoProd[0][1])
+    texto_descricao.delete("1.0",END)
+    texto_descricao.insert("1.0",infoProd[0][2])
+    retornar = f_retornaInfo(['descricao'],'tipo_produto')
+    retornar = f_retornaLista(retornar)
+    retornar.insert(0,'')
+    comboBoxTpProduto.current(retornar.index(infoProd[0][3]))
+
+    return 0
+
 def f_atualizar_entregador(username, compra):
     cod = f_retornaEspc(['codigo'], 'ENTREGADOR', username, 'fk_pessoa_username')
     cod = cod[0][0]

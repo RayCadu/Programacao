@@ -130,6 +130,28 @@ def f_retornar_info_compra(cod_compra):
 
     return(values)
 
+def f_retornar_info_produto(cod_produto):
+    sql = f"""select produto.nome, produto.valor, produto.descricao, tipo_produto.descricao
+    from produto
+    inner join tipo_produto
+    on produto.FK_tipo_produto_tipo_produto_PK = tipo_produto.tipo_produto_PK
+    where produto.nome = '{cod_produto}';"""
+
+    conn = f_conexao()
+    cur = conn.cursor()
+    cur.execute(sql)
+
+    recset = cur.fetchall()
+    values = list()
+
+    for rec in recset:
+        values.append(rec)
+
+    cur.close()
+    conn.close()
+
+    return(values)
+
 def f_update_compra(cod, compra):
     sql = f"""update compra set fk_entregador_codigo = {cod} where codigo = {compra}"""
     conn = f_conexao()
@@ -180,7 +202,27 @@ def f_entregar_compra():
 def f_excluir_cliente(username):
     conn = f_conexao()
     cur = conn.cursor()
-    
+
+    sql = f"""select codigo from cliente where fk_pessoa_username = '{username}'"""
+
+    try:
+        cur.execute(sql)
+        conn.commit()
+        cod_cliente = cur.fetchone()[0]
+    except(Exception, psycopg2.DatabaseError) as error:
+        print("Error: %s" % error)
+        conn.rollback()
+        cur.close()
+
+    sql = f"""delete from cliente_compra where fk_cliente_codigo = {cod_cliente}"""
+    try:
+        cur.execute(sql)
+        conn.commit()
+    except(Exception, psycopg2.DatabaseError) as error:
+        print("Error: %s" % error)
+        conn.rollback()
+        cur.close()
+
     sql = f"""delete from cliente where fk_pessoa_username = '{username}'"""
     try:
         cur.execute(sql)
@@ -221,33 +263,48 @@ def f_excluir_cliente(username):
     return 0
 
 def f_redefinir_senha(user, cpf, nSenha):
+    conn = f_conexao()
+    cur = conn.cursor()
 
-    if(user == "" or len(user) > 25):
-        messagebox.showinfo('USERNAME', 'Username ultrapassa 25 caracteres ou se encontra vazio!')
-    if(cpf == "" or len(user) > 14):
-        messagebox.showinfo('CPF', 'CPF ultrapassa 14 caracteres ou se encontra vazio!')
-    if(nSenha == "" or len(nSenha) > 25):
-        messagebox.showinfo('SENHA', 'Senha ultrapassa 25 caracteres ou se encontra vazio!')
-    else:
-        conn = f_conexao()
-        cur = conn.cursor()
+    sql = f"""update pessoa set senha = '{nSenha}' where username = '{user}' and cpf = '{cpf}';
+    select senha from pessoa where username = '{user}';"""
+    try:
+        cur.execute(sql)
+        conn.commit()
+        print(not(cur.fetchall() == []))
+        print(cur.fetchall() == [])
+        if(cur.fetchall() == []):
+            messagebox.showinfo('Senha não alterada', 'Sua senha não foi alterada')
+        elif(not(cur.fetchall() == [])):
+            messagebox.showinfo('Senha alterada', 'Sua senha foi alterada com sucesso!!')
+        else:
+            messagebox.showinfo('Senha alterada', 'Sua senha foi alterada com sucesso!!')
+            
+    except(Exception, psycopg2.DatabaseError) as error:
+        print("Error: %s" % error)
+        conn.rollback()
+        cur.close()
+    return 0
 
-        sql = f"""update pessoa set senha = '{nSenha}' where username = '{user}' and cpf = '{cpf}';
-        select senha from pessoa where username = '{user}';"""
-        try:
-            cur.execute(sql)
-            conn.commit()
-            print(not(cur.fetchall() == []))
-            print(cur.fetchall() == [])
-            if(cur.fetchall() == []):
-                messagebox.showinfo('Senha não alterada', 'Sua senha não foi alterada')
-            elif(not(cur.fetchall() == [])):
-                messagebox.showinfo('Senha alterada', 'Sua senha foi alterada com sucesso!!')
-            else:
-                messagebox.showinfo('Senha alterada', 'Sua senha foi alterada com sucesso!!')
-                
-        except(Exception, psycopg2.DatabaseError) as error:
-            print("Error: %s" % error)
-            conn.rollback()
-            cur.close()
+def f_redefinir_produto(nome,cbTpProduto,valor,texto_descricao,new):
+    conn = f_conexao()
+    cur = conn.cursor()
+
+    sql = f"""update produto set nome = '{nome}' where username = '{user}' and cpf = '{cpf}';"""
+    try:
+        cur.execute(sql)
+        conn.commit()
+        print(not(cur.fetchall() == []))
+        print(cur.fetchall() == [])
+        if(cur.fetchall() == []):
+            messagebox.showinfo('Senha não alterada', 'Sua senha não foi alterada')
+        elif(not(cur.fetchall() == [])):
+            messagebox.showinfo('Senha alterada', 'Sua senha foi alterada com sucesso!!')
+        else:
+            messagebox.showinfo('Senha alterada', 'Sua senha foi alterada com sucesso!!')
+            
+    except(Exception, psycopg2.DatabaseError) as error:
+        print("Error: %s" % error)
+        conn.rollback()
+        cur.close()
     return 0
