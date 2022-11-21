@@ -52,13 +52,13 @@ def f_inserirDados(table_name, dic, pk):
         cur.close()
         return None
 
-def f_retornaInfo(campos, nome_tabela):
+def f_retornaInfo(campos, nome_tabela,ordem):
     ca = str()
     for i in campos:
         ca += i + ","
     ca = ca[:len(ca)-1]
 
-    sql = f""" SELECT {ca} FROM {nome_tabela}"""
+    sql = f""" SELECT {ca} FROM {nome_tabela} order by {ordem}"""
     conn = f_conexao()
     cur = conn.cursor()
     cur.execute(sql)
@@ -294,25 +294,49 @@ def f_redefinir_senha(user, cpf, nSenha):
             cur.close()
     return 0
 
-def f_redefinir_produto(nome,cbTpProduto,valor,texto_descricao,new):
+def f_redefinir_produto(nome,valor,texto_descricao,codigo,new):
     conn = f_conexao()
     cur = conn.cursor()
 
-    sql = f"""update produto set nome = '{nome}' where username = '{user}' and cpf = '{cpf}';"""
+    sql = f"""update produto set nome = '{nome}' where codigo = {codigo};"""
     try:
         cur.execute(sql)
         conn.commit()
-        print(not(cur.fetchall() == []))
-        print(cur.fetchall() == [])
-        if(cur.fetchall() == []):
-            messagebox.showinfo('Senha não alterada', 'Sua senha não foi alterada')
-        elif(not(cur.fetchall() == [])):
-            messagebox.showinfo('Senha alterada', 'Sua senha foi alterada com sucesso!!')
-        else:
-            messagebox.showinfo('Senha alterada', 'Sua senha foi alterada com sucesso!!')
             
     except(Exception, psycopg2.DatabaseError) as error:
         print("Error: %s" % error)
         conn.rollback()
         cur.close()
+
+    sql = f"""update produto set descricao = '{texto_descricao}' where codigo = {codigo};"""
+    try:
+        cur.execute(sql)
+        conn.commit()
+            
+    except(Exception, psycopg2.DatabaseError) as error:
+        print("Error: %s" % error)
+        conn.rollback()
+        cur.close()
+    
+    sql = f"""update produto set valor = {valor} where codigo = {codigo};"""
+    try:
+        cur.execute(sql)
+        conn.commit()
+            
+    except(Exception, psycopg2.DatabaseError) as error:
+        print("Error: %s" % error)
+        conn.rollback()
+        cur.close()
+
+    sql = f"""update produto set FK_tipo_produto_tipo_produto_PK = {new} where codigo = {codigo};"""
+    try:
+        cur.execute(sql)
+        conn.commit()
+            
+    except(Exception, psycopg2.DatabaseError) as error:
+        print("Error: %s" % error)
+        conn.rollback()
+        cur.close()
+
     return 0
+    
