@@ -5,6 +5,46 @@ from tkinter.ttk import Entry
 
 fk_endereco_codigo = 0
 
+def f_tela_senha():
+    root = Tk()
+    root.geometry('300x500')
+    root.title("Esqueci minha senha")
+
+    label_menu_cliente = Label(root,text="Trocar senha")
+    label_menu_cliente.place(relx= 0.5,rely= 0.1,anchor="center")
+
+    label_informarDados = Label(root,text="Informe seus dados")
+    label_informarDados.place(relx= 0.5,rely= 0.2,anchor="center")
+
+    label_cpf = Label(root,text="CPF:")
+    label_cpf.place(relx= 0.1,rely= 0.3,anchor="w")
+
+    label_username = Label(root,text="Username:")
+    label_username.place(relx= 0.1,rely= 0.4,anchor="w")
+
+    label_senha = Label(root,text="Nova senha:")
+    label_senha.place(relx= 0.1,rely= 0.5,anchor="w")
+
+    user = StringVar()
+    texto_username = Entry(root,textvariable=user)
+    texto_username.place(relx= 0.4,rely= 0.4,anchor="w")
+
+    cpf = StringVar()
+    texto_cpf = Entry(root,textvariable=cpf)
+    texto_cpf.place(relx= 0.4,rely= 0.3,anchor="w")
+
+    nSenha = StringVar()
+    texto_senha = Entry(root,textvariable=nSenha)
+    texto_senha.place(relx= 0.4,rely= 0.5,anchor="w")
+
+    atualizar = Button(root, text="Redefinir", background="#808080", foreground="black", command= lambda: [f_redefinir_senha(user.get(), cpf.get(), nSenha.get()), root.destroy(), main()])
+    atualizar.place(relx=0.5, rely=0.8, anchor="center")
+
+    sair = Button(root, text="Sair", background="#808080", foreground="black", command= lambda: [root.destroy(), main()])
+    sair.place(relx=0.5, rely=0.9, anchor="center")
+
+    root.mainloop()
+
 def f_tela_entrega(username):
     root = Toplevel()
     root.geometry('300x500')
@@ -39,13 +79,13 @@ def f_tela_entrega(username):
 
     compra = StringVar()
     ComboBoxCompra = Combobox(root,textvariable = compra, width= 20)
-    compraCombo = f_retornaInfo(['codigo'], 'COMPRA')
+    compraCombo = f_entregar_compra()
     compraCombo = f_retornaLista(compraCombo)
     compraCombo.insert(0, '')
     ComboBoxCompra['values'] = compraCombo
     ComboBoxCompra.bind("<<ComboboxSelected>>", lambda event, parametro = ComboBoxCompra: f_info_compras(compra, label_nm, label_tel, label_cp, label_log, label_num, label_comp, label_bai, label_cid, label_tp))
     #botão
-    addRE = Button(root,text="Realizar Entrega", command= lambda: f_atualizar_entregador(username, compra.get()))
+    addRE = Button(root,text="Realizar Entrega", command= lambda: [f_atualizar_entregador(username, compra.get()), root.destroy()])
     addM = Button(root,text="Voltar ao menu",command=root.destroy)
 
     #posicionamento label
@@ -318,6 +358,62 @@ def f_tela_pessoa(tpPessoa,edit,username):
 
     root.mainloop()
 
+def f_editar_produto(username):
+    root = Toplevel()
+    root.geometry('300x500')
+    root.title('Editar Produto')
+
+    cbProduto = StringVar()
+    comboBoxProduto = Combobox(root, textvariable = cbProduto)
+    Produto = f_retornaInfo(['nome'], 'PRODUTO')
+    Produto = f_retornaLista(Produto)
+    Produto.insert(0, '')
+    comboBoxProduto['values'] = Produto
+    comboBoxProduto.place(relx=0.3, rely=0.15, anchor="w")
+    #comboBoxProduto.bind("<<ComboboxSelected>>", lambda event, parametro = comboBoxProduto: f_info_produtos(cbProduto.get()))
+
+    label_codigo = Label(root, text="Produto")
+    label_codigo.place(relx=0.5, rely=0.06, anchor="center")
+
+    label_nome = Label(root, text="Nome")
+    label_nome.place(relx=0.1, rely=0.2, anchor="w")
+
+    nome = StringVar()
+    texto_nome = Entry(root,textvariable = nome, )
+    texto_nome.place(relx=0.3, rely=0.2, anchor="w")
+
+    label_nome = Label(root, text="Tipo de\nProduto")
+    label_nome.place(relx=0.1, rely=0.3, anchor="w")
+
+    cbTpProduto = StringVar()
+    comboBoxTpProduto = Combobox(root, textvariable = cbTpProduto)
+    tpProduto = f_retornaInfo(['descricao'], 'TIPO_PRODUTO')
+    tpProduto = f_retornaLista(tpProduto)
+    tpProduto.insert(0, '')
+    comboBoxTpProduto['values'] = tpProduto
+    comboBoxTpProduto.place(relx=0.3, rely=0.3, anchor="w")
+
+    label_valor = Label(root, text="Preço")
+    label_valor.place(relx=0.1, rely=0.4, anchor="w")
+
+    valor = StringVar()
+    texto_valor = Entry(root, textvariable=valor)
+    texto_valor.place(relx=0.3, rely=0.4, anchor="w")
+
+    label_valor = Label(root, text="Descrição")
+    label_valor.place(relx=0.1, rely=0.6, anchor="w")
+
+    texto_descricao = Text(root, height= 5, width=23)
+    texto_descricao.place(relx=0.3, rely=0.6, anchor="w")
+
+    btnAddProduto = Button(root, text="Alterar", command=lambda:[f_cadastrar_produto(nome.get(), cbTpProduto.get(), valor.get(), texto_descricao.get("1.0", END), new=f_codigo(cbTpProduto, tpProduto), cod_func= f_funcRes(username)), root.destroy()]) #command=part(f_cadastrar, root)
+    btnAddProduto.place(relx=0.5, rely=0.8, anchor="center")
+
+
+    btnVoltarMenu = Button(root, text="Voltar ao Menu", command= root.destroy)
+    btnVoltarMenu.place(relx=0.5, rely=0.9, anchor="center")
+
+    root.mainloop()
 
 def f_produto(username):
     root = Toplevel()
@@ -331,7 +427,7 @@ def f_produto(username):
     label_nome.place(relx=0.1, rely=0.2, anchor="w")
 
     nome = StringVar()
-    texto_nome = Entry(root,textvariable = nome, )
+    texto_nome = Entry(root,textvariable = nome)
     texto_nome.place(relx=0.3, rely=0.2, anchor="w")
 
     label_nome = Label(root, text="Tipo de\nProduto")
@@ -381,8 +477,11 @@ def f_menu_cliente(username):
     edit = Button(root, text="Editar Informação", background="#808080", foreground="black",command= lambda: f_tela_pessoa(2,1,username))
     edit.place(relx=0.5, rely=0.5, anchor="center")
 
+    delete = Button(root, text="Excluir Cadastro", background="#808080", foreground="black",command= lambda: [f_excluir_cliente(username), root.destroy(), main()])
+    delete.place(relx=0.5, rely=0.6, anchor="center")
+
     sair = Button(root, text="Sair", background="#808080", foreground="black", command= lambda: [root.destroy(), main()])
-    sair.place(relx=0.5, rely=0.6, anchor="center")
+    sair.place(relx=0.5, rely=0.7, anchor="center")
 
     root.mainloop()
 
@@ -417,7 +516,7 @@ def f_menu_funcionario(username):
     addCP = Button(root, text="Cadastrar Produtos", background="#808080", foreground="black", command= lambda: f_produto(username))
     addCP.place(relx=0.5, rely=0.4, anchor="center")
 
-    addEP = Button(root, text="Editar Produto", background="#808080", foreground="black", command=lambda: f_produto(username))
+    addEP = Button(root, text="Editar Produto", background="#808080", foreground="black", command=lambda: f_editar_produto(username))
     addEP.place(relx=0.5, rely=0.5, anchor="center")
 
     '''addCF = Button(root, text="Cadastrar Funcionário", background="#808080", foreground="black", command=lambda: f_tela_pessoa(0, 2, username = None))
@@ -453,7 +552,10 @@ def main():
     label_menu.place(relx=0.5, rely=0.1, anchor="center")
 
     label_nc = Label(root,text="Ainda não é cadastrado?")
-    label_nc.place(relx = 0.5, rely = 0.75, anchor="center")
+    label_nc.place(relx = 0.5, rely = 0.65, anchor="center")
+
+    label_es = Label(root,text="Esqueceu sua senha?")
+    label_es.place(relx = 0.5, rely = 0.8, anchor="center")
 
     label_username = Label(root, text="Username")
     label_username.place(relx= 0.16,rely=0.3,anchor="center")
@@ -476,7 +578,10 @@ def main():
     Entrar.place(relx=0.5, rely=0.485, anchor="center")
 
     Cadastro = Button(root, text="Cadastrar-se",background="#808080", foreground="black", command= lambda:[root.destroy(), f_tela_pessoa(2, 0, username = None)])
-    Cadastro.place(relx=0.5,rely=0.8,anchor="center")
+    Cadastro.place(relx=0.5,rely=0.7,anchor="center")
+
+    Esqueceu = Button(root, text="Alterar",background="#808080", foreground="black", command= lambda:[root.destroy(), f_tela_senha()])
+    Esqueceu.place(relx=0.5,rely=0.85,anchor="center")
 
     root.mainloop()
 

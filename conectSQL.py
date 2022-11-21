@@ -1,5 +1,6 @@
 import psycopg2
 from config import config
+from tkinter import messagebox
 
 def f_conexao():
     conn = None
@@ -155,3 +156,90 @@ def f_update_compra(cod, compra):
         print("Error: %s" % error)
         conn.rollback()
         cur.close()
+
+def f_entregar_compra():
+    sql = """select codigo from compra where estado = 'Realizado'"""
+    conn = f_conexao()
+    cur = conn.cursor()
+    try:
+        cur.execute(sql)
+        conn.commit()
+        recset = cur.fetchall()
+        values = list()
+
+        for rec in recset:
+            values.append(rec)
+        cur.close()
+        conn.close()
+    except(Exception, psycopg2.DatabaseError) as error:
+        print("Error: %s" % error)
+        conn.rollback()
+        cur.close()
+    return values
+
+def f_excluir_cliente(username):
+    conn = f_conexao()
+    cur = conn.cursor()
+    
+    sql = f"""delete from cliente where fk_pessoa_username = '{username}'"""
+    try:
+        cur.execute(sql)
+        conn.commit()
+    except(Exception, psycopg2.DatabaseError) as error:
+        print("Error: %s" % error)
+        conn.rollback()
+        cur.close()
+    
+    sql = f"""select fk_endereco_codigo from pessoa where username = '{username}'"""
+
+    try:
+        cur.execute(sql)
+        conn.commit()
+        cod_endereco = cur.fetchone()[0]
+    except(Exception, psycopg2.DatabaseError) as error:
+        print("Error: %s" % error)
+        conn.rollback()
+        cur.close()
+
+    sql = f"""delete from pessoa where username = '{username}'"""
+    try:
+        cur.execute(sql)
+        conn.commit()
+    except(Exception, psycopg2.DatabaseError) as error:
+        print("Error: %s" % error)
+        conn.rollback()
+        cur.close()
+
+    sql = f"""delete from endereco where codigo = {cod_endereco}"""
+    try:
+        cur.execute(sql)
+        conn.commit()
+    except(Exception, psycopg2.DatabaseError) as error:
+        print("Error: %s" % error)
+        conn.rollback()
+        cur.close()
+    return 0
+
+def f_redefinir_senha(user, cpf, nSenha):
+    conn = f_conexao()
+    cur = conn.cursor()
+
+    sql = f"""update pessoa set senha = '{nSenha}' where username = '{user}' and cpf = '{cpf}';
+    select senha from pessoa where username = '{user}';"""
+    try:
+        cur.execute(sql)
+        conn.commit()
+        print(not(cur.fetchall() == []))
+        print(cur.fetchall() == [])
+        if(cur.fetchall() == []):
+            messagebox.showinfo('Senha não alterada', 'Sua senha não foi alterada')
+        elif(not(cur.fetchall() == [])):
+            messagebox.showinfo('Senha alterada', 'Sua senha foi alterada com sucesso!!')
+        else:
+            messagebox.showinfo('Senha alterada', 'Sua senha foi alterada com sucesso!!')
+            
+    except(Exception, psycopg2.DatabaseError) as error:
+        print("Error: %s" % error)
+        conn.rollback()
+        cur.close()
+    return 0
