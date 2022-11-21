@@ -1,4 +1,4 @@
-from conectSQL import *
+from conect import *
 from datetime import *
 from tkinter import *
 
@@ -89,22 +89,34 @@ def f_cadastrar_tl(boxtl):
     
     
 def f_cadastrar_produto(nome,tpProduto, valor, descricao, new, cod_func):
-    dicP = {}
-    dicP["nome"] = nome
-    dicP["descricao"] = descricao
-    dicP["valor"] = valor
-    if(new == 0):
-        dicP["fk_tipo_produto_tipo_produto_pk"] = f_cadastar_tpProduto(tpProduto)
+    try:
+        int(valor)
+    except ValueError:
+        messagebox.showinfo('VALOR', 'Digite um valor válido!!')
+    except TypeError:
+        messagebox.showinfo('Valor', 'Digite um valor válido!!')
+
+    if(nome == "" or len(nome) > 80):
+        messagebox.showinfo('NOME', 'O nome ultrapassa 80 caracteres ou se encontra vazio!!')
+    elif(descricao == "" or len(descricao) > 255):
+        messagebox.showinfo('DESCRICAO', 'O descricao ultrapassa 255 caracteres ou se encontra vazio!!')
     else:
-        dicP["fk_tipo_produto_tipo_produto_pk"] = new
+        dicP = {}
+        dicP["nome"] = nome
+        dicP["descricao"] = descricao
+        dicP["valor"] = valor
+        if(new == 0):
+            dicP["fk_tipo_produto_tipo_produto_pk"] = f_cadastar_tpProduto(tpProduto)
+        else:
+            dicP["fk_tipo_produto_tipo_produto_pk"] = new
 
-    cod_produto = f_inserirDados("PRODUTO", dicP, "codigo")
+        cod_produto = f_inserirDados("PRODUTO", dicP, "codigo")
 
-    dicAdm = {}
-    dicAdm['fk_funcionario_codigo'] = cod_func
-    dicAdm['fk_produto_codigo'] = cod_produto
+        dicAdm = {}
+        dicAdm['fk_funcionario_codigo'] = cod_func
+        dicAdm['fk_produto_codigo'] = cod_produto
 
-    f_inserirDados("ADMINISTRA", dicAdm, "fk_produto_codigo")
+        f_inserirDados("ADMINISTRA", dicAdm, "fk_produto_codigo")
 
 
 
