@@ -140,7 +140,7 @@ def f_cadastar_compra(username, subTotal, dicProdutos, tpPagamentoCombo):
     return 0
 
 def f_validaUser(username, senha, label):
-    users = f_retornaInfo(['username', 'senha'], "PESSOA")
+    users = f_retornaInfo(['username', 'senha'], "PESSOA",'fk_endereco_codigo')
 
     for i in users:
         if(username in i and senha in i):
@@ -158,17 +158,17 @@ def f_validaUser(username, senha, label):
     return tela
 
 def f_verificaTela(user):
-    users = f_retornaInfo(['fk_pessoa_username'], "CLIENTE")
+    users = f_retornaInfo(['fk_pessoa_username'], "CLIENTE",'codigo')
     for i in users:
         if (user in i):
             tela = 2
 
-    users = f_retornaInfo(['fk_pessoa_username'], "ENTREGADOR")
+    users = f_retornaInfo(['fk_pessoa_username'], "ENTREGADOR",'codigo')
     for i in users:
         if (user in i):
             tela = 1
 
-    users = f_retornaInfo(['fk_pessoa_username'], "FUNCIONARIO")
+    users = f_retornaInfo(['fk_pessoa_username'], "FUNCIONARIO",'codigo')
     for i in users:
         if (user in i):
             tela = 0
@@ -257,7 +257,7 @@ def f_info_produtos(cbProduto,comboBoxTpProduto,texto_nome,texto_valor,texto_des
     texto_valor.insert(1,infoProd[0][1])
     texto_descricao.delete("1.0",END)
     texto_descricao.insert("1.0",infoProd[0][2])
-    retornar = f_retornaInfo(['descricao'],'tipo_produto')
+    retornar = f_retornaInfo(['descricao'],'tipo_produto','tipo_produto_pk')
     retornar = f_retornaLista(retornar)
     retornar.insert(0,'')
     comboBoxTpProduto.current(retornar.index(infoProd[0][3]))

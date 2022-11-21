@@ -146,7 +146,7 @@ def f_tela_compra(username):
 
     produto = StringVar()
     comboBoxProduto = Combobox(root, textvariable= produto, width=24, state='readonly')
-    produtoCombo = f_retornaInfo(['nome'], 'PRODUTO')
+    produtoCombo = f_retornaInfo(['nome'], 'PRODUTO','codigo')
     produtoCombo = f_retornaLista(produtoCombo)
     produtoCombo.insert(0, '')
     comboBoxProduto['values'] = produtoCombo
@@ -157,7 +157,7 @@ def f_tela_compra(username):
 
     tpPagamento = StringVar()
     comboBoxtpPagamento = Combobox(root, textvariable= tpPagamento, width=24, state='readonly')
-    tpPagamentoCombo = f_retornaInfo(['tipo_pagamento'], 'TIPO_PAGAMENTO')
+    tpPagamentoCombo = f_retornaInfo(['tipo_pagamento'], 'TIPO_PAGAMENTO','tipo_pagamento_pk')
     tpPagamentoCombo = f_retornaLista(tpPagamentoCombo)
     tpPagamentoCombo.insert(0, '')
     comboBoxtpPagamento['values'] = tpPagamentoCombo
@@ -224,21 +224,21 @@ def f_endereco(nome,cpf,tel,username,senha, tpPessoa,edit,fk_endereco_codigo):
     #combobox
     boxtl = StringVar()
     comboBoxTl = Combobox(root,textvariable = boxtl, width= 20)
-    tpLg = f_retornaInfo(['descricao'], 'TIPO_LOGRADOURO')
+    tpLg = f_retornaInfo(['descricao'], 'TIPO_LOGRADOURO','codigo')
     tpLg = f_retornaLista(tpLg)
     tpLg.insert(0, '')
     comboBoxTl['values'] = tpLg
 
     boxcidade = StringVar()
     comboBoxCidade = Combobox(root,textvariable = boxcidade, width= 20)
-    cidade = f_retornaInfo(['descricao'], 'CIDADE')
+    cidade = f_retornaInfo(['descricao'], 'CIDADE','codigo')
     cidade = f_retornaLista(cidade)
     cidade.insert(0, '')
     comboBoxCidade['values'] = cidade
 
     boxbairro = StringVar()
     comboBoxBairro = Combobox(root,textvariable = boxbairro, width= 20)
-    bairro = f_retornaInfo(['descricao'], 'BAIRRO')
+    bairro = f_retornaInfo(['descricao'], 'BAIRRO','codigo')
     bairro = f_retornaLista(bairro)
     bairro.insert(0, '')
     comboBoxBairro['values'] = bairro
@@ -365,7 +365,7 @@ def f_editar_produto(username):
 
     cbProduto = StringVar()
     comboBoxProduto = Combobox(root, textvariable = cbProduto,state = "readonly")
-    Produto = f_retornaInfo(['nome'], 'PRODUTO')
+    Produto = f_retornaInfo(['nome'], 'PRODUTO','codigo')
     Produto = f_retornaLista(Produto)
     Produto.insert(0, '')
     comboBoxProduto['values'] = Produto
@@ -387,7 +387,7 @@ def f_editar_produto(username):
 
     cbTpProduto = StringVar()
     comboBoxTpProduto = Combobox(root, textvariable = cbTpProduto,state = "readonly")
-    tpProduto = f_retornaInfo(['descricao'], 'TIPO_PRODUTO')
+    tpProduto = f_retornaInfo(['descricao'], 'TIPO_PRODUTO','tipo_produto_pk')
     tpProduto = f_retornaLista(tpProduto)
     tpProduto.insert(0, '')
     comboBoxTpProduto['values'] = tpProduto
@@ -406,7 +406,7 @@ def f_editar_produto(username):
     texto_descricao = Text(root, height= 5, width=23)
     texto_descricao.place(relx=0.3, rely=0.6, anchor="w")
 
-    btnAddProduto = Button(root, text="Alterar", command=lambda:[f_redefinir_produto(nome.get(),cbTpProduto.get(),valor.get(),texto_descricao.get("1.0",END),new=f_codigo(cbTpProduto, tpProduto)), root.destroy()]) #command=part(f_cadastrar, root)
+    btnAddProduto = Button(root, text="Alterar", command=lambda:[f_redefinir_produto(nome.get(),valor.get(),texto_descricao.get("1.0",END),codigo = f_codigo(cbProduto,Produto),new=f_codigo(cbTpProduto, tpProduto)), root.destroy()]) #command=part(f_cadastrar, root)
     btnAddProduto.place(relx=0.5, rely=0.8, anchor="center")
 
 
@@ -435,7 +435,7 @@ def f_produto(username):
 
     cbTpProduto = StringVar()
     comboBoxTpProduto = Combobox(root, textvariable = cbTpProduto, state = "readonly")
-    tpProduto = f_retornaInfo(['descricao'], 'TIPO_PRODUTO')
+    tpProduto = f_retornaInfo(['descricao'], 'TIPO_PRODUTO','tipo_produto_pk')
     tpProduto = f_retornaLista(tpProduto)
     tpProduto.insert(0, '')
     comboBoxTpProduto['values'] = tpProduto
