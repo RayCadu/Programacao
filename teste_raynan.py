@@ -179,6 +179,9 @@ def f_tela_compra(username):
     btnAddCarrinho = Button(root, text="Adicionar ao\nCarrinho", command= lambda: f_adiciona_produto(dicProdutos, subTotal.get(), texto_subTotal, listBoxCarrinho, produtoCombo, pos_produto= f_codigo(produto, produtoCombo)))
     btnAddCarrinho.place(relx=0.5, rely=0.75, anchor="center")
 
+    btnDelCarrinho = Button(root, text="Retirar", command= lambda: f_retirar_produto(listBoxCarrinho, dicProdutos, texto_subTotal, subTotal.get()))
+    btnDelCarrinho.place(relx=0.8, rely=0.6, anchor="center")
+
     btnAddCompra = Button(root, text="Finalizar Compra", command= lambda: [f_cadastar_compra(username, subTotal.get(), dicProdutos, tpPagamentoCombo = f_codigo(tpPagamento, tpPagamentoCombo)),root.destroy()])
     btnAddCompra.place(relx=0.5, rely=0.85, anchor="center")
 

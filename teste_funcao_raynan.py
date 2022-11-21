@@ -115,43 +115,45 @@ def f_cadastar_tpProduto(tpProduto):
     return f_inserirDados("TIPO_PRODUTO", dicTp, "tipo_produto_pk")
 
 def f_cadastar_compra(username, subTotal, dicProdutos, tpPagamentoCombo):
-    dicCompra = {}
+        dicCompra = {}
+    #if (tpPagamentoCombo == 0):
+        #messagebox.showinfo('Tp. Pagamento', 'Escolha uma opção!!')
+    #else:
+        timestamp = datetime.now().astimezone(timezone(timedelta(hours=-3)))
+        data_hora = timestamp.strftime('%Y-%m-%d %H:%M:%S')
 
-    timestamp = datetime.now().astimezone(timezone(timedelta(hours=-3)))
-    data_hora = timestamp.strftime('%Y-%m-%d %H:%M:%S')
+        dicCompra["data_hora"] = data_hora
+        dicCompra["estado"] = 'Realizado'
+        dicCompra["fk_entregador_codigo"] = 1
+        cod_compra =  f_inserirDados("COMPRA", dicCompra, "codigo")
 
-    dicCompra["data_hora"] = data_hora
-    dicCompra["estado"] = 'Realizado'
-    dicCompra["fk_entregador_codigo"] = 1
-    cod_compra =  f_inserirDados("COMPRA", dicCompra, "codigo")
+        cod_cliente = f_retornaEspc(['codigo'], 'cliente', username, 'fk_pessoa_username')
+        cod_cliente = cod_cliente[0][0]
+        
+        dicCliente_compra = {}
+        dicCliente_compra['fk_compra_codigo'] = cod_compra
+        dicCliente_compra['fk_cliente_codigo'] = cod_cliente
+        f_inserirDados("CLIENTE_COMPRA", dicCliente_compra, "fk_compra_codigo")
 
-    cod_cliente = f_retornaEspc(['codigo'], 'cliente', username, 'fk_pessoa_username')
-    cod_cliente = cod_cliente[0][0]
-    
-    dicCliente_compra = {}
-    dicCliente_compra['fk_compra_codigo'] = cod_compra
-    dicCliente_compra['fk_cliente_codigo'] = cod_cliente
-    f_inserirDados("CLIENTE_COMPRA", dicCliente_compra, "fk_compra_codigo")
+        total = 0
+        for i,list in dicProdutos.items():
+            dicCompra_produto = {}
+            dicCompra_produto['qtd'] = list[0]
+            dicCompra_produto['fk_compra_codigo'] = cod_compra
+            dicCompra_produto['fk_produto_codigo'] = list[2]
+            f_inserirDados("COMPRA_PRODUTO", dicCompra_produto, "qtd")
+            total += (list[0]) * (list[1])
+        
+        dicPagamento = {}
+        dicPagamento['fk_tipo_pagamento_tipo_pagamento_pk'] = tpPagamentoCombo
+        dicPagamento['valor'] = total
+        cod_pagamento = f_inserirDados("PAGAMENTO", dicPagamento, "codigo")
 
-    total = 0
-    for i,list in dicProdutos.items():
-        dicCompra_produto = {}
-        dicCompra_produto['qtd'] = list[0]
-        dicCompra_produto['fk_compra_codigo'] = cod_compra
-        dicCompra_produto['fk_produto_codigo'] = list[2]
-        f_inserirDados("COMPRA_PRODUTO", dicCompra_produto, "qtd")
-        total += (list[0]) * (list[1])
-    
-    dicPagamento = {}
-    dicPagamento['fk_tipo_pagamento_tipo_pagamento_pk'] = tpPagamentoCombo
-    dicPagamento['valor'] = total
-    cod_pagamento = f_inserirDados("PAGAMENTO", dicPagamento, "codigo")
-
-    dicCompra_pagamento = {}
-    dicCompra_pagamento['fk_compra_codigo'] = cod_compra
-    dicCompra_pagamento['fk_pagamento_codigo'] = cod_pagamento
-    f_inserirDados("COMPRA_PAGAMENTO", dicCompra_pagamento, 'fk_compra_codigo')
-    return 0
+        dicCompra_pagamento = {}
+        dicCompra_pagamento['fk_compra_codigo'] = cod_compra
+        dicCompra_pagamento['fk_pagamento_codigo'] = cod_pagamento
+        f_inserirDados("COMPRA_PAGAMENTO", dicCompra_pagamento, 'fk_compra_codigo')
+        #return 0
 
 def f_validaUser(username, senha, label):
     users = f_retornaInfo(['username', 'senha'], "PESSOA")
@@ -253,6 +255,21 @@ def f_adiciona_produto(dicProdutos, subTotal, texto_subTotal, listBox, produtoCo
         texto_subTotal.delete(0, END)
         texto_subTotal.insert(0, total)
 
+def f_retirar_produto(listBoxCarrinho, dicProdutos, texto_subTotal, subTotal):
+    if(listBoxCarrinho.curselection() != ()):
+        pos = listBoxCarrinho.curselection()[0]
+        if(dicProdutos[listBoxCarrinho.get(pos)][0] == 1):
+            subTotal -= dicProdutos[listBoxCarrinho.get(pos)][1]
+            dicProdutos.pop(listBoxCarrinho.get(pos))
+        else:
+            dicProdutos[listBoxCarrinho.get(pos)][0] -= 1
+            subTotal -= dicProdutos[listBoxCarrinho.get(pos)][1]
+        listBoxCarrinho.delete(pos)
+        texto_subTotal.delete(0, END)
+        texto_subTotal.insert(0, subTotal)
+        
+    
+    return 0
 def f_info_compras(compra, label_nm, label_tel, label_cp, label_log, label_num, label_comp, label_bai, label_cid, label_tp):
     if(compra.get() != ''):
     
