@@ -263,27 +263,35 @@ def f_excluir_cliente(username):
     return 0
 
 def f_redefinir_senha(user, cpf, nSenha):
-    conn = f_conexao()
-    cur = conn.cursor()
 
-    sql = f"""update pessoa set senha = '{nSenha}' where username = '{user}' and cpf = '{cpf}';
-    select senha from pessoa where username = '{user}';"""
-    try:
-        cur.execute(sql)
-        conn.commit()
-        print(not(cur.fetchall() == []))
-        print(cur.fetchall() == [])
-        if(cur.fetchall() == []):
-            messagebox.showinfo('Senha não alterada', 'Sua senha não foi alterada')
-        elif(not(cur.fetchall() == [])):
-            messagebox.showinfo('Senha alterada', 'Sua senha foi alterada com sucesso!!')
-        else:
-            messagebox.showinfo('Senha alterada', 'Sua senha foi alterada com sucesso!!')
-            
-    except(Exception, psycopg2.DatabaseError) as error:
-        print("Error: %s" % error)
-        conn.rollback()
-        cur.close()
+    if(user == "" or len(user) > 25):
+        messagebox.showinfo('USERNAME', 'Username ultrapassa 25 caracteres ou se encontra vazio!')
+    if(cpf == "" or len(user) > 14):
+        messagebox.showinfo('CPF', 'CPF ultrapassa 14 caracteres ou se encontra vazio!')
+    if(nSenha == "" or len(nSenha) > 25):
+        messagebox.showinfo('SENHA', 'Senha ultrapassa 25 caracteres ou se encontra vazio!')
+    else:
+        conn = f_conexao()
+        cur = conn.cursor()
+
+        sql = f"""update pessoa set senha = '{nSenha}' where username = '{user}' and cpf = '{cpf}';
+        select senha from pessoa where username = '{user}';"""
+        try:
+            cur.execute(sql)
+            conn.commit()
+            print(not(cur.fetchall() == []))
+            print(cur.fetchall() == [])
+            if(cur.fetchall() == []):
+                messagebox.showinfo('Senha não alterada', 'Sua senha não foi alterada')
+            elif(not(cur.fetchall() == [])):
+                messagebox.showinfo('Senha alterada', 'Sua senha foi alterada com sucesso!!')
+            else:
+                messagebox.showinfo('Senha alterada', 'Sua senha foi alterada com sucesso!!')
+                
+        except(Exception, psycopg2.DatabaseError) as error:
+            print("Error: %s" % error)
+            conn.rollback()
+            cur.close()
     return 0
 
 def f_redefinir_produto(nome,cbTpProduto,valor,texto_descricao,new):
