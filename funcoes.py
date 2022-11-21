@@ -234,3 +234,22 @@ def f_adiciona_produto(dicProdutos, subTotal, texto_subTotal, listBox, produtoCo
     texto_subTotal.delete(0, END)
     texto_subTotal.insert(0, total)
 
+def f_info_compras(compra, label_nm, label_tel, label_cp, label_log, label_num, label_comp, label_bai, label_cid, label_tp):
+    infoP = f_retornar_info_compra(compra.get())
+    print(infoP)
+    label_nm.config(text = infoP[0][0])
+    label_tel.config(text = infoP[0][1])
+    label_cp.config(text = infoP[0][2])
+    label_log.config(text = infoP[0][3])
+    label_num.config(text = infoP[0][4])
+    label_comp.config(text = infoP[0][5]) 
+    label_bai.config(text = infoP[0][6])
+    label_cid.config(text = infoP[0][7])
+    label_tp.config(text = infoP[0][8])
+
+    return 0
+
+def f_atualizar_entregador(username, compra):
+    cod = f_retornaEspc(['codigo'], 'ENTREGADOR', username, 'fk_pessoa_username')
+    cod = cod[0][0]
+    f_update_compra(cod, compra)
