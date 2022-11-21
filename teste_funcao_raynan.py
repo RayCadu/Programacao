@@ -238,20 +238,20 @@ def f_funcRes(username):
     return cod
 def f_adiciona_produto(dicProdutos, subTotal, texto_subTotal, listBox, produtoCombo, pos_produto):
     preco = f_retornaEspc(['valor'], 'PRODUTO', pos_produto, 'codigo')
-    preco = preco[0][0]
-    if produtoCombo[pos_produto] in dicProdutos.keys():
-        dicProdutos[f'{produtoCombo[pos_produto]}'][0] += 1
-    else:
-        dicProdutos[f'{produtoCombo[pos_produto]}'] = [1, preco, pos_produto]
-    listBox.insert(END, produtoCombo[pos_produto])
+    if(len(preco)> 0):
+        preco = preco[0][0]
+        if produtoCombo[pos_produto] in dicProdutos.keys():
+            dicProdutos[f'{produtoCombo[pos_produto]}'][0] += 1
+        else:
+            dicProdutos[f'{produtoCombo[pos_produto]}'] = [1, preco, pos_produto]
+        listBox.insert(END, produtoCombo[pos_produto])
 
-    total = 0
-    for _, produto in dicProdutos.items():
-        total += (produto[0]) * (produto[1])
-    
-    texto_subTotal.delete(0, END)
-    texto_subTotal.insert(0, total)
-    texto_subTotal['state'] = DISABLED
+        total = 0
+        for _, produto in dicProdutos.items():
+            total += (produto[0]) * (produto[1])
+        
+        texto_subTotal.delete(0, END)
+        texto_subTotal.insert(0, total)
 
 def f_info_compras(compra, label_nm, label_tel, label_cp, label_log, label_num, label_comp, label_bai, label_cid, label_tp):
     if(compra.get() != ''):
