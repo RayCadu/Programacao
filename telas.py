@@ -74,9 +74,7 @@ def f_tela_entrega(username):
     label_cid = Label(root, text="")
     label_tp = Label(root, text="")
 
-
     #combobox
-
     compra = StringVar()
     ComboBoxCompra = Combobox(root,textvariable = compra, width= 20,state= 'readonly')
     compraCombo = f_entregar_compra()
@@ -267,20 +265,9 @@ def f_endereco(nome,cpf,tel,username,senha, tpPessoa,edit,fk_endereco_codigo):
             addE = Button(root, text ="Cadastrar pessoa",command = lambda: f_cadastrar_pessoas(nome.get(),cpf.get(),tel.get(),username.get(),senha.get(), logradouro.get(), numero.get(), cep.get(), complemento.get(), boxtl.get(), boxcidade.get(), boxbairro.get(), tpPessoa, teste = (f_codigo(boxtl, tpLg), f_codigo(boxcidade, cidade), f_codigo(boxbairro, bairro))))
             btnVoltar = Button(root, text="Voltar para\ntela pessoa", command= root.destroy)
         else:
-            #addE = Button(root, text ="Atualizar Cadastro",command = lambda: f_atualizar_pessoas(nome.get(),cpf.get(),tel.get(),username.get(),senha.get(), logradouro.get(), numero.get(), cep.get(), complemento.get(), boxtl.get(), boxcidade.get(), boxbairro.get(), tpPessoa, teste = (f_codigo(boxtl, tpLg), f_codigo(boxcidade, cidade), f_codigo(boxbairro, bairro))))
+        
             btnVoltar = Button(root, text="Voltar ao Menu", command= root.destroy)
         
-        #if(edit == 1 or edit == 2):
-            #info = f_editar_endereco(fk_endereco_codigo)
-            #if(len(info) != 0):
-                #texto_cep.insert(0,info[0][0])
-                #texto_logradouro.insert(0,info[0][1])
-                #texto_numero.insert(0,info[0][2])
-                #comboBoxBairro.current(info[0][3])
-                #comboBoxCidade.current(info[0][4])
-                #comboBoxTl.current(info[0][5])
-                #texto_complemento.insert(0,info[0][6])
-
         #posicionamento label
         label_endereco.place(relx = 0.5,rely = 0.030,anchor = 'center')
         label_nm.place(relx= 0.05,rely= 0.10,anchor='w')
@@ -343,17 +330,6 @@ def f_tela_pessoa(tpPessoa,edit,username):
     texto_username = Entry(root,textvariable=user, width=20)
     senha = StringVar()
     texto_senha = Entry(root,textvariable=senha, width=20)
-    """"
-    if(edit == 1 or edit == 2):
-       info = f_editar_pessoa(username)
-       if(len(info) != 0):
-        texto_nome.insert(0,info[0][0])
-        texto_tel.insert(0,info[0][1])
-        texto_cpf.insert(0,info[0][2])
-        texto_username.insert(0,info[0][3])
-        texto_senha.insert(0,info[0][4])
-        fk_endereco_codigo = info[0][5]"""
-        
 
     #posicionamento textos
     texto_nome.place(relx = 0.4, rely = 0.2, anchor = 'w')
@@ -537,9 +513,6 @@ def f_menu_funcionario(username):
 
     addEP = Button(root, text="Editar Produto", background="#808080", foreground="black", command=lambda: f_editar_produto(username))
     addEP.place(relx=0.5, rely=0.5, anchor="center")
-
-    '''addCF = Button(root, text="Cadastrar Funcionário", background="#808080", foreground="black", command=lambda: f_tela_pessoa(0, 2, username = None))
-    addCF.place(relx=0.5, rely=0.6, anchor="center")'''
 
     edit = Button(root, text="Editar Informação", background="#808080", foreground="black",command= lambda: f_tela_pessoa(0,1,username))
     edit.place(relx=0.5, rely=0.6, anchor="center")
