@@ -225,7 +225,6 @@ def f_endereco(nome,cpf,tel,username,senha, tpPessoa,edit,fk_endereco_codigo, ro
         info = list()
         #label
         label_endereco = Label(root, text= "ENDEREÇO",background='orange')
-        label_nm = Label(root, text = "NOME DO CLIENTE:",background='black', foreground='white')
         label_tl = Label(root, text = "TIPO\nLOGRADOURO:",background='black', foreground='white')
         label_logradouro = Label(root, text = "LOGADOURO:",background='black', foreground='white')
         label_numero = Label(root, text = "NÚMERO:",background='black', foreground='white')
@@ -235,8 +234,6 @@ def f_endereco(nome,cpf,tel,username,senha, tpPessoa,edit,fk_endereco_codigo, ro
         label_complemento = Label(root,text= "COMPLEMENTO:",background='black', foreground='white')
 
         #texto 
-        nm = StringVar()
-        texto_nm = Entry(root,textvariable = nm, width=20)
 
         logradouro = StringVar()
         texto_logradouro = Entry(root, textvariable = logradouro, width=20)
@@ -282,7 +279,6 @@ def f_endereco(nome,cpf,tel,username,senha, tpPessoa,edit,fk_endereco_codigo, ro
         
         #posicionamento label
         label_endereco.place(relx = 0.5,rely = 0.030,anchor = 'center')
-        label_nm.place(relx= 0.05,rely= 0.10,anchor='w')
         label_tl.place(relx= 0.13,rely= 0.2,anchor= 'w')
         label_logradouro.place(relx= 0.15,rely= 0.3,anchor= 'w')
         label_numero.place(relx=0.23,rely= 0.4,anchor='w')
@@ -292,7 +288,6 @@ def f_endereco(nome,cpf,tel,username,senha, tpPessoa,edit,fk_endereco_codigo, ro
         label_complemento.place(relx=0.1,rely=0.8,anchor='w')
 
         #posicionamento texto
-        texto_nm.place(relx= 0.5,rely= 0.10,anchor = 'w')
         texto_logradouro.place(relx= 0.5,rely= 0.3,anchor ='w')
         texto_numero.place(relx= 0.5,rely= 0.4,anchor ='w')
         texto_cep.place(relx= 0.5,rely= 0.5,anchor ='w')
@@ -488,14 +483,14 @@ def f_menu_cliente(username):
     addCompra = Button(root, text="Fazer Compra", background="#808080", foreground="black", command= lambda: f_tela_compra(username))
     addCompra.place(relx=0.5, rely=0.4, anchor="center")
 
-    edit = Button(root, text="Editar Informação", background="#808080", foreground="black",command= lambda: f_tela_pessoa(2,1,username))
-    edit.place(relx=0.5, rely=0.5, anchor="center")
+    #edit = Button(root, text="Editar Informação", background="#808080", foreground="black",command= lambda: f_tela_pessoa(2,1,username))
+    #edit.place(relx=0.5, rely=0.5, anchor="center")
 
     delete = Button(root, text="Excluir Cadastro", background="#808080", foreground="black",command= lambda: [f_excluir_cliente(username), root.destroy(), main()])
-    delete.place(relx=0.5, rely=0.6, anchor="center")
+    delete.place(relx=0.5, rely=0.5, anchor="center")
 
     sair = Button(root, text="Sair", background="#808080", foreground="black", command= lambda: [root.destroy(), main()])
-    sair.place(relx=0.5, rely=0.7, anchor="center")
+    sair.place(relx=0.5, rely=0.6, anchor="center")
 
     root.mainloop()
 
@@ -512,11 +507,11 @@ def f_menu_entregador(username):
     addEntrega = Button(root, text="Entrega", background="#808080", foreground="black", command= lambda: f_tela_entrega(username))
     addEntrega.place(relx=0.5, rely=0.4, anchor="center")
 
-    edit = Button(root, text="Editar Informações", background="#808080", foreground="black",command= lambda: f_tela_pessoa(1,1,username))
-    edit.place(relx=0.5, rely=0.5, anchor="center")
+    #edit = Button(root, text="Editar Informações", background="#808080", foreground="black",command= lambda: f_tela_pessoa(1,1,username))
+    #edit.place(relx=0.5, rely=0.5, anchor="center")
 
     sair = Button(root, text="Sair", background="#808080", foreground="black", command= lambda: [root.destroy(), main()])
-    sair.place(relx=0.5, rely=0.6, anchor="center")
+    sair.place(relx=0.5, rely=0.5, anchor="center")
 
     root.mainloop()
 
@@ -537,11 +532,11 @@ def f_menu_funcionario(username):
     addEP = Button(root, text="Editar Produto", background="#808080", foreground="black", command=lambda: f_editar_produto(username))
     addEP.place(relx=0.5, rely=0.5, anchor="center")
 
-    edit = Button(root, text="Editar Informação", background="#808080", foreground="black",command= lambda: f_tela_pessoa(0,1,username))
-    edit.place(relx=0.5, rely=0.6, anchor="center")
+    #edit = Button(root, text="Editar Informação", background="#808080", foreground="black",command= lambda: f_tela_pessoa(0,1,username))
+    #edit.place(relx=0.5, rely=0.6, anchor="center")
 
     sair = Button(root, text="Sair", background="#808080", foreground="black", command= lambda: [root.destroy(), main()])
-    sair.place(relx=0.5, rely=0.7, anchor="center")
+    sair.place(relx=0.5, rely=0.6, anchor="center")
 
     root.mainloop()
 
