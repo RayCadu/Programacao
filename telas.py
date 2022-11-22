@@ -8,6 +8,8 @@ fk_endereco_codigo = 0
 def f_tela_senha():
     root = Tk()
     root.geometry('300x500')
+    root.minsize(300,500)
+    root.maxsize(300,500)
     root.title("Esqueci minha senha")
 
     label_menu_cliente = Label(root,text="Trocar senha")
@@ -48,6 +50,8 @@ def f_tela_senha():
 def f_tela_entrega(username):
     root = Toplevel()
     root.geometry('300x500')
+    root.minsize(300,500)
+    root.maxsize(300,500)
     root.title('Entrega')
 
     #label
@@ -125,6 +129,8 @@ def f_tela_compra(username):
     dicProdutos = {}
     root = Toplevel()
     root.geometry('300x500')
+    root.minsize(300,500)
+    root.maxsize(300,500)
     root.title('Compra')
 
     label_compra = Label(root, text="Compra")
@@ -180,7 +186,7 @@ def f_tela_compra(username):
     btnDelCarrinho = Button(root, text="Retirar", command= lambda: f_retirar_produto(listBoxCarrinho, dicProdutos, texto_subTotal, subTotal.get()))
     btnDelCarrinho.place(relx=0.8, rely=0.6, anchor="center")
 
-    btnAddCompra = Button(root, text="Finalizar Compra", command= lambda: [f_cadastar_compra(username, subTotal.get(), dicProdutos, tpPagamentoCombo = f_codigo(tpPagamento, tpPagamentoCombo)),root.destroy()])
+    btnAddCompra = Button(root, text="Finalizar Compra", command= lambda: [f_cadastar_compra(username, subTotal.get(), dicProdutos, root, tpPagamentoCombo = f_codigo(tpPagamento, tpPagamentoCombo))])
     btnAddCompra.place(relx=0.5, rely=0.85, anchor="center")
 
     btnMenu = Button(root, text="Voltar ao Menu", command=lambda: root.destroy())
@@ -189,27 +195,33 @@ def f_tela_compra(username):
     root.mainloop()
 
 
-def f_endereco(nome,cpf,tel,username,senha, tpPessoa,edit,fk_endereco_codigo):
-    root = Toplevel()
-    root.geometry('300x500')
-    root.title('ENDEREÇO')
-
+def f_endereco(nome,cpf,tel,username,senha, tpPessoa,edit,fk_endereco_codigo, rootP):
+    users = f_retornaInfo(['username'], 'PESSOA', 'fk_endereco_codigo')
+    for i in users:
+      if(username in i):
+          messagebox.showinfo('USERNAME', 'O username já existe!!')
     if(username.get() == '' or len(username.get()) > 25):
-        root.destroy()
         messagebox.showinfo('USERNAME', 'O username ultrapassa 25 caracteres ou se encontra vazio!!')
+    
     elif(nome.get() == '' or len(nome.get()) > 250):
-        root.destroy()
+        #root.destroy()
         messagebox.showinfo('NOME', 'O nome ultrapassa 250 caracteres ou se encontra vazio!!')
     elif(tel.get() == '' or len(tel.get()) > 20):
-        root.destroy()
+        #root.destroy()
         messagebox.showinfo('TELEFONE', 'O telefone ultrapassa 20 caracteres ou se encontra vazio!!')
     elif(cpf.get() == '' or len(cpf.get()) > 14):
-        root.destroy()
+        #root.destroy()
         messagebox.showinfo('CPF', 'O nome ultrapassa 14 caracteres ou se encontra vazio!!')
     elif(senha.get() == '' or len(senha.get()) > 25):
-        root.destroy()
+        #root.destroy()
         messagebox.showinfo('SENHA', 'O nome ultrapassa 25 caracteres ou se encontra vazio!!')
     else:
+        rootP.destroy()
+        root = Tk()
+        root.geometry('300x500')
+        root.minsize(300,500)
+        root.maxsize(300,500)
+        root.title('ENDEREÇO')
         info = list()
         #label
         label_endereco = Label(root, text= "ENDEREÇO",background='orange')
@@ -262,7 +274,7 @@ def f_endereco(nome,cpf,tel,username,senha, tpPessoa,edit,fk_endereco_codigo):
 
         #botão
         if(edit == 0 or edit == 2):
-            addE = Button(root, text ="Cadastrar pessoa",command = lambda: f_cadastrar_pessoas(nome.get(),cpf.get(),tel.get(),username.get(),senha.get(), logradouro.get(), numero.get(), cep.get(), complemento.get(), boxtl.get(), boxcidade.get(), boxbairro.get(), tpPessoa, teste = (f_codigo(boxtl, tpLg), f_codigo(boxcidade, cidade), f_codigo(boxbairro, bairro))))
+            addE = Button(root, text ="Cadastrar pessoa",command = lambda: [f_cadastrar_pessoas(nome.get(),cpf.get(),tel.get(),username.get(),senha.get(), logradouro.get(), numero.get(), cep.get(), complemento.get(), boxtl.get(), boxcidade.get(), boxbairro.get(), tpPessoa, root, teste = (f_codigo(boxtl, tpLg), f_codigo(boxcidade, cidade), f_codigo(boxbairro, bairro))), main()])
             btnVoltar = Button(root, text="Voltar para\ntela pessoa", command= root.destroy)
         else:
         
@@ -302,7 +314,8 @@ def f_endereco(nome,cpf,tel,username,senha, tpPessoa,edit,fk_endereco_codigo):
 def f_tela_pessoa(tpPessoa,edit,username):
     global fk_endereco_codigo
     root = Tk()
-
+    root.minsize(300,500)
+    root.maxsize(300,500)
     root.geometry('300x500')
     root.title('Pessoa')
     #botões
@@ -310,7 +323,7 @@ def f_tela_pessoa(tpPessoa,edit,username):
         addM = Button(root, text='Voltar ao menu',command =lambda:[root.destroy(), main()])
     else:
         addM = Button(root, text='Voltar ao menu',command =lambda:root.destroy())
-    addE = Button(root,text='Adicionar endereço', command=lambda: f_endereco(nome,cpf,tel,user,senha, tpPessoa,edit,fk_endereco_codigo))
+    addE = Button(root,text='Adicionar endereço', command=lambda: [f_endereco(nome,cpf,tel,user,senha, tpPessoa,edit,fk_endereco_codigo, root)])
     #label
     label_pessoa = Label(root,text ="PESSOA")
     label_username = Label(root,text="USERNAME:")
@@ -356,6 +369,8 @@ def f_tela_pessoa(tpPessoa,edit,username):
 def f_editar_produto(username):
     root = Toplevel()
     root.geometry('300x500')
+    root.minsize(300,500)
+    root.maxsize(300,500)
     root.title('Editar Produto')
 
     cbProduto = StringVar()
@@ -413,6 +428,8 @@ def f_editar_produto(username):
 def f_produto(username):
     root = Toplevel()
     root.geometry('300x500')
+    root.minsize(300,500)
+    root.maxsize(300,500)
     root.title('Produto')
 
     label_codigo = Label(root, text="Produto")
@@ -461,6 +478,8 @@ def f_produto(username):
 def f_menu_cliente(username):
     root = Tk()
     root.geometry('300x500')
+    root.minsize(300,500)
+    root.maxsize(300,500)
     root.title("Menu Cliente")
 
     label_menu_cliente = Label(root,text="MENU CLIENTE")
@@ -483,6 +502,8 @@ def f_menu_cliente(username):
 def f_menu_entregador(username):
     root = Tk()
     root.geometry('300x500')
+    root.minsize(300,500)
+    root.maxsize(300,500)
     root.title("Menu Entregador")
 
     label_menu_entregador = Label(root, text="MENU ENTREGADOR")
@@ -503,6 +524,8 @@ def f_menu_entregador(username):
 def f_menu_funcionario(username):
     root = Tk()
     root.geometry('300x500')
+    root.minsize(300,500)
+    root.maxsize(300,500)
     root.title("Menu Funcionario")
 
     label_menu_funcionario = Label(root, text="MENU FUNCIONARIO")
@@ -541,6 +564,8 @@ def f_validaUserT(username, senha, label_confirmarcao, root):
 def main():
     root = Tk()
     root.geometry('300x500')
+    root.minsize(300,500)
+    root.maxsize(300,500)
     root.title("Login")
 
     label_menu = Label(root, text="LOGIN")
