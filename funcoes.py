@@ -170,7 +170,6 @@ def f_validaUser(username, senha, label):
 
     for i in users:
         if(username in i and senha in i):
-            #label.config(text="Usuário no sistema", foreground="green")
             tela = f_verificaTela(username)
             return tela
         else:
@@ -205,27 +204,10 @@ def f_editar_pessoa(username):
     info = f_retornaEspc(['nome','telefone','cpf','username','senha','fk_endereco_codigo'],'PESSOA',username, 'username')
     return info
 
-'''def f_editar_produto():
-    info = 
-    return info'''
-
 def f_editar_endereco(fk_endereco_codigo):
     info = f_retornaEspc(['cep','logradouro','numero','bairro','cidade','tipo_logradouro','complemento'],'endereco',fk_endereco_codigo, 'codigo')
     return info
 
-'''def f_atualizar_pessoas(nome,cpf,tel,username,senha,logradouro,numero,cep,complemento, boxtl, boxcidade,boxbairro, tpPessoa, infoP, infoE, teste):
-    print(nome)
-    print(cpf)
-    print(tel)
-    print(username)
-    print(senha)
-    print(logradouro)
-    print(numero)
-    print(cep)
-    print(complemento)
-    print(infoE)
-    print(infoP)
-    return 0'''
 def f_retornaLista(t):
     p =list()
     for i in  t:
