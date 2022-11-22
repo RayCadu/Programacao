@@ -295,11 +295,13 @@ def f_info_produtos(cbProduto,comboBoxTpProduto,texto_nome,texto_valor,texto_des
 
     return 0
 
-def f_atualizar_entregador(username, compra):
+def f_atualizar_entregador(username, compra, root):
     if(compra != ''):
         cod = f_retornaEspc(['codigo'], 'ENTREGADOR', username, 'fk_pessoa_username')
         cod = cod[0][0]
         f_update_compra(cod, compra)
+        root.destroy()
+        return 0
     else:
         messagebox.showinfo('Compra', 'Você não selecionou nenhuma compra!!')
-    return 0
+    

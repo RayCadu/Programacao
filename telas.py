@@ -37,7 +37,7 @@ def f_tela_senha():
     texto_senha = Entry(root,textvariable=nSenha)
     texto_senha.place(relx= 0.4,rely= 0.5,anchor="w")
 
-    atualizar = Button(root, text="Redefinir", background="#808080", foreground="black", command= lambda: [f_redefinir_senha(user.get(), cpf.get(), nSenha.get()), root.destroy(), main()])
+    atualizar = Button(root, text="Redefinir", background="#808080", foreground="black", command= lambda: [f_redefinir_senha(user.get(), cpf.get(), nSenha.get(), root)])
     atualizar.place(relx=0.5, rely=0.8, anchor="center")
 
     sair = Button(root, text="Sair", background="#808080", foreground="black", command= lambda: [root.destroy(), main()])
@@ -83,7 +83,7 @@ def f_tela_entrega(username):
     ComboBoxCompra['values'] = compraCombo
     ComboBoxCompra.bind("<<ComboboxSelected>>", lambda event, parametro = ComboBoxCompra: f_info_compras(compra, label_nm, label_tel, label_cp, label_log, label_num, label_comp, label_bai, label_cid, label_tp))
     #botão
-    addRE = Button(root,text="Realizar Entrega", command= lambda: [f_atualizar_entregador(username, compra.get()), root.destroy()])
+    addRE = Button(root,text="Realizar Entrega", command= lambda: [f_atualizar_entregador(username, compra.get(), root)])
     addM = Button(root,text="Voltar ao menu",command=root.destroy)
 
     #posicionamento label
