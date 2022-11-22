@@ -4,31 +4,45 @@ from tkinter import *
 
 def f_cadastrar_pessoas(nome,cpf,tel,username,senha,logradouro,numero,cep,boxtl,boxcidade,boxbairro,complemento, tpPessoa, teste):
     
-    dicp = {}
-    dicp["username"] = username
-    dicp["nome"] = nome
-    dicp["telefone"] = tel
-    dicp["cpf"] = cpf
-    dicp["senha"] = senha
-    dicp["fk_endereco_codigo"] = f_cadastrar_endereco(cep,logradouro,numero,boxbairro,boxcidade,boxtl,complemento, teste)
-    f_inserirDados("PESSOA",dicp,"username")
+    try:
+        int(numero)
+    except ValueError:
+        messagebox.showinfo('NÚMERO', 'Por favor,\ndigite apenas números para o campo "NÚMERO"')
+    except TypeError:
+        messagebox.showinfo('NÚMERO', 'Por favor,\ndigite números para o campo "NÚMERO"')
 
-    if(tpPessoa == 0):
-        dicC = {}
-        dicC["fk_pessoa_username"] = username
-        f_inserirDados("FUNCIONARIO", dicC, "codigo")
+    if(logradouro == '' or len(logradouro) > 100):
+        messagebox.showinfo('LOGRADOURO', 'O logradouro ultrapassa 100 caracteres ou se encontra vazio!!')
+    elif(cep == '' or len(cep) > 9):
+        messagebox.showinfo('CEP', 'O cep ultrapassa 9 caracteres ou se encontra vazio!!')
+    elif(complemento == '' or len(complemento) > 100):
+        messagebox.showinfo('COMPLEMENTO', 'O complemento ultrapassa 100 caracteres ou se encontra vazio!!')
+    else:
+        dicp = {}
+        dicp["username"] = username
+        dicp["nome"] = nome
+        dicp["telefone"] = tel
+        dicp["cpf"] = cpf
+        dicp["senha"] = senha
+        dicp["fk_endereco_codigo"] = f_cadastrar_endereco(cep,logradouro,numero,boxbairro,boxcidade,boxtl,complemento, teste)
+        f_inserirDados("PESSOA",dicp,"username")
 
-    elif(tpPessoa == 1):
-        dicC = {}
-        dicC["fk_pessoa_username"] = username
-        f_inserirDados("ENTREGADOR", dicC, "codigo")
+        if(tpPessoa == 0):
+            dicC = {}
+            dicC["fk_pessoa_username"] = username
+            f_inserirDados("FUNCIONARIO", dicC, "codigo")
 
-    elif(tpPessoa == 2):
-        dicC = {}
-        dicC["fk_pessoa_username"] = username
-        f_inserirDados("CLIENTE", dicC, "codigo")
-    
-    return 0
+        elif(tpPessoa == 1):
+            dicC = {}
+            dicC["fk_pessoa_username"] = username
+            f_inserirDados("ENTREGADOR", dicC, "codigo")
+
+        elif(tpPessoa == 2):
+            dicC = {}
+            dicC["fk_pessoa_username"] = username
+            f_inserirDados("CLIENTE", dicC, "codigo")
+        
+        return 0
 
 def f_cadastrar_endereco(cep,logradouro,numero,boxbairro,boxcidade,boxtl,complemento, teste):
     dice = {}
@@ -75,22 +89,34 @@ def f_cadastrar_tl(boxtl):
     
     
 def f_cadastrar_produto(nome,tpProduto, valor, descricao, new, cod_func):
-    dicP = {}
-    dicP["nome"] = nome
-    dicP["descricao"] = descricao
-    dicP["valor"] = valor
-    if(new == 0):
-        dicP["fk_tipo_produto_tipo_produto_pk"] = f_cadastar_tpProduto(tpProduto)
+    try:
+        int(valor)
+    except ValueError:
+        messagebox.showinfo('VALOR', 'Digite um valor válido!!')
+    except TypeError:
+        messagebox.showinfo('Valor', 'Digite um valor válido!!')
+
+    if(nome == "" or len(nome) > 80):
+        messagebox.showinfo('NOME', 'O nome ultrapassa 80 caracteres ou se encontra vazio!!')
+    elif(descricao == "" or len(descricao) > 255):
+        messagebox.showinfo('DESCRICAO', 'O descricao ultrapassa 255 caracteres ou se encontra vazio!!')
     else:
-        dicP["fk_tipo_produto_tipo_produto_pk"] = new
+        dicP = {}
+        dicP["nome"] = nome
+        dicP["descricao"] = descricao
+        dicP["valor"] = valor
+        if(new == 0):
+            dicP["fk_tipo_produto_tipo_produto_pk"] = f_cadastar_tpProduto(tpProduto)
+        else:
+            dicP["fk_tipo_produto_tipo_produto_pk"] = new
 
-    cod_produto = f_inserirDados("PRODUTO", dicP, "codigo")
+        cod_produto = f_inserirDados("PRODUTO", dicP, "codigo")
 
-    dicAdm = {}
-    dicAdm['fk_funcionario_codigo'] = cod_func
-    dicAdm['fk_produto_codigo'] = cod_produto
+        dicAdm = {}
+        dicAdm['fk_funcionario_codigo'] = cod_func
+        dicAdm['fk_produto_codigo'] = cod_produto
 
-    f_inserirDados("ADMINISTRA", dicAdm, "fk_produto_codigo")
+        f_inserirDados("ADMINISTRA", dicAdm, "fk_produto_codigo")
 
 
 
@@ -207,10 +233,14 @@ def f_retornaLista(t):
     return p
 
 def f_codigo(boxtl, tpLg):
-    try:
-        tp = tpLg.index(boxtl.get())
-    except ValueError:
+    if(boxtl.get() == ""):
+        messagebox.showinfo('ComboBox', 'Escolha uma opção ou informe um valor válido')
         tp = 0
+    else:
+        try:
+            tp = tpLg.index(boxtl.get())
+        except ValueError:
+            tp = 0
     return tp
 
 def f_funcRes(username):
@@ -220,33 +250,52 @@ def f_funcRes(username):
     return cod
 def f_adiciona_produto(dicProdutos, subTotal, texto_subTotal, listBox, produtoCombo, pos_produto):
     preco = f_retornaEspc(['valor'], 'PRODUTO', pos_produto, 'codigo')
-    preco = preco[0][0]
-    if produtoCombo[pos_produto] in dicProdutos.keys():
-        dicProdutos[f'{produtoCombo[pos_produto]}'][0] += 1
-    else:
-        dicProdutos[f'{produtoCombo[pos_produto]}'] = [1, preco, pos_produto]
-    listBox.insert(END, produtoCombo[pos_produto])
+    if(len(preco)> 0):
+        preco = preco[0][0]
+        if produtoCombo[pos_produto] in dicProdutos.keys():
+            dicProdutos[f'{produtoCombo[pos_produto]}'][0] += 1
+        else:
+            dicProdutos[f'{produtoCombo[pos_produto]}'] = [1, preco, pos_produto]
+        listBox.insert(END, produtoCombo[pos_produto])
 
-    total = 0
-    for _, produto in dicProdutos.items():
-        total += (produto[0]) * (produto[1])
+        total = 0
+        for _, produto in dicProdutos.items():
+            total += (produto[0]) * (produto[1])
+        
+        texto_subTotal.delete(0, END)
+        texto_subTotal.insert(0, total)
+
+def f_retirar_produto(listBoxCarrinho, dicProdutos, texto_subTotal, subTotal):
+    if(listBoxCarrinho.curselection() != ()):
+        pos = listBoxCarrinho.curselection()[0]
+        if(dicProdutos[listBoxCarrinho.get(pos)][0] == 1):
+            subTotal -= dicProdutos[listBoxCarrinho.get(pos)][1]
+            dicProdutos.pop(listBoxCarrinho.get(pos))
+        else:
+            dicProdutos[listBoxCarrinho.get(pos)][0] -= 1
+            subTotal -= dicProdutos[listBoxCarrinho.get(pos)][1]
+        listBoxCarrinho.delete(pos)
+        texto_subTotal.delete(0, END)
+        texto_subTotal.insert(0, subTotal)
+        
     
-    texto_subTotal.delete(0, END)
-    texto_subTotal.insert(0, total)
+    return 0
 
 def f_info_compras(compra, label_nm, label_tel, label_cp, label_log, label_num, label_comp, label_bai, label_cid, label_tp):
-    infoP = f_retornar_info_compra(compra.get())
+    if(compra.get() != ''):
+        infoP = f_retornar_info_compra(compra.get())
 
-    label_nm.config(text = infoP[0][0])
-    label_tel.config(text = infoP[0][1])
-    label_cp.config(text = infoP[0][2])
-    label_log.config(text = infoP[0][3])
-    label_num.config(text = infoP[0][4])
-    label_comp.config(text = infoP[0][5]) 
-    label_bai.config(text = infoP[0][6])
-    label_cid.config(text = infoP[0][7])
-    label_tp.config(text = infoP[0][8])
-
+        label_nm.config(text = infoP[0][0])
+        label_tel.config(text = infoP[0][1])
+        label_cp.config(text = infoP[0][2])
+        label_log.config(text = infoP[0][3])
+        label_num.config(text = infoP[0][4])
+        label_comp.config(text = infoP[0][5]) 
+        label_bai.config(text = infoP[0][6])
+        label_cid.config(text = infoP[0][7])
+        label_tp.config(text = infoP[0][8])
+    else:
+        messagebox.showinfo('Selecione uma compra', 'Por favor!! Selecione uma compra')
     return 0
 
 def f_info_produtos(cbProduto,comboBoxTpProduto,texto_nome,texto_valor,texto_descricao):   
@@ -265,9 +314,10 @@ def f_info_produtos(cbProduto,comboBoxTpProduto,texto_nome,texto_valor,texto_des
     return 0
 
 def f_atualizar_entregador(username, compra):
-    cod = f_retornaEspc(['codigo'], 'ENTREGADOR', username, 'fk_pessoa_username')
-    cod = cod[0][0]
-    f_update_compra(cod, compra)
-
+    if(compra != ''):
+        cod = f_retornaEspc(['codigo'], 'ENTREGADOR', username, 'fk_pessoa_username')
+        cod = cod[0][0]
+        f_update_compra(cod, compra)
+    else:
+        messagebox.showinfo('Compra', 'Você não selecionou nenhuma compra!!')
     return 0
-

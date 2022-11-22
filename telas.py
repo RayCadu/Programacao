@@ -78,7 +78,7 @@ def f_tela_entrega(username):
     #combobox
 
     compra = StringVar()
-    ComboBoxCompra = Combobox(root,textvariable = compra, width= 20)
+    ComboBoxCompra = Combobox(root,textvariable = compra, width= 20,state= 'readonly')
     compraCombo = f_entregar_compra()
     compraCombo = f_retornaLista(compraCombo)
     compraCombo.insert(0, '')
@@ -179,6 +179,9 @@ def f_tela_compra(username):
     btnAddCarrinho = Button(root, text="Adicionar ao\nCarrinho", command= lambda: f_adiciona_produto(dicProdutos, subTotal.get(), texto_subTotal, listBoxCarrinho, produtoCombo, pos_produto= f_codigo(produto, produtoCombo)))
     btnAddCarrinho.place(relx=0.5, rely=0.75, anchor="center")
 
+    btnDelCarrinho = Button(root, text="Retirar", command= lambda: f_retirar_produto(listBoxCarrinho, dicProdutos, texto_subTotal, subTotal.get()))
+    btnDelCarrinho.place(relx=0.8, rely=0.6, anchor="center")
+
     btnAddCompra = Button(root, text="Finalizar Compra", command= lambda: [f_cadastar_compra(username, subTotal.get(), dicProdutos, tpPagamentoCombo = f_codigo(tpPagamento, tpPagamentoCombo)),root.destroy()])
     btnAddCompra.place(relx=0.5, rely=0.85, anchor="center")
 
@@ -193,105 +196,121 @@ def f_endereco(nome,cpf,tel,username,senha, tpPessoa,edit,fk_endereco_codigo):
     root.geometry('300x500')
     root.title('ENDEREÇO')
 
-    info = list()
-    #label
-    label_endereco = Label(root, text= "ENDEREÇO",background='orange')
-    label_nm = Label(root, text = "NOME DO CLIENTE:",background='black', foreground='white')
-    label_tl = Label(root, text = "TIPO\nLOGRADOURO:",background='black', foreground='white')
-    label_logradouro = Label(root, text = "LOGADOURO:",background='black', foreground='white')
-    label_numero = Label(root, text = "NÚMERO:",background='black', foreground='white')
-    label_cep = Label(root, text = "CEP:",background='black', foreground='white')
-    label_bairro = Label(root, text = "BAIRRO:",background='black', foreground='white')
-    label_cidade = Label(root, text = "CIDADE:",background='black', foreground='white')
-    label_complemento = Label(root,text= "COMPLEMENTO:",background='black', foreground='white')
-
-    #texto 
-    nm = StringVar()
-    texto_nm = Entry(root,textvariable = nm, width=20)
-
-    logradouro = StringVar()
-    texto_logradouro = Entry(root, textvariable = logradouro, width=20)
-
-    numero = StringVar()
-    texto_numero = Entry(root, textvariable = numero, width=20)
-
-    cep = StringVar()
-    texto_cep = Entry(root, textvariable = cep, width=20)
-
-    complemento = StringVar()
-    texto_complemento = Entry(root, textvariable=complemento,width=20)
-
-    #combobox
-    boxtl = StringVar()
-    comboBoxTl = Combobox(root,textvariable = boxtl, width= 20)
-    tpLg = f_retornaInfo(['descricao'], 'TIPO_LOGRADOURO','codigo')
-    tpLg = f_retornaLista(tpLg)
-    tpLg.insert(0, '')
-    comboBoxTl['values'] = tpLg
-
-    boxcidade = StringVar()
-    comboBoxCidade = Combobox(root,textvariable = boxcidade, width= 20)
-    cidade = f_retornaInfo(['descricao'], 'CIDADE','codigo')
-    cidade = f_retornaLista(cidade)
-    cidade.insert(0, '')
-    comboBoxCidade['values'] = cidade
-
-    boxbairro = StringVar()
-    comboBoxBairro = Combobox(root,textvariable = boxbairro, width= 20)
-    bairro = f_retornaInfo(['descricao'], 'BAIRRO','codigo')
-    bairro = f_retornaLista(bairro)
-    bairro.insert(0, '')
-    comboBoxBairro['values'] = bairro
-
-    #botão
-    if(edit == 0 or edit == 2):
-        addE = Button(root, text ="Cadastrar pessoa",command = lambda: f_cadastrar_pessoas(nome.get(),cpf.get(),tel.get(),username.get(),senha.get(), logradouro.get(), numero.get(), cep.get(), complemento.get(), boxtl.get(), boxcidade.get(), boxbairro.get(), tpPessoa, teste = (f_codigo(boxtl, tpLg), f_codigo(boxcidade, cidade), f_codigo(boxbairro, bairro))))
-        btnVoltar = Button(root, text="Voltar para\ntela pessoa", command= root.destroy)
+    if(username.get() == '' or len(username.get()) > 25):
+        root.destroy()
+        messagebox.showinfo('USERNAME', 'O username ultrapassa 25 caracteres ou se encontra vazio!!')
+    elif(nome.get() == '' or len(nome.get()) > 250):
+        root.destroy()
+        messagebox.showinfo('NOME', 'O nome ultrapassa 250 caracteres ou se encontra vazio!!')
+    elif(tel.get() == '' or len(tel.get()) > 20):
+        root.destroy()
+        messagebox.showinfo('TELEFONE', 'O telefone ultrapassa 20 caracteres ou se encontra vazio!!')
+    elif(cpf.get() == '' or len(cpf.get()) > 14):
+        root.destroy()
+        messagebox.showinfo('CPF', 'O nome ultrapassa 14 caracteres ou se encontra vazio!!')
+    elif(senha.get() == '' or len(senha.get()) > 25):
+        root.destroy()
+        messagebox.showinfo('SENHA', 'O nome ultrapassa 25 caracteres ou se encontra vazio!!')
     else:
-        #addE = Button(root, text ="Atualizar Cadastro",command = lambda: f_atualizar_pessoas(nome.get(),cpf.get(),tel.get(),username.get(),senha.get(), logradouro.get(), numero.get(), cep.get(), complemento.get(), boxtl.get(), boxcidade.get(), boxbairro.get(), tpPessoa, teste = (f_codigo(boxtl, tpLg), f_codigo(boxcidade, cidade), f_codigo(boxbairro, bairro))))
-        btnVoltar = Button(root, text="Voltar ao Menu", command= root.destroy)
-    
-    #if(edit == 1 or edit == 2):
-        #info = f_editar_endereco(fk_endereco_codigo)
-        #if(len(info) != 0):
-            #texto_cep.insert(0,info[0][0])
-            #texto_logradouro.insert(0,info[0][1])
-            #texto_numero.insert(0,info[0][2])
-            #comboBoxBairro.current(info[0][3])
-            #comboBoxCidade.current(info[0][4])
-            #comboBoxTl.current(info[0][5])
-            #texto_complemento.insert(0,info[0][6])
+        info = list()
+        #label
+        label_endereco = Label(root, text= "ENDEREÇO",background='orange')
+        label_nm = Label(root, text = "NOME DO CLIENTE:",background='black', foreground='white')
+        label_tl = Label(root, text = "TIPO\nLOGRADOURO:",background='black', foreground='white')
+        label_logradouro = Label(root, text = "LOGADOURO:",background='black', foreground='white')
+        label_numero = Label(root, text = "NÚMERO:",background='black', foreground='white')
+        label_cep = Label(root, text = "CEP:",background='black', foreground='white')
+        label_bairro = Label(root, text = "BAIRRO:",background='black', foreground='white')
+        label_cidade = Label(root, text = "CIDADE:",background='black', foreground='white')
+        label_complemento = Label(root,text= "COMPLEMENTO:",background='black', foreground='white')
 
-    #posicionamento label
-    label_endereco.place(relx = 0.5,rely = 0.030,anchor = 'center')
-    label_nm.place(relx= 0.05,rely= 0.10,anchor='w')
-    label_tl.place(relx= 0.13,rely= 0.2,anchor= 'w')
-    label_logradouro.place(relx= 0.15,rely= 0.3,anchor= 'w')
-    label_numero.place(relx=0.23,rely= 0.4,anchor='w')
-    label_cep.place(relx = 0.32, rely= 0.5,anchor ='w')
-    label_bairro.place(relx = 0.25, rely= 0.6, anchor='w')
-    label_cidade.place(relx= 0.25 ,rely= 0.7,anchor= 'w')
-    label_complemento.place(relx=0.1,rely=0.8,anchor='w')
+        #texto 
+        nm = StringVar()
+        texto_nm = Entry(root,textvariable = nm, width=20)
 
-    #posicionamento texto
-    texto_nm.place(relx= 0.5,rely= 0.10,anchor = 'w')
-    texto_logradouro.place(relx= 0.5,rely= 0.3,anchor ='w')
-    texto_numero.place(relx= 0.5,rely= 0.4,anchor ='w')
-    texto_cep.place(relx= 0.5,rely= 0.5,anchor ='w')
-    texto_complemento.place(relx= 0.5,rely= 0.8,anchor='w')
+        logradouro = StringVar()
+        texto_logradouro = Entry(root, textvariable = logradouro, width=20)
 
-    #posicionamento botão
+        numero = StringVar()
+        texto_numero = Entry(root, textvariable = numero, width=20)
 
-    addE.place(relx= 0.3, rely= 0.9, anchor='center')
-    btnVoltar.place(relx= 0.7, rely= 0.9, anchor='center')
+        cep = StringVar()
+        texto_cep = Entry(root, textvariable = cep, width=20)
 
-    #posicionameto
+        complemento = StringVar()
+        texto_complemento = Entry(root, textvariable=complemento,width=20)
 
-    comboBoxTl.place(relx=0.5 ,rely=0.2 ,anchor= 'w')
-    comboBoxCidade.place(relx= 0.5,rely=0.7 ,anchor= 'w')
-    comboBoxBairro.place(relx= 0.5,rely=0.6 ,anchor= 'w')
+        #combobox
+        boxtl = StringVar()
+        comboBoxTl = Combobox(root,textvariable = boxtl, width= 20,state='readonly')
+        tpLg = f_retornaInfo(['descricao'], 'TIPO_LOGRADOURO','codigo')
+        tpLg = f_retornaLista(tpLg)
+        tpLg.insert(0, '')
+        comboBoxTl['values'] = tpLg
 
-    root.mainloop()
+        boxcidade = StringVar()
+        comboBoxCidade = Combobox(root,textvariable = boxcidade, width= 20)
+        cidade = f_retornaInfo(['descricao'], 'CIDADE','codigo')
+        cidade = f_retornaLista(cidade)
+        cidade.insert(0, '')
+        comboBoxCidade['values'] = cidade
+
+        boxbairro = StringVar()
+        comboBoxBairro = Combobox(root,textvariable = boxbairro, width= 20)
+        bairro = f_retornaInfo(['descricao'], 'BAIRRO','codigo')
+        bairro = f_retornaLista(bairro)
+        bairro.insert(0, '')
+        comboBoxBairro['values'] = bairro
+
+        #botão
+        if(edit == 0 or edit == 2):
+            addE = Button(root, text ="Cadastrar pessoa",command = lambda: f_cadastrar_pessoas(nome.get(),cpf.get(),tel.get(),username.get(),senha.get(), logradouro.get(), numero.get(), cep.get(), complemento.get(), boxtl.get(), boxcidade.get(), boxbairro.get(), tpPessoa, teste = (f_codigo(boxtl, tpLg), f_codigo(boxcidade, cidade), f_codigo(boxbairro, bairro))))
+            btnVoltar = Button(root, text="Voltar para\ntela pessoa", command= root.destroy)
+        else:
+            #addE = Button(root, text ="Atualizar Cadastro",command = lambda: f_atualizar_pessoas(nome.get(),cpf.get(),tel.get(),username.get(),senha.get(), logradouro.get(), numero.get(), cep.get(), complemento.get(), boxtl.get(), boxcidade.get(), boxbairro.get(), tpPessoa, teste = (f_codigo(boxtl, tpLg), f_codigo(boxcidade, cidade), f_codigo(boxbairro, bairro))))
+            btnVoltar = Button(root, text="Voltar ao Menu", command= root.destroy)
+        
+        #if(edit == 1 or edit == 2):
+            #info = f_editar_endereco(fk_endereco_codigo)
+            #if(len(info) != 0):
+                #texto_cep.insert(0,info[0][0])
+                #texto_logradouro.insert(0,info[0][1])
+                #texto_numero.insert(0,info[0][2])
+                #comboBoxBairro.current(info[0][3])
+                #comboBoxCidade.current(info[0][4])
+                #comboBoxTl.current(info[0][5])
+                #texto_complemento.insert(0,info[0][6])
+
+        #posicionamento label
+        label_endereco.place(relx = 0.5,rely = 0.030,anchor = 'center')
+        label_nm.place(relx= 0.05,rely= 0.10,anchor='w')
+        label_tl.place(relx= 0.13,rely= 0.2,anchor= 'w')
+        label_logradouro.place(relx= 0.15,rely= 0.3,anchor= 'w')
+        label_numero.place(relx=0.23,rely= 0.4,anchor='w')
+        label_cep.place(relx = 0.32, rely= 0.5,anchor ='w')
+        label_bairro.place(relx = 0.25, rely= 0.6, anchor='w')
+        label_cidade.place(relx= 0.25 ,rely= 0.7,anchor= 'w')
+        label_complemento.place(relx=0.1,rely=0.8,anchor='w')
+
+        #posicionamento texto
+        texto_nm.place(relx= 0.5,rely= 0.10,anchor = 'w')
+        texto_logradouro.place(relx= 0.5,rely= 0.3,anchor ='w')
+        texto_numero.place(relx= 0.5,rely= 0.4,anchor ='w')
+        texto_cep.place(relx= 0.5,rely= 0.5,anchor ='w')
+        texto_complemento.place(relx= 0.5,rely= 0.8,anchor='w')
+
+        #posicionamento botão
+
+        addE.place(relx= 0.3, rely= 0.9, anchor='center')
+        btnVoltar.place(relx= 0.7, rely= 0.9, anchor='center')
+
+        #posicionameto
+
+        comboBoxTl.place(relx=0.5 ,rely=0.2 ,anchor= 'w')
+        comboBoxCidade.place(relx= 0.5,rely=0.7 ,anchor= 'w')
+        comboBoxBairro.place(relx= 0.5,rely=0.6 ,anchor= 'w')
+
+        root.mainloop()
 
 def f_tela_pessoa(tpPessoa,edit,username):
     global fk_endereco_codigo
@@ -531,17 +550,20 @@ def f_menu_funcionario(username):
     root.mainloop()
 
 def f_validaUserT(username, senha, label_confirmarcao, root):
-    res = f_validaUser(username, senha, label_confirmarcao)
+    if(len(username) < 25 and len(senha) < 25):
+        res = f_validaUser(username, senha, label_confirmarcao)
 
-    if(res == 0):
-        root.destroy()
-        f_menu_funcionario(username)
-    elif(res == 1):
-        root.destroy()
-        f_menu_entregador(username)
-    elif(res == 2):
-        root.destroy()
-        f_menu_cliente(username)
+        if(res == 0):
+            root.destroy()
+            f_menu_funcionario(username)
+        elif(res == 1):
+            root.destroy()
+            f_menu_entregador(username)
+        elif(res == 2):
+            root.destroy()
+            f_menu_cliente(username)
+    else:
+        label_confirmarcao.config(text="O máximo de caracteres\né 25. :(", foreground = "RED")
 
 def main():
     root = Tk()
