@@ -197,10 +197,12 @@ def f_tela_compra(username):
 
 def f_endereco(nome,cpf,tel,username,senha, tpPessoa,edit,fk_endereco_codigo, rootP):
     users = f_retornaInfo(['username'], 'PESSOA', 'fk_endereco_codigo')
+    usuar = list()
     for i in users:
-      if(username in i):
-          messagebox.showinfo('USERNAME', 'O username já existe!!')
-    if(username.get() == '' or len(username.get()) > 25):
+        usuar.append(i[0])
+    if(username.get() in usuar):
+        messagebox.showinfo('USERNAME', 'O username já existe!!')
+    elif(username.get() == '' or len(username.get()) > 25):
         messagebox.showinfo('USERNAME', 'O username ultrapassa 25 caracteres ou se encontra vazio!!')
     
     elif(nome.get() == '' or len(nome.get()) > 250):
