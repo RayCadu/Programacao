@@ -282,9 +282,13 @@ def f_redefinir_senha(user, cpf, nSenha, root):
             #print(not(cur.fetchall() == []))
             aux = cur.fetchone()
             print(aux)
-            if(cur.fetchone() == None):
+            if(aux == None):
                 messagebox.showinfo('Senha não alterada', 'Sua senha não foi alterada')
-            elif(cur.fetchone()[0] != nSenha):
+            elif(aux[0] == ''):
+                print("None")
+                messagebox.showinfo('Senha não alterada', 'Sua senha não foi alterada')
+            elif(aux[0] != nSenha):
+                print('senha diferente')
                 messagebox.showinfo('Senha não alterada', 'Sua senha não foi alterada')
             else:
                 messagebox.showinfo('Senha alterada', 'Sua senha foi alterada com sucesso!!')

@@ -6,7 +6,7 @@ from tkinter.ttk import Entry
 fk_endereco_codigo = 0
 
 def f_tela_senha():
-    root = Tk()
+    root = Toplevel()
     root.geometry('300x500')
     root.minsize(300,500)
     root.maxsize(300,500)
@@ -595,7 +595,7 @@ def main():
     Cadastro = Button(root, text="Cadastrar-se",background="#808080", foreground="black", command= lambda:[root.destroy(), f_tela_pessoa(2, 0, username = None)])
     Cadastro.place(relx=0.5,rely=0.7,anchor="center")
 
-    Esqueceu = Button(root, text="Alterar",background="#808080", foreground="black", command= lambda:[root.destroy(), f_tela_senha()])
+    Esqueceu = Button(root, text="Alterar",background="#808080", foreground="black", command= lambda:[f_tela_senha()])
     Esqueceu.place(relx=0.5,rely=0.85,anchor="center")
 
     root.mainloop()
