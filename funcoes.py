@@ -183,6 +183,7 @@ def f_validaUser(username, senha, label):
     return tela
 
 def f_verificaTela(user):
+    tela = -1
     users = f_retornaInfo(['fk_pessoa_username'], "CLIENTE",'codigo')
     for i in users:
         if (user in i):
