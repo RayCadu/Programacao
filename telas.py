@@ -274,7 +274,7 @@ def f_endereco(nome,cpf,tel,username,senha, tpPessoa,edit,fk_endereco_codigo, ro
         #botão
         if(edit == 0 or edit == 2):
             addE = Button(root, text ="Cadastrar pessoa",command = lambda: [f_cadastrar_pessoas(nome.get(),cpf.get(),tel.get(),username.get(),senha.get(), logradouro.get(), numero.get(), cep.get(), complemento.get(), boxtl.get(), boxcidade.get(), boxbairro.get(), tpPessoa, root, teste = (f_codigo(boxtl, tpLg), f_codigo(boxcidade, cidade), f_codigo(boxbairro, bairro))), main()])
-            btnVoltar = Button(root, text="Voltar para\ntela login", command= lambda: main())
+            btnVoltar = Button(root, text="Voltar para\ntela login", command= lambda: [root.destroy(), main()])
         else:
         
             btnVoltar = Button(root, text="Voltar ao Menu", command= root.destroy)
