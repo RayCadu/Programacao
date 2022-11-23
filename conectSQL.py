@@ -262,13 +262,13 @@ def f_excluir_cliente(username):
         cur.close()
     return 0
 
-def f_redefinir_senha(user, cpf, nSenha):
+def f_redefinir_senha(user, cpf, nSenha, root):
 
     if(user == "" or len(user) > 25):
         messagebox.showinfo('USERNAME', 'Username ultrapassa 25 caracteres ou se encontra vazio!')
-    if(cpf == "" or len(user) > 14):
+    elif(cpf == "" or len(user) > 14):
         messagebox.showinfo('CPF', 'CPF ultrapassa 14 caracteres ou se encontra vazio!')
-    if(nSenha == "" or len(nSenha) > 25):
+    elif(nSenha == "" or len(nSenha) > 25):
         messagebox.showinfo('SENHA', 'Senha ultrapassa 25 caracteres ou se encontra vazio!')
     else:
         conn = f_conexao()
@@ -279,19 +279,23 @@ def f_redefinir_senha(user, cpf, nSenha):
         try:
             cur.execute(sql)
             conn.commit()
-            print(not(cur.fetchall() == []))
-            print(cur.fetchall() == [])
-            if(cur.fetchall() == []):
+            #print(not(cur.fetchall() == []))
+            aux = cur.fetchone()
+            print(aux)
+            if(cur.fetchone() == None):
                 messagebox.showinfo('Senha não alterada', 'Sua senha não foi alterada')
-            elif(not(cur.fetchall() == [])):
-                messagebox.showinfo('Senha alterada', 'Sua senha foi alterada com sucesso!!')
+            elif(cur.fetchone()[0] != nSenha):
+                messagebox.showinfo('Senha não alterada', 'Sua senha não foi alterada')
             else:
                 messagebox.showinfo('Senha alterada', 'Sua senha foi alterada com sucesso!!')
-                
+                root.destroy()
+
         except(Exception, psycopg2.DatabaseError) as error:
             print("Error: %s" % error)
             conn.rollback()
             cur.close()
+        
+        
     return 0
 
 def f_redefinir_produto(nome,valor,texto_descricao,codigo,new):
